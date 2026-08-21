@@ -801,9 +801,7 @@ export default function HomePassageiro({ route }) {
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
-                  // aqui você navega pra tela de avaliação/gorjeta,
-                  // que parece ser a próxima tela do seu fluxo (a de "Corrida Finalizada")
-                  navigation.navigate('CorridaFinalizada');
+                  navigation.navigate('CorridaFinalizadaPassageiro');
                 }}
               >
                 <Text style={styles.buttonText}>

@@ -4,11 +4,11 @@ import Inicial from '../screens/Inicial';
 import CadastroPassageiro from '../screens/CadastroPassageiro';;
 import LoginPassageiro from '../screens/LoginPassageiro';
 import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
-
+import CadastroMotorista from '../screens/CadastroMotorista';
 import DrawerRoutes from './drawer.routes';
+import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 
 import { createStackNavigator } from '@react-navigation/stack';
-import CadastroMotorista from '../screens/CadastroMotorista';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +55,12 @@ export default function StackRoutes() {
       <Stack.Screen
         name="EditarPerfilMotorista"
         component={EditarPerfilMotorista}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="CorridaFinalizadaPassageiro"
+        component={CorridaFinalizadaPassageiro}
         options={{ headerShown: false }}
       />
 
