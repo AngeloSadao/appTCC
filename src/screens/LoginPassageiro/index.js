@@ -195,7 +195,7 @@ export default function LoginPassageiro({ navigation }) {
 
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('CadastroPassageiro')
+              navigation.navigate('Inicial')
             }
           >
             <Text style={styles.cadastrarText}>

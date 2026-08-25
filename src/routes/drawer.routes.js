@@ -2,6 +2,7 @@ import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomePassageiro from '../screens/HomePassageiro';
+import HomeMotorista from '../screens/HomeMotorista';
 
 import CustomDrawer from '../components/CustomDrawer';
 
@@ -25,10 +26,18 @@ export default function DrawerRoutes({ route }) {
         },
       }}
     >
+
       <Drawer.Screen
         name="HomePassageiro"
         component={HomePassageiro}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
+        initialParams={{ nome }}
+      />
+
+      <Drawer.Screen
+        name="HomeMotorista"
+        component={HomeMotorista}
+        options={{ headerShown: false }}
         initialParams={{ nome }}
       />
 
