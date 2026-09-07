@@ -70,6 +70,7 @@ function AtualizarMapa({ origem, destino }) {
 
 export default function HomePassageiro({ route }) {
   const nome = route.params?.nome ?? 'Usuário';
+  const idPassageiro = route.params?.idPassageiro;
 
   const [origem, setOrigem] = useState('');
   const [destino, setDestino] = useState('');

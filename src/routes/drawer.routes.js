@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomePassageiro from '../screens/HomePassageiro';
@@ -10,17 +10,26 @@ const Drawer = createDrawerNavigator();
 
 export default function DrawerRoutes({ route }) {
 
-  const nome = route.params?.nome?.split(' ')[0] ?? 'Usuário';
-  const tipoUsuario = route.params?.tipoUsuario ?? 'passageiro';
+  const nome =
+    route.params?.nome?.split(' ')[0] ?? 'Usuário';
+
+  const tipoUsuario =
+    route.params?.tipoUsuario ?? 'passageiro';
+
+  const idPassageiro =
+    route.params?.idPassageiro;
 
   return (
     <Drawer.Navigator
+
       drawerContent={(props) => (
         <CustomDrawer
           {...props}
           nome={nome}
+          idPassageiro={idPassageiro}
         />
       )}
+
       screenOptions={{
         drawerStyle: {
           width: 280,
@@ -38,7 +47,8 @@ export default function DrawerRoutes({ route }) {
           component={HomePassageiro}
           options={{ headerShown: false }}
           initialParams={{
-            nome: nome
+            nome: nome,
+            idPassageiro: idPassageiro,
           }}
         />
 
@@ -48,9 +58,6 @@ export default function DrawerRoutes({ route }) {
           name="HomeMotorista"
           component={HomeMotorista}
           options={{ headerShown: false }}
-          initialParams={{
-            nome: nome
-          }}
         />
 
       )}

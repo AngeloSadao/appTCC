@@ -164,7 +164,6 @@ export default StyleSheet.create({
   overlay: {
     flex: 1,
     paddingHorizontal: 18,
-
     paddingTop: 110,
   },
 

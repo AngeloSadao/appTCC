@@ -3,7 +3,7 @@ import React from 'react';
 import Inicial from '../screens/Inicial';
 import CadastroPassageiro from '../screens/CadastroPassageiro';
 import Login from '../screens/Login';
-import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
+import EditarPerfilPassageiro from '../screens/EditarPerfilPassageiro';
 import CadastroCarro from '../screens/CadastroCarro';
 import RecuperarSenha from '../screens/RecuperarSenha';
 
@@ -62,8 +62,8 @@ export default function StackRoutes() {
       />
 
       <Stack.Screen
-        name="EditarPerfilMotorista"
-        component={EditarPerfilMotorista}
+        name="EditarPerfilPassageiro"
+        component={EditarPerfilPassageiro}
         options={{ headerShown: false }}
       />
 
