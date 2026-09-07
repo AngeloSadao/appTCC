@@ -11,11 +11,15 @@ const Drawer = createDrawerNavigator();
 export default function DrawerRoutes({ route }) {
 
   const nome = route.params?.nome?.split(' ')[0] ?? 'Usuário';
+  const tipoUsuario = route.params?.tipoUsuario ?? 'passageiro';
 
   return (
     <Drawer.Navigator
       drawerContent={(props) => (
-        <CustomDrawer {...props} nome={nome} />
+        <CustomDrawer
+          {...props}
+          nome={nome}
+        />
       )}
       screenOptions={{
         drawerStyle: {
@@ -27,20 +31,31 @@ export default function DrawerRoutes({ route }) {
       }}
     >
 
-      <Drawer.Screen
-        name="HomePassageiro"
-        component={HomePassageiro}
-        options={{ headerShown: false }}
-        initialParams={{ nome }}
-      />
+      {tipoUsuario === 'passageiro' ? (
 
-      <Drawer.Screen
-        name="HomeMotorista"
-        component={HomeMotorista}
-        options={{ headerShown: false }}
-        initialParams={{ nome }}
-      />
+        <Drawer.Screen
+          name="HomePassageiro"
+          component={HomePassageiro}
+          options={{ headerShown: false }}
+          initialParams={{
+            nome: nome
+          }}
+        />
+
+      ) : (
+
+        <Drawer.Screen
+          name="HomeMotorista"
+          component={HomeMotorista}
+          options={{ headerShown: false }}
+          initialParams={{
+            nome: nome
+          }}
+        />
+
+      )}
 
     </Drawer.Navigator>
   );
 }
+

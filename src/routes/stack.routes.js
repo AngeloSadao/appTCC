@@ -2,9 +2,10 @@ import React from 'react';
 
 import Inicial from '../screens/Inicial';
 import CadastroPassageiro from '../screens/CadastroPassageiro';
-import LoginPassageiro from '../screens/LoginPassageiro';
+import Login from '../screens/Login';
 import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
 import CadastroCarro from '../screens/CadastroCarro';
+import RecuperarSenha from '../screens/RecuperarSenha';
 
 import DrawerRoutes from './drawer.routes';
 
@@ -20,7 +21,7 @@ export default function StackRoutes() {
       screenOptions={{
         headerShown: false,
       }}
-    > 
+    >
 
       <Stack.Screen
         name="Inicial"
@@ -41,13 +42,20 @@ export default function StackRoutes() {
       />
 
       <Stack.Screen
-        name="LoginPassageiro"
-        component={LoginPassageiro}
+        name="Login"
+        component={Login}
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name="HomePassageiro"
+        component={DrawerRoutes}
+        headerShown
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="HomeMotorista"
         component={DrawerRoutes}
         headerShown
         options={{ headerShown: false }}
@@ -62,6 +70,12 @@ export default function StackRoutes() {
       <Stack.Screen
         name="CadastroCarro"
         component={CadastroCarro}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="RecuperarSenha"
+        component={RecuperarSenha}
         options={{ headerShown: false }}
       />
 

@@ -13,6 +13,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import styles from './style';
 import { ImageBackground } from 'react-native-web';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function CadastroMotorista({ navigation }) {
 
@@ -41,17 +42,42 @@ export default function CadastroMotorista({ navigation }) {
     return `${numeros.slice(0, 2)}/${numeros.slice(2, 4)}/${numeros.slice(4, 8)}`;
   }
 
-   function mascaraTelefone(texto) {
+  function mascaraTelefone(texto) {
     const numeros = texto.replace(/\D/g, '');
     if (numeros.length <= 2) return `(${numeros}`;
-    if (numeros.length <= 7) return `(${numeros.slice(0,2)}) ${numeros.slice(2)}`;
-    return `(${numeros.slice(0,2)}) ${numeros.slice(2,7)}-${numeros.slice(7,11)}`;
+    if (numeros.length <= 7) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+    return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
   }
 
   function mascaraCEP(texto) {
     const numeros = texto.replace(/\D/g, '');
     if (numeros.length <= 5) return numeros;
-    return `${numeros.slice(0,5)}-${numeros.slice(5,8)}`;
+    return `${numeros.slice(0, 5)}-${numeros.slice(5, 8)}`;
+  }
+
+  async function escolherFotoCnh() {
+    const resultado = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+
+    if (!resultado.canceled) {
+      setFotoCnhMotorista(resultado.assets[0].uri);
+    }
+  }
+
+  async function tirarFotoCnh() {
+    const resultado = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 0.8,
+    });
+
+    if (!resultado.canceled) {
+      setFotoCnhMotorista(resultado.assets[0].uri);
+    }
   }
 
   async function cadastrar() {
@@ -88,6 +114,7 @@ export default function CadastroMotorista({ navigation }) {
         'http://localhost/appTcc/salvarMotorista.php',
         {
           method: 'POST',
+
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -97,17 +124,24 @@ export default function CadastroMotorista({ navigation }) {
 
             nomeCompletoMotorista,
             cnhMotorista,
-            fotoCnhMotorista,
+
+            // A foto será salva depois pelo uploadCnh.php
+            fotoCnhMotorista: null,
+
             telefoneMotorista,
             emailMotorista,
+
             ruaMotorista,
             numeroEnderecoMotorista,
             complementoEnderecoMotorista,
+
             bairroMotorista,
             cidadeMotorista,
             estadoMotorista,
             cepMotorista,
-            dataNascimentoMotorista : dataFormatada,
+
+            dataNascimentoMotorista: dataFormatada,
+
             pixMotorista,
             senhaMotorista
 
@@ -115,11 +149,13 @@ export default function CadastroMotorista({ navigation }) {
         }
       );
 
+
       console.log('Status HTTP:', response.status);
 
       const texto = await response.text();
 
       console.log('Resposta do PHP:', texto);
+
 
       let data;
 
@@ -142,36 +178,126 @@ export default function CadastroMotorista({ navigation }) {
 
       console.log('Dados recebidos:', data);
 
-      if (data.sucesso) {
-
-        const idMotorista = data.idMotorista;
-
-        console.log('ID DO MOTORISTA:', idMotorista);
-
-        navigation.navigate('CadastroCarro', {
-          idMotorista: idMotorista,
-          nomeMotorista: nomeCompletoMotorista
-        });
-
-      } else {
+      if (!data.sucesso) {
 
         Alert.alert(
           'Erro',
           data.mensagem
         );
 
+        return;
       }
+
+      const idMotorista = data.idMotorista;
+
+      console.log('ID DO MOTORISTA:', idMotorista);
+
+
+      console.log('Preparando foto da CNH...');
+
+      const responseImage = await fetch(fotoCnhMotorista);
+
+      const blob = await responseImage.blob();
+
+
+      // Nome temporário da foto
+      const nomeArquivo = `cnh_${Date.now()}.jpg`;
+
+      const formData = new FormData();
+
+      formData.append(
+        'photo',
+        blob,
+        nomeArquivo
+      );
+
+      formData.append(
+        'idMotorista',
+        idMotorista.toString()
+      );
+
+      console.log('Enviando foto da CNH...');
+
+
+      const responseFoto = await fetch(
+        'http://localhost/appTcc/uploadCnh.php',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      console.log(
+        'Status upload:',
+        responseFoto.status
+      );
+
+      const textoFoto = await responseFoto.text();
+
+      console.log(
+        'Resposta do upload:',
+        textoFoto
+      );
+
+      let resultadoFoto;
+
+      try {
+
+        resultadoFoto = JSON.parse(textoFoto);
+
+      } catch (erro) {
+
+        console.log(
+          'Upload não retornou JSON válido!'
+        );
+
+        Alert.alert(
+          'Erro',
+          'O servidor não retornou uma resposta válida ao enviar a foto.'
+        );
+
+        return;
+      }
+
+      if (!resultadoFoto.sucesso) {
+
+        Alert.alert(
+          'Erro ao enviar CNH',
+          resultadoFoto.mensagem
+        );
+
+        return;
+      }
+
+      console.log(
+        'Foto da CNH enviada com sucesso!'
+      );
+
+      Alert.alert(
+        'Sucesso!',
+        'Motorista cadastrado e foto da CNH enviada.'
+      );
+
+      navigation.navigate('CadastroCarro', {
+        idMotorista: idMotorista,
+        nomeMotorista: nomeCompletoMotorista
+      });
+
 
     } catch (error) {
 
-      console.log('ERRO NO FETCH:', error);
+      console.log(
+        'ERRO NO CADASTRO:',
+        error
+      );
 
       Alert.alert(
         'Erro',
-        'Não foi possível conectar ao servidor.'
+        'Não foi possível concluir o cadastro. Verifique sua conexão com o servidor.'
       );
 
     }
+
   }
 
   return (
@@ -206,37 +332,67 @@ export default function CadastroMotorista({ navigation }) {
             onChangeText={setNomeCompletoMotorista}
           />
 
-          <TextInput
-            style={styles.input}
-            placeholder="CNH"
-            placeholderTextColor="#7D9BE6"
-            value={cnhMotorista}
-            onChangeText={setCnhMotorista}
-          />
+          <View style={styles.row}>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Foto da CNH"
-            placeholderTextColor="#7D9BE6"
-            value={fotoCnhMotorista}
-            onChangeText={setFotoCnhMotorista}
-          />
+            <TextInput
+              placeholder="CNH"
+              value={cnhMotorista}
+              onChangeText={setCnhMotorista}
+              style={styles.inputHalfLeft}
+            />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Telefone"
-            placeholderTextColor="#7D9BE6"
-            value={telefoneMotorista}
-            onChangeText={(texto) => setTelefoneMotorista(mascaraTelefone(texto))}
-          />
+            <TouchableOpacity
+              style={styles.inputHalfRight}
+              onPress={escolherFotoCnh}
+            >
+              <Ionicons
+                name="image-outline"
+                size={20}
+                color="#4D6CB3"
+              />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#7D9BE6"
-            value={emailMotorista}
-            onChangeText={setEmailMotorista}
-          />
+              <Text style={styles.fotoButtonText}>
+                {fotoCnhMotorista
+                  ? 'CNH selecionada'
+                  : 'Foto da CNH'}
+              </Text>
+            </TouchableOpacity>
+
+          </View>
+
+          {fotoCnhMotorista && (
+            <Image
+              source={{ uri: fotoCnhMotorista }}
+              style={{
+                width: '100%',
+                height: 100,
+                borderRadius: 10,
+                marginBottom: 15,
+              }}
+            />
+          )}
+
+          <View style={styles.row}>
+
+            <TextInput
+              style={styles.inputHalfLeft}
+              placeholder="Telefone"
+              placeholderTextColor="#7D9BE6"
+              value={telefoneMotorista}
+              onChangeText={(texto) =>
+                setTelefoneMotorista(mascaraTelefone(texto))
+              }
+            />
+
+            <TextInput
+              style={styles.inputHalfRight}
+              placeholder="Email"
+              placeholderTextColor="#7D9BE6"
+              value={emailMotorista}
+              onChangeText={setEmailMotorista}
+            />
+
+          </View>
 
           <TextInput
             style={styles.input}
@@ -246,21 +402,25 @@ export default function CadastroMotorista({ navigation }) {
             onChangeText={setRuaMotorista}
           />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Complemento"
-            placeholderTextColor="#7D9BE6"
-            value={complementoEnderecoMotorista}
-            onChangeText={setComplementoEnderecoMotorista}
-          />
+          <View style={styles.row}>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Número"
-            placeholderTextColor="#7D9BE6"
-            value={numeroEnderecoMotorista}
-            onChangeText={setNumeroEnderecoMotorista}
-          />
+            <TextInput
+              style={styles.inputHalfLeft}
+              placeholder="Complemento"
+              placeholderTextColor="#7D9BE6"
+              value={complementoEnderecoMotorista}
+              onChangeText={setComplementoEnderecoMotorista}
+            />
+
+            <TextInput
+              style={styles.inputHalfRight}
+              placeholder="Número"
+              placeholderTextColor="#7D9BE6"
+              value={numeroEnderecoMotorista}
+              onChangeText={setNumeroEnderecoMotorista}
+            />
+
+          </View>
 
           <TextInput
             style={styles.input}
@@ -270,41 +430,49 @@ export default function CadastroMotorista({ navigation }) {
             onChangeText={setBairroMotorista}
           />
 
-          <TextInput
-            style={styles.input}
-            placeholder="Cidade"
-            placeholderTextColor="#7D9BE6"
-            value={cidadeMotorista}
-            onChangeText={setCidadeMotorista}
-          />
+          <View style={styles.row}>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Estado"
-            placeholderTextColor="#7D9BE6"
-            value={estadoMotorista}
-            onChangeText={setEstadoMotorista}
-          />
+            <TextInput
+              style={styles.inputHalfLeft}
+              placeholder="Cidade"
+              placeholderTextColor="#7D9BE6"
+              value={cidadeMotorista}
+              onChangeText={setCidadeMotorista}
+            />
+
+            <TextInput
+              style={styles.inputHalfRight}
+              placeholder="Estado"
+              placeholderTextColor="#7D9BE6"
+              value={estadoMotorista}
+              onChangeText={setEstadoMotorista}
+            />
+
+          </View>
 
           <TextInput
             style={styles.input}
             placeholder="CEP"
             placeholderTextColor="#7D9BE6"
             value={cepMotorista}
-            onChangeText={(texto) => setCepMotorista(mascaraCEP(texto))}
+            onChangeText={(texto) =>
+              setCepMotorista(mascaraCEP(texto))
+            }
           />
 
           <TextInput
             style={styles.input}
-            placeholder="(DD/MM/AAAA)"
+            placeholder="Data de nascimento"
             placeholderTextColor="#7D9BE6"
             value={dataNascimentoMotorista}
-            onChangeText={(texto) => setDataNascimentoMotorista(mascaraData(texto))}
+            onChangeText={(texto) =>
+              setDataNascimentoMotorista(mascaraData(texto))
+            }
           />
 
           <TextInput
             style={styles.input}
-            placeholder="Pix do motorista"
+            placeholder="PIX"
             placeholderTextColor="#7D9BE6"
             value={pixMotorista}
             onChangeText={setPixMotorista}
@@ -324,13 +492,11 @@ export default function CadastroMotorista({ navigation }) {
             <TouchableOpacity
               onPress={() => setShowPassword(!showPassword)}
             >
-
               <Ionicons
                 name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                size={24}
+                size={22}
                 color="#6C92E6"
               />
-
             </TouchableOpacity>
 
           </View>
@@ -354,7 +520,7 @@ export default function CadastroMotorista({ navigation }) {
 
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('LoginPassageiro') //mudar!!!!
+                navigation.navigate('Login') 
               }
             >
 

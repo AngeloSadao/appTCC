@@ -11,6 +11,8 @@ import {
 
 import styles from './style';
 import { ImageBackground } from 'react-native-web';
+import { Image } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function CadastroCarro({ navigation, route }) {
 
@@ -25,6 +27,22 @@ export default function CadastroCarro({ navigation, route }) {
     const [placaCarro, setPlacaCarro] = useState('');
     const [corCarro, setCorCarro] = useState('');
     const [fotoCarro, setFotoCarro] = useState('');
+
+    async function escolherFotoCarro() {
+
+        const resultado = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 0.8,
+        });
+
+        if (!resultado.canceled) {
+
+            setFotoCarro(resultado.assets[0].uri);
+
+        }
+    }
 
     async function cadastrar() {
 
@@ -62,7 +80,7 @@ export default function CadastroCarro({ navigation, route }) {
                         anoCarro: anoCarro,
                         placaCarro: placaCarro,
                         corCarro: corCarro,
-                        fotoCarro: fotoCarro
+                        fotoCarro: null
 
                     })
 
@@ -75,21 +93,95 @@ export default function CadastroCarro({ navigation, route }) {
 
             if (data.sucesso) {
 
+                const idCarro = data.idCarro;
+
+                console.log('ID DO CARRO:', idCarro);
+
+                console.log('Preparando foto do carro...');
+
+                const responseImage = await fetch(fotoCarro);
+
+                const blob = await responseImage.blob();
+
+                const nomeArquivo = `carro_${Date.now()}.jpg`;
+
+                const formData = new FormData();
+
+                formData.append(
+                    'photo',
+                    blob,
+                    nomeArquivo
+                );
+
+                formData.append(
+                    'idCarro',
+                    idCarro.toString()
+                );
+
+                console.log('Enviando foto do carro...');
+
+                const responseFoto = await fetch(
+                    'http://localhost/appTcc/uploadCarro.php',
+                    {
+                        method: 'POST',
+                        body: formData,
+                    }
+                );
+
+                console.log(
+                    'Status upload carro:',
+                    responseFoto.status
+                );
+
+                const textoFoto = await responseFoto.text();
+
+                console.log(
+                    'Resposta do upload carro:',
+                    textoFoto
+                );
+
+                let resultadoFoto;
+
+                try {
+
+                    resultadoFoto = JSON.parse(textoFoto);
+
+                } catch (erro) {
+
+                    console.log(
+                        'Upload do carro não retornou JSON válido!'
+                    );
+
+                    Alert.alert(
+                        'Erro',
+                        'O servidor não retornou uma resposta válida ao enviar a foto do carro.'
+                    );
+
+                    return;
+                }
+
+                if (!resultadoFoto.sucesso) {
+
+                    Alert.alert(
+                        'Erro ao enviar foto',
+                        resultadoFoto.mensagem
+                    );
+
+                    return;
+                }
+
+                console.log(
+                    'Foto do carro enviada com sucesso!'
+                );
+
                 Alert.alert(
                     'Cadastro concluído!',
                     'Motorista e carro cadastrados com sucesso!'
                 );
 
-                navigation.navigate('HomePassageiro', { //trocar para homeMotorista após finalizada
+                navigation.navigate('HomePassageiro', {
                     nome: nomeMotorista
                 });
-
-            } else {
-
-                Alert.alert(
-                    'Erro',
-                    data.mensagem
-                );
 
             }
 
@@ -163,13 +255,30 @@ export default function CadastroCarro({ navigation, route }) {
                         onChangeText={setCorCarro}
                     />
 
-                    <TextInput
+                    <TouchableOpacity
                         style={styles.input}
-                        placeholder="Foto do carro"
-                        placeholderTextColor="#7D9BE6"
-                        value={fotoCarro}
-                        onChangeText={setFotoCarro}
-                    />
+                        onPress={escolherFotoCarro}
+                    >
+
+                        <Text style={{ color: '#7D9BE6' }}>
+                            {fotoCarro
+                                ? 'Foto do carro selecionada'
+                                : 'Foto do carro'}
+                        </Text>
+
+                    </TouchableOpacity>
+
+                    {fotoCarro && (
+                        <Image
+                            source={{ uri: fotoCarro }}
+                            style={{
+                                width: '100%',
+                                height: 100,
+                                borderRadius: 10,
+                                marginBottom: 15,
+                            }}
+                        />
+                    )}
 
                     <TouchableOpacity
                         style={styles.button}

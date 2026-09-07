@@ -93,7 +93,7 @@ export default function Inicial({navigation}) {
       
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate('LoginPassageiro')
+            navigation.navigate('Login')
           }
         >
           <Text style={styles.logarText}>
