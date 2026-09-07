@@ -44,6 +44,17 @@ export default StyleSheet.create({
     elevation: 1,
   },
 
+  containerInput: {
+    borderRadius: 18,
+    borderColor: '#e9e9e9ff',
+    borderWidth: 5,
+    alignSelf: 'center',
+    backgroundColor: "#FAFAFA",
+    width: 390,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+
   // LINHA COM DOIS CAMPOS
   row: {
     flexDirection: 'row',
@@ -138,23 +149,23 @@ export default StyleSheet.create({
 
   buttonText: {
     color: '#4D6CB3',
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 
   textLogar: {
     fontFamily: 'Gurajada',
-    fontSize: 20,
+    fontSize: 25,
     color: '#404348',
     textAlign: 'center',
   },
 
   logarText: {
     fontFamily: 'Gurajada',
-    fontSize: 20,
+    fontSize: 25,
     color: '#468B5B',
     textAlign: 'center',
-    marginTop: -4,
+    marginTop: -20,
     marginBottom: 5,
   },
 

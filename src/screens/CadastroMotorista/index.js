@@ -358,180 +358,183 @@ export default function CadastroMotorista({ navigation }) {
 
           </View>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Nome Completo"
-            placeholderTextColor="#7D9BE6"
-            value={nomeCompletoMotorista}
-            onChangeText={setNomeCompletoMotorista}
-          />
-
-          <View style={styles.row}>
+          <View style={styles.containerInput}>
 
             <TextInput
-              placeholder="CNH"
-              value={cnhMotorista}
-              onChangeText={setCnhMotorista}
-              style={styles.inputHalfLeft}
+              style={styles.input}
+              placeholder="Nome Completo"
+              placeholderTextColor="#7D9BE6"
+              value={nomeCompletoMotorista}
+              onChangeText={setNomeCompletoMotorista}
             />
 
-            <TouchableOpacity
-              style={styles.inputHalfRight}
-              onPress={escolherFotoCnh}
-            >
-              <Ionicons
-                name="image-outline"
-                size={20}
-                color="#4D6CB3"
+            <View style={styles.row}>
+
+              <TextInput
+                placeholder="CNH"
+                value={cnhMotorista}
+                onChangeText={setCnhMotorista}
+                style={styles.inputHalfLeft}
               />
 
-              <Text style={styles.fotoButtonText}>
-                {fotoCnhMotorista
-                  ? 'CNH selecionada'
-                  : 'Foto da CNH'}
-              </Text>
-            </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.inputHalfRight}
+                onPress={escolherFotoCnh}
+              >
+                <Ionicons
+                  name="image-outline"
+                  size={20}
+                  color="#4D6CB3"
+                />
 
-          </View>
+                <Text style={styles.fotoButtonText}>
+                  {fotoCnhMotorista
+                    ? 'CNH selecionada'
+                    : 'Foto da CNH'}
+                </Text>
+              </TouchableOpacity>
 
-          {fotoCnhMotorista && (
-            <Image
-              source={{ uri: fotoCnhMotorista }}
-              style={{
-                width: '100%',
-                height: 100,
-                borderRadius: 10,
-                marginBottom: 15,
-              }}
-            />
-          )}
+            </View>
 
-          <View style={styles.row}>
+            {fotoCnhMotorista && (
+              <Image
+                source={{ uri: fotoCnhMotorista }}
+                style={{
+                  width: '100%',
+                  height: 100,
+                  borderRadius: 10,
+                  marginBottom: 15,
+                }}
+              />
+            )}
+
+            <View style={styles.row}>
+
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="Telefone"
+                placeholderTextColor="#7D9BE6"
+                value={telefoneMotorista}
+                onChangeText={(texto) =>
+                  setTelefoneMotorista(mascaraTelefone(texto))
+                }
+              />
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Email"
+                placeholderTextColor="#7D9BE6"
+                value={emailMotorista}
+                onChangeText={setEmailMotorista}
+              />
+
+            </View>
 
             <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="Telefone"
+              style={styles.input}
+              placeholder="Rua"
               placeholderTextColor="#7D9BE6"
-              value={telefoneMotorista}
+              value={ruaMotorista}
+              onChangeText={setRuaMotorista}
+            />
+
+            <View style={styles.row}>
+
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="Complemento"
+                placeholderTextColor="#7D9BE6"
+                value={complementoEnderecoMotorista}
+                onChangeText={setComplementoEnderecoMotorista}
+              />
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Número"
+                placeholderTextColor="#7D9BE6"
+                value={numeroEnderecoMotorista}
+                onChangeText={setNumeroEnderecoMotorista}
+              />
+
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Bairro"
+              placeholderTextColor="#7D9BE6"
+              value={bairroMotorista}
+              onChangeText={setBairroMotorista}
+            />
+
+            <View style={styles.row}>
+
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="Cidade"
+                placeholderTextColor="#7D9BE6"
+                value={cidadeMotorista}
+                onChangeText={setCidadeMotorista}
+              />
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Estado"
+                placeholderTextColor="#7D9BE6"
+                value={estadoMotorista}
+                onChangeText={setEstadoMotorista}
+              />
+
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="CEP"
+              placeholderTextColor="#7D9BE6"
+              value={cepMotorista}
               onChangeText={(texto) =>
-                setTelefoneMotorista(mascaraTelefone(texto))
+                setCepMotorista(mascaraCEP(texto))
               }
             />
 
             <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Email"
+              style={styles.input}
+              placeholder="Data de nascimento"
               placeholderTextColor="#7D9BE6"
-              value={emailMotorista}
-              onChangeText={setEmailMotorista}
-            />
-
-          </View>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Rua"
-            placeholderTextColor="#7D9BE6"
-            value={ruaMotorista}
-            onChangeText={setRuaMotorista}
-          />
-
-          <View style={styles.row}>
-
-            <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="Complemento"
-              placeholderTextColor="#7D9BE6"
-              value={complementoEnderecoMotorista}
-              onChangeText={setComplementoEnderecoMotorista}
+              value={dataNascimentoMotorista}
+              onChangeText={(texto) =>
+                setDataNascimentoMotorista(mascaraData(texto))
+              }
             />
 
             <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Número"
+              style={styles.input}
+              placeholder="PIX"
               placeholderTextColor="#7D9BE6"
-              value={numeroEnderecoMotorista}
-              onChangeText={setNumeroEnderecoMotorista}
+              value={pixMotorista}
+              onChangeText={setPixMotorista}
             />
 
-          </View>
+            <View style={styles.inputContainer}>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Bairro"
-            placeholderTextColor="#7D9BE6"
-            value={bairroMotorista}
-            onChangeText={setBairroMotorista}
-          />
-
-          <View style={styles.row}>
-
-            <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="Cidade"
-              placeholderTextColor="#7D9BE6"
-              value={cidadeMotorista}
-              onChangeText={setCidadeMotorista}
-            />
-
-            <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Estado"
-              placeholderTextColor="#7D9BE6"
-              value={estadoMotorista}
-              onChangeText={setEstadoMotorista}
-            />
-
-          </View>
-
-          <TextInput
-            style={styles.input}
-            placeholder="CEP"
-            placeholderTextColor="#7D9BE6"
-            value={cepMotorista}
-            onChangeText={(texto) =>
-              setCepMotorista(mascaraCEP(texto))
-            }
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Data de nascimento"
-            placeholderTextColor="#7D9BE6"
-            value={dataNascimentoMotorista}
-            onChangeText={(texto) =>
-              setDataNascimentoMotorista(mascaraData(texto))
-            }
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="PIX"
-            placeholderTextColor="#7D9BE6"
-            value={pixMotorista}
-            onChangeText={setPixMotorista}
-          />
-
-          <View style={styles.inputContainer}>
-
-            <TextInput
-              style={styles.inputSenha}
-              placeholder="Senha"
-              placeholderTextColor="#7D9BE6"
-              value={senhaMotorista}
-              onChangeText={setSenhaMotorista}
-              secureTextEntry={!showPassword}
-            />
-
-            <TouchableOpacity
-              onPress={() => setShowPassword(!showPassword)}
-            >
-              <Ionicons
-                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                size={22}
-                color="#6C92E6"
+              <TextInput
+                style={styles.inputSenha}
+                placeholder="Senha"
+                placeholderTextColor="#7D9BE6"
+                value={senhaMotorista}
+                onChangeText={setSenhaMotorista}
+                secureTextEntry={!showPassword}
               />
-            </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Ionicons
+                  name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                  size={22}
+                  color="#6C92E6"
+                />
+              </TouchableOpacity>
+            </View>
 
           </View>
 

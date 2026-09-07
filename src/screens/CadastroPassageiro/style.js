@@ -7,23 +7,34 @@ export default StyleSheet.create({
   },
 
   title: {
-    marginTop: 0,
-    fontSize: 27,
+    marginTop: 20,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#4D6CB3',
     textAlign: 'center',
   },
 
   subtitle: {
-    fontSize: 15,
+    fontSize: 20,
     color: '#7BC17D',
     textAlign: 'center',
-    marginBottom: 22,
+    marginBottom: 26,
     fontWeight: '600',
   },
 
+  containerInput: {
+    borderRadius: 18,
+    borderColor: '#e9e9e9ff',
+    borderWidth: 5,
+    alignSelf: 'center',
+    backgroundColor: "#FAFAFA",
+    width: 390,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+
   input: {
-    width: '100%',
+    width: 380,
     height: 46,
     backgroundColor: '#fff',
     borderWidth: 1.2,
@@ -135,23 +146,23 @@ export default StyleSheet.create({
 
   buttonText: {
     color: '#4D6CB3',
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 
   textLogar: {
     fontFamily: 'Gurajada',
-    fontSize: 20,
+    fontSize: 25,
     color: '#404348',
     textAlign: 'center',
   },
 
   logarText: {
     fontFamily: 'Gurajada',
-    fontSize: 20,
+    fontSize: 25,
     color: '#468B5B',
     textAlign: 'center',
-    marginTop: -4,
+    marginTop: -20,
     marginBottom: 5,
   },
 

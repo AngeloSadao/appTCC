@@ -35,7 +35,7 @@ export default StyleSheet.create({
   title: {
     fontFamily: 'Gurajada',
     fontSize: 60,
-    lineHeight: 60,
+    lineHeight: 40,
     color: '#435E91',
     textAlign: 'center',
   },
@@ -47,6 +47,7 @@ export default StyleSheet.create({
     color: '#60b68a',
     textAlign: 'center',
     marginTop: -2,
+    marginBottom: 20,
   },
 
 
@@ -55,7 +56,7 @@ export default StyleSheet.create({
     alignSelf: 'center',
     position: 'relative',
     marginTop: 3,
-    marginBottom: 7,
+    marginBottom: 20,
   },
 
   foto: {
@@ -95,26 +96,16 @@ export default StyleSheet.create({
     display: 'none',
   },
 
-  formCard: {
-    marginHorizontal: 24,
-    marginTop: 5,
-    paddingHorizontal: 17,
-    paddingTop: 12,
-    paddingBottom: 17,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-
-    shadowOpacity: 0.10,
-    shadowRadius: 7,
-    elevation: 4,
+  containerInput: {
+    borderRadius: 18,
+    borderColor: '#e9e9e9ff',
+    borderWidth: 5,
+    alignSelf: 'center',
+    backgroundColor: "#FAFAFA",
+    width: 390,
+    alignItems: 'none',
   },
   
-
   sectionTitle: {
     display: 'none',
   },
@@ -123,7 +114,7 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
     fontSize: 22,
     color: '#60b68a',
-    marginTop: 7,
+    marginTop: 1,
     marginBottom: 2,
   },
 
@@ -142,7 +133,7 @@ export default StyleSheet.create({
   inputText: {
     flex: 1,
     fontFamily: 'Gurajada',
-    fontSize: 20,
+    fontSize: 22,
     marginLeft: 8,
     color: '#555555',
     paddingVertical: 0,

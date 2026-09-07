@@ -173,136 +173,140 @@ export default function CadastroPassageiro({ navigation }) {
             Preencha seus dados:
           </Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Nome Completo"
-            placeholderTextColor="#7D9BE6"
-            value={nomeCompletoPassageiro}
-            onChangeText={setNomeCompletoPassageiro}
-          />
-
-          <View style={styles.row}>
+          <View style={styles.containerInput}>
 
             <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="CPF"
+              style={styles.input}
+              placeholder="Nome Completo"
               placeholderTextColor="#7D9BE6"
-              value={cpfPassageiro}
-              onChangeText={(texto) => setCpfPassageiro(mascaraCPF(texto))}
+              value={nomeCompletoPassageiro}
+              onChangeText={setNomeCompletoPassageiro}
             />
 
-            <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Telefone"
-              placeholderTextColor="#7D9BE6"
-              value={telefonePassageiro}
-              onChangeText={(texto) => setTelefonePassageiro(mascaraTelefone(texto))}
-            />
+            <View style={styles.row}>
 
-          </View>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            placeholderTextColor="#7D9BE6"
-            value={emailPassageiro}
-            onChangeText={setEmailPassageiro}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Rua"
-            placeholderTextColor="#7D9BE6"
-            value={ruaPassageiro}
-            onChangeText={setRuaPassageiro}
-          />
-
-          <View style={styles.row}>
-
-            <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="Complemento"
-              placeholderTextColor="#7D9BE6"
-              value={complementoEnderecoPassageiro}
-              onChangeText={setComplementoEnderecoPassageiro}
-            />
-
-            <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Número"
-              placeholderTextColor="#7D9BE6"
-              value={numeroEnderecoPassageiro}
-              onChangeText={setNumeroEnderecoPassageiro}
-            />
-
-          </View>
-
-          <TextInput
-            style={styles.input}
-            placeholder="Bairro"
-            placeholderTextColor="#7D9BE6"
-            value={bairroPassageiro}
-            onChangeText={setBairroPassageiro}
-          />
-
-          <View style={styles.row}>
-
-            <TextInput
-              style={styles.inputHalfLeft}
-              placeholder="Cidade"
-              placeholderTextColor="#7D9BE6"
-              value={cidadePassageiro}
-              onChangeText={setCidadePassageiro}
-            />
-
-            <TextInput
-              style={styles.inputHalfRight}
-              placeholder="Estado"
-              placeholderTextColor="#7D9BE6"
-              value={estadoPassageiro}
-              onChangeText={setEstadoPassageiro}
-            />
-
-          </View>
-
-          <TextInput
-            style={styles.input}
-            placeholder="CEP"
-            placeholderTextColor="#7D9BE6"
-            value={cepPassageiro}
-            onChangeText={(texto) => setCepPassageiro(mascaraCEP(texto))}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Data de nascimento"
-            placeholderTextColor="#7D9BE6"
-            value={dataNascimentoPassageiro}
-            onChangeText={(texto) =>
-              setDataNascimentoPassageiro(mascaraData(texto))
-            }
-          />
-
-          <View style={styles.inputContainer}>
-
-            <TextInput
-              style={styles.inputSenha}
-              placeholder="Senha"
-              placeholderTextColor="#7D9BE6"
-              value={senhaPassageiro}
-              onChangeText={setSenhaPassageiro}
-              secureTextEntry={!showPassword}
-            />
-
-            <TouchableOpacity
-              onPress={() => setShowPassword(!showPassword)}
-            >
-              <Ionicons
-                name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                size={22}
-                color="#6C92E6"
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="CPF"
+                placeholderTextColor="#7D9BE6"
+                value={cpfPassageiro}
+                onChangeText={(texto) => setCpfPassageiro(mascaraCPF(texto))}
               />
-            </TouchableOpacity>
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Telefone"
+                placeholderTextColor="#7D9BE6"
+                value={telefonePassageiro}
+                onChangeText={(texto) => setTelefonePassageiro(mascaraTelefone(texto))}
+              />
+
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Email"
+              placeholderTextColor="#7D9BE6"
+              value={emailPassageiro}
+              onChangeText={setEmailPassageiro}
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Rua"
+              placeholderTextColor="#7D9BE6"
+              value={ruaPassageiro}
+              onChangeText={setRuaPassageiro}
+            />
+
+            <View style={styles.row}>
+
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="Complemento"
+                placeholderTextColor="#7D9BE6"
+                value={complementoEnderecoPassageiro}
+                onChangeText={setComplementoEnderecoPassageiro}
+              />
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Número"
+                placeholderTextColor="#7D9BE6"
+                value={numeroEnderecoPassageiro}
+                onChangeText={setNumeroEnderecoPassageiro}
+              />
+
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="Bairro"
+              placeholderTextColor="#7D9BE6"
+              value={bairroPassageiro}
+              onChangeText={setBairroPassageiro}
+            />
+
+            <View style={styles.row}>
+
+              <TextInput
+                style={styles.inputHalfLeft}
+                placeholder="Cidade"
+                placeholderTextColor="#7D9BE6"
+                value={cidadePassageiro}
+                onChangeText={setCidadePassageiro}
+              />
+
+              <TextInput
+                style={styles.inputHalfRight}
+                placeholder="Estado"
+                placeholderTextColor="#7D9BE6"
+                value={estadoPassageiro}
+                onChangeText={setEstadoPassageiro}
+              />
+
+            </View>
+
+            <TextInput
+              style={styles.input}
+              placeholder="CEP"
+              placeholderTextColor="#7D9BE6"
+              value={cepPassageiro}
+              onChangeText={(texto) => setCepPassageiro(mascaraCEP(texto))}
+            />
+
+            <TextInput
+              style={styles.input}
+              placeholder="Data de nascimento"
+              placeholderTextColor="#7D9BE6"
+              value={dataNascimentoPassageiro}
+              onChangeText={(texto) =>
+                setDataNascimentoPassageiro(mascaraData(texto))
+              }
+            />
+
+            <View style={styles.inputContainer}>
+
+              <TextInput
+                style={styles.inputSenha}
+                placeholder="Senha"
+                placeholderTextColor="#7D9BE6"
+                value={senhaPassageiro}
+                onChangeText={setSenhaPassageiro}
+                secureTextEntry={!showPassword}
+              />
+
+              <TouchableOpacity
+                onPress={() => setShowPassword(!showPassword)}
+              >
+                <Ionicons
+                  name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                  size={22}
+                  color="#6C92E6"
+                />
+              </TouchableOpacity>
+
+            </View>
 
           </View>
 

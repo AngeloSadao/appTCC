@@ -6,16 +6,8 @@ export default StyleSheet.create({
     flex: 1,
   },
 
-  logo: {
-    fontSize: 34,
-    fontWeight: 'bold',
-    color: '#7D9BE6',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-
   title: {
-    marginTop: 70,
+    marginTop: 10,
     fontSize: 30,
     fontWeight: 'bold',
     color: '#4D6CB3',
@@ -23,10 +15,10 @@ export default StyleSheet.create({
   },
 
   subtitle: {
-    fontSize: 18,
+    fontSize: 22,
     color: '#7BC17D',
     textAlign: 'center',
-    marginBottom: 50,
+    marginBottom: 25,
     fontWeight: '600',
   },
 
@@ -41,15 +33,30 @@ export default StyleSheet.create({
     marginBottom: 15,
     fontSize: 15,
     color: '#4A4A4A',
+
     shadowColor: '#000',
+
     shadowOffset: {
       width: 0,
       height: 2,
     },
+
     shadowOpacity: 0.08,
     shadowRadius: 3,
     elevation: 2,
   },
+
+  containerInput: {
+    borderRadius: 18,
+    borderColor: '#e9e9e9ff',
+    borderWidth: 5,
+    alignSelf: 'center',
+    backgroundColor: "#FAFAFA",
+    width: 390,
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+
 
   inputContainer: {
     width: '100%',
@@ -62,11 +69,14 @@ export default StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 15,
     marginBottom: 15,
+
     shadowColor: '#000',
+
     shadowOffset: {
       width: 0,
       height: 2,
     },
+
     shadowOpacity: 0.08,
     shadowRadius: 3,
     elevation: 2,
@@ -91,7 +101,7 @@ export default StyleSheet.create({
 
   buttonText: {
     color: '#4D6CB3',
-    fontSize: 20,
+    fontSize: 25,
     fontWeight: 'bold',
   },
 
@@ -121,8 +131,6 @@ export default StyleSheet.create({
     paddingHorizontal: 25,
     paddingTop: 150,
   },
-
-
 
   stepsContainer: {
     width: '100%',
@@ -195,6 +203,5 @@ export default StyleSheet.create({
     fontSize: 13,
     fontWeight: '600',
   },
-
 
 });

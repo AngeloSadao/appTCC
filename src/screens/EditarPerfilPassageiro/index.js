@@ -312,9 +312,7 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         </Text>
 
 
-        {/* CARD DO FORMULÁRIO */}
-
-        <View style={styles.formCard}>
+        <View style={styles.containerInput}>
 
           <Text style={styles.label}>
             Nome completo

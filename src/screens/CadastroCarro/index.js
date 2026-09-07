@@ -7,12 +7,13 @@ import {
     TouchableOpacity,
     Alert,
     ScrollView,
+    Image,
+    ImageBackground,
 } from 'react-native';
 
 import styles from './style';
-import { ImageBackground } from 'react-native-web';
-import { Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CadastroCarro({ navigation, route }) {
 
@@ -214,7 +215,7 @@ export default function CadastroCarro({ navigation, route }) {
                 >
 
                     <Text style={styles.title}>
-                        Continuação - Cadastre seu carro
+                        Cadastre seu carro
                     </Text>
 
                     <Text style={styles.subtitle}>
@@ -255,6 +256,8 @@ export default function CadastroCarro({ navigation, route }) {
 
                     </View>
 
+                    <View style={styles.containerInput}>
+
                     <TextInput
                         style={styles.input}
                         placeholder="Modelo"
@@ -293,8 +296,13 @@ export default function CadastroCarro({ navigation, route }) {
                         style={styles.input}
                         onPress={escolherFotoCarro}
                     >
+                        <Ionicons
+                            name="image-outline"
+                            size={20}
+                            color="#4D6CB3"
+                        />
 
-                        <Text style={{ color: '#7D9BE6' }}>
+                        <Text style={styles.fotoButtonText}>
                             {fotoCarro
                                 ? 'Foto do carro selecionada'
                                 : 'Foto do carro'}
@@ -313,6 +321,8 @@ export default function CadastroCarro({ navigation, route }) {
                             }}
                         />
                     )}
+                    
+                    </View>
 
                     <TouchableOpacity
                         style={styles.button}
@@ -324,6 +334,7 @@ export default function CadastroCarro({ navigation, route }) {
                         </Text>
 
                     </TouchableOpacity>
+
 
                 </ScrollView>
 
