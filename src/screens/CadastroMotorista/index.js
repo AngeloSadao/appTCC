@@ -324,6 +324,40 @@ export default function CadastroMotorista({ navigation }) {
             Preencha seus dados:
           </Text>
 
+          <View style={styles.stepsContainer}>
+
+            <View style={styles.line} />
+
+            <View style={styles.stepsRow}>
+
+              <View style={styles.stepWrapper}>
+
+                <View style={styles.stepActive}>
+                  <Text style={styles.stepTextActive}>1</Text>
+                </View>
+
+                <Text style={styles.stepLabelActive}>
+                  Dados pessoais
+                </Text>
+
+              </View>
+
+              <View style={styles.stepWrapper}>
+
+                <View style={styles.stepInactive}>
+                  <Text style={styles.stepTextInactive}>2</Text>
+                </View>
+
+                <Text style={styles.stepLabelInactive}>
+                  Informações adicionais
+                </Text>
+
+              </View>
+
+            </View>
+
+          </View>
+
           <TextInput
             style={styles.input}
             placeholder="Nome Completo"
@@ -520,7 +554,7 @@ export default function CadastroMotorista({ navigation }) {
 
             <TouchableOpacity
               onPress={() =>
-                navigation.navigate('Login') 
+                navigation.navigate('Login')
               }
             >
 

@@ -172,4 +172,76 @@ export default StyleSheet.create({
     paddingTop: 130,
   },
 
+  stepsContainer: {
+    width: '100%',
+    height: 70,
+    justifyContent: 'center',
+    marginBottom: 40,
+  },
+
+  line: {
+    position: 'absolute',
+    top: 20,
+    left: 55,
+    right: 55,
+    height: 3,
+    backgroundColor: '#808080',
+  },
+
+  stepsRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  stepWrapper: {
+    alignItems: 'center',
+  },
+
+  stepActive: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#4E9B5B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 2,
+  },
+
+  stepInactive: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#D9E2F7',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 2,
+  },
+
+  stepTextActive: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  stepTextInactive: {
+    color: '#4D6CB3',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  stepLabelActive: {
+    marginTop: 10,
+    color: '#4E9B5B',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+
+  stepLabelInactive: {
+    marginTop: 10,
+    color: '#404348',
+    fontSize: 13,
+    fontWeight: '600',
+  },
+
 });
