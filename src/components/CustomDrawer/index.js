@@ -10,10 +10,12 @@ import {
 
 import styles from './styles';
 
-export default function CustomDrawer({nome, ...props}) {
+import { CommonActions } from '@react-navigation/native';
+
+export default function CustomDrawer({ nome, ...props }) {
   return (
     <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
-      
+
       <View style={styles.container}>
 
         <Image
@@ -24,14 +26,14 @@ export default function CustomDrawer({nome, ...props}) {
         <Text style={styles.textNomeUsuario}>
           Olá, <Text style={styles.nomeUsuario}>{nome}!</Text>
         </Text>
-        
+
         <TouchableOpacity onPress={() => props.navigation.navigate('EditarPerfilMotorista')}>
-        <Text style={styles.editarPerfil}>
-          Editar perfil
-        </Text>
+          <Text style={styles.editarPerfil}>
+            Editar perfil
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('HomePassageiro')}>
           <Text style={styles.buttonText}>Solicitar Carona</Text>
         </TouchableOpacity>
 
@@ -66,7 +68,17 @@ export default function CustomDrawer({nome, ...props}) {
 
           <View style={styles.sairRow}>
             <Text style={styles.sairLabel}>Deseja sair da conta?</Text>
-            <TouchableOpacity onPress={() => props.navigation.navigate('')}>
+
+            <TouchableOpacity
+              onPress={() =>
+                props.navigation.dispatch(
+                  CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'Inicial' }],
+                  })
+                )
+              }
+            >
               <Text style={styles.sairLink}>Sair</Text>
             </TouchableOpacity>
           </View>
