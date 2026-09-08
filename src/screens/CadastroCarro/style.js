@@ -7,41 +7,43 @@ export default StyleSheet.create({
   },
 
   title: {
-    marginTop: 0,
-    fontSize: 27,
+    marginTop: 10,
+    fontSize: 30,
     fontWeight: 'bold',
     color: '#4D6CB3',
     textAlign: 'center',
   },
 
   subtitle: {
-    fontSize: 15,
+    fontSize: 22,
     color: '#7BC17D',
     textAlign: 'center',
-    marginBottom: 22,
+    marginBottom: 25,
     fontWeight: '600',
   },
 
   input: {
     width: '100%',
-    height: 46,
+    height: 55,
     backgroundColor: '#fff',
-    borderWidth: 1.2,
+    borderWidth: 1.5,
     borderColor: '#7D9BE6',
-    borderRadius: 8,
-    paddingHorizontal: 13,
-    marginBottom: 9,
-    fontSize: 13,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    fontSize: 15,
     color: '#4A4A4A',
 
     shadowColor: '#000',
+
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
-    shadowOpacity: 0.06,
-    shadowRadius: 2,
-    elevation: 1,
+
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+    elevation: 2,
   },
 
   containerInput: {
@@ -55,96 +57,46 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  // LINHA COM DOIS CAMPOS
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-
-  // CAMPO DA ESQUERDA
-  inputHalfLeft: {
-    width: '48%',
-    height: 46,
-    backgroundColor: '#fff',
-    borderWidth: 1.2,
-    borderColor: '#7D9BE6',
-    borderRadius: 8,
-    paddingHorizontal: 13,
-    marginBottom: 9,
-    fontSize: 13,
-    color: '#4A4A4A',
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.06,
-    shadowRadius: 2,
-    elevation: 1,
-  },
-
-  // CAMPO DA DIREITA
-  inputHalfRight: {
-    width: '48%',
-    height: 46,
-    backgroundColor: '#fff',
-    borderWidth: 1.2,
-    borderColor: '#7D9BE6',
-    borderRadius: 8,
-    paddingHorizontal: 13,
-    marginBottom: 9,
-    fontSize: 13,
-    color: '#4A4A4A',
-
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.06,
-    shadowRadius: 2,
-    elevation: 1,
-  },
 
   inputContainer: {
     width: '100%',
-    height: 46,
+    height: 55,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderWidth: 1.2,
+    borderWidth: 1.5,
     borderColor: '#7D9BE6',
-    borderRadius: 8,
-    paddingHorizontal: 13,
-    marginBottom: 9,
+    borderRadius: 10,
+    paddingHorizontal: 15,
+    marginBottom: 15,
 
     shadowColor: '#000',
+
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: 2,
     },
-    shadowOpacity: 0.06,
-    shadowRadius: 2,
-    elevation: 1,
+
+    shadowOpacity: 0.08,
+    shadowRadius: 3,
+    elevation: 2,
   },
 
   inputSenha: {
     flex: 1,
-    fontSize: 13,
+    fontSize: 15,
     color: '#4A4A4A',
   },
 
   button: {
     width: '100%',
-    height: 46,
+    height: 55,
     backgroundColor: '#C8D5F2',
-    borderRadius: 8,
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 7,
-    marginBottom: 18,
+    marginTop: 10,
+    marginBottom: 30,
   },
 
   buttonText: {
@@ -155,32 +107,29 @@ export default StyleSheet.create({
 
   textLogar: {
     fontFamily: 'Gurajada',
-    fontSize: 25,
+    fontSize: 24,
     color: '#404348',
-    textAlign: 'center',
+    marginLeft: 90,
   },
 
   logarText: {
     fontFamily: 'Gurajada',
-    fontSize: 25,
+    fontSize: 24,
     color: '#468B5B',
-    textAlign: 'center',
-    marginTop: -20,
-    marginBottom: 5,
+    marginLeft: 215,
+    marginTop: -48,
   },
 
   backgroundImage: {
     flex: 1,
     width: '100%',
-    height: '100%',
+    height: '150%',
   },
 
   overlay: {
     flex: 1,
-    paddingHorizontal: 18,
-
-    // Mantém o formulário abaixo da logo
-    paddingTop: 130,
+    paddingHorizontal: 25,
+    paddingTop: 150,
   },
 
   stepsContainer: {
@@ -213,7 +162,7 @@ export default StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: '#4E9B5B',
+    backgroundColor: '#D9E2F7',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 2,
@@ -223,34 +172,34 @@ export default StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: '#D9E2F7',
+    backgroundColor: '#4E9B5B',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 2,
   },
 
   stepTextActive: {
-    color: '#fff',
+    color: '#4D6CB3',
     fontSize: 20,
     fontWeight: 'bold',
   },
 
   stepTextInactive: {
-    color: '#4D6CB3',
+    color: '#fff',
     fontSize: 20,
     fontWeight: 'bold',
   },
 
   stepLabelActive: {
     marginTop: 10,
-    color: '#4E9B5B',
+    color: '#404348',
     fontSize: 13,
     fontWeight: '600',
   },
 
   stepLabelInactive: {
     marginTop: 10,
-    color: '#404348',
+    color: '#4E9B5B',
     fontSize: 13,
     fontWeight: '600',
   },

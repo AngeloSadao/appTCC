@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Alert,
   ImageBackground,
 } from 'react-native';
 
@@ -13,7 +12,13 @@ import { Ionicons } from '@expo/vector-icons';
 
 import styles from './style';
 
-export default function LoginPassageiro({ navigation }) {
+const mostrarAlert = (titulo, mensagem) => {
+  if (typeof window !== 'undefined') {
+    window.alert(`${titulo}\n\n${mensagem}`);
+  }
+};
+
+export default function Login({ navigation }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
 
@@ -22,40 +27,83 @@ export default function LoginPassageiro({ navigation }) {
   const [tipoUsuario, setTipoUsuario] =
     useState('passageiro');
 
-  /*async function logar() {
+  async function logar() {
+
     if (!email || !senha) {
-      return window.alert('Preencha todos os campos');
+      mostrarAlert(
+        'Atenção',
+        'Preencha o email e a senha.'
+      );
+      return;
     }
 
     try {
-      const response = await fetch('http://localhost/appTcc/loginPassageiro.php', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, senha }),
-      });
+
+      const response = await fetch(
+        'http://localhost/appTcc/login.php',
+        {
+          method: 'POST',
+
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+
+          body: JSON.stringify({
+            email: email,
+            senha: senha,
+            tipoUsuario: tipoUsuario
+          }),
+        }
+      );
 
       const dados = await response.json();
 
+      console.log('Resposta do login:', dados);
 
       if (dados.sucesso) {
-        navigation.navigate('HomePassageiro', { nome: dados.nome });
+
+        // PASSAGEIRO
+        if (dados.tipoUsuario === 'passageiro') {
+
+          navigation.navigate('HomePassageiro', {
+            nome: dados.nome,
+            idPassageiro: dados.id,
+            tipoUsuario: 'passageiro'
+          });
+
+        }
+
+        // MOTORISTA
+        else if (dados.tipoUsuario === 'motorista') {
+
+          navigation.navigate('HomeMotorista', {
+            nome: dados.nome,
+            idMotorista: dados.id,
+            tipoUsuario: 'motorista'
+          });
+
+        }
+
       } else {
-        window.alert(dados.mensagem);
+
+        mostrarAlert(
+          'Erro no login',
+          dados.mensagem
+        );
       }
 
     } catch (error) {
-      window.alert('Erro: Não foi possível conectar ao servidor');
-    }
-  }*/
 
-    async function logar() {
-  navigation.navigate('HomePassageiro', {
-    nome: 'Usuário Teste',
-  });
-}
+      console.log('Erro no login:', error);
+
+      mostrarAlert(
+        'Erro',
+        'Não foi possível conectar ao servidor.'
+      );
+    }
+  }
+
 
   return (
     <View style={styles.container}>
@@ -108,7 +156,9 @@ export default function LoginPassageiro({ navigation }) {
               />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('RecuperarSenha')}
+          >
             <Text
               style={{
                 fontFamily: 'Gurajada',
@@ -116,7 +166,8 @@ export default function LoginPassageiro({ navigation }) {
                 color: '#435E91',
                 marginLeft: 130,
                 marginBottom: -17,
-              }}>
+              }}
+            >
               Esqueci minha senha
             </Text>
           </TouchableOpacity>
@@ -195,7 +246,7 @@ export default function LoginPassageiro({ navigation }) {
 
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('CadastroPassageiro')
+              navigation.navigate('Inicial')
             }
           >
             <Text style={styles.cadastrarText}>
