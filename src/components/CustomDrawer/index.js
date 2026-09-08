@@ -31,7 +31,7 @@ export default function CustomDrawer({nome, ...props}) {
         </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('CorridaFinalizadaPassageiro')}>
           <Text style={styles.buttonText}>Solicitar Carona</Text>
         </TouchableOpacity>
 

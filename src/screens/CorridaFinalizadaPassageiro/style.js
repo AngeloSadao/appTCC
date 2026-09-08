@@ -2,12 +2,8 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: '#fff',
         flex: 1,
-        justifyContent: 'center',
-        textAlign: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#fff',
     },
 
     background: {
@@ -16,112 +12,239 @@ export default StyleSheet.create({
         height: '100%',
     },
 
+    titulosContainer: {
+        position: 'absolute',
+        top: 320,
+        left: 0,
+        right: 0,
+        alignItems: 'center',
+    },
+
     title: {
-        marginTop: 375,
         color: '#526EAA',
-        alignSelf: 'center',
-        fontSize: 48,
+        fontSize: 36,
         fontFamily: 'Gurajada',
-        lineHeight: 35,
+        lineHeight: 32,
         userSelect: 'none',
     },
 
     title2: {
         color: '#7AC992',
-        alignSelf: 'center',
-        fontSize: 32,
+        fontSize: 22,
         fontFamily: 'Gurajada',
-        lineHeight: 25,
+        lineHeight: 22,
         userSelect: 'none',
-        marginBottom: 15,
     },
 
-    containerResumo: {
-        alignContent: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        width: 350,
-        height: 125,
-        backgroundColor: "#fafafa",
-        borderWidth: 6,
-        borderRadius: 18,
-        borderColor: "#f4f4f4",
-        marginBottom: 10,
+    cardsContainer: {
+        position: 'absolute',
+        top: 385,
+        left: 0,
+        right: 0,
+        paddingHorizontal: 20,
+        gap: 8,
     },
 
-    //Container Resumo
+    // ─── Card Resumo ───────────────────────────────
     containerResumo: {
+        backgroundColor: '#fafafa',
+        borderWidth: 5,
+        borderRadius: 16,
+        borderColor: '#f4f4f4',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        gap: 4,
+    },
+
+    resumoCardLabel: {
+        fontSize: 12,
+        fontWeight: 'bold',
+        color: '#3D5A99',
+    },
+
+    resumoBody: {
         flexDirection: 'row',
-        alignSelf: 'center',
-        width: 350,
-        minHeight: 125,
-        backgroundColor: "#fafafa",
-        borderWidth: 6,
-        borderRadius: 18,
-        borderColor: "#f4f4f4",
-        marginBottom: 10,
-        padding: 12,
         gap: 8,
     },
 
     resumoEsquerda: {
         flex: 1.4,
-        justifyContent: 'space-around',
-        gap: 8,
+        gap: 4,
     },
 
     resumoDireita: {
         flex: 1,
-        justifyContent: 'space-around',
-        gap: 4,
+        gap: 2,
     },
 
     resumoLabel: {
-        fontSize: 16,
+        fontSize: 10,
         fontWeight: 'bold',
-        color: '#7AC992',
+        color: '#404348',
     },
 
     resumoValor: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: 'normal',
         color: '#404348',
     },
 
     resumoInfoLabel: {
-        fontSize: 12,
+        fontSize: 10,
         fontWeight: 'bold',
         color: '#404348',
     },
 
     resumoInfoValor: {
+        fontSize: 10,
+        fontWeight: 'normal',
+        color: '#404348',
+    },
+
+    // ─── Card Recompensas ──────────────────────────
+    containerRecompensa: {
+        top: 5,
+        backgroundColor: '#fafafa',
+        borderWidth: 5,
+        borderRadius: 16,
+        borderColor: '#f4f4f4',
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        gap: 6,
+    },
+
+    titleRecompensas: {
+        fontSize: 13,
+        fontWeight: 'bold',
+        color: '#3D5A99',
+    },
+
+    subtitleRecompensas: {
+        fontSize: 11,
+        color: '#404348',
+    },
+
+    gorjetaRow: {
+        flexDirection: 'row',
+        gap: 8,
+    },
+
+    gorjetaBtn: {
+        flex: 1,
+        height: 36,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#D3DEF5',
+        backgroundColor: '#fff',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    gorjetaBtnSelecionado: {
+        backgroundColor: '#3D5A99',
+        borderColor: '#3D5A99',
+    },
+
+    gorjetaBtnText: {
+        fontSize: 11,
+        fontWeight: 'bold',
+        color: '#3D5A99',
+        textAlign: 'center',
+    },
+
+    gorjetaBtnTextSelecionado: {
+        color: '#fff',
+    },
+
+    inputOutroValor: {
+        borderWidth: 1.5,
+        borderColor: '#3D5A99',
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        fontSize: 12,
+        color: '#404348',
+        backgroundColor: '#fff',
+    },
+
+    // ─── Card Experiência ──────────────────────────
+    containerExperiencia: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#fafafa',
+        borderWidth: 5,
+        borderRadius: 16,
+        borderColor: '#f4f4f4',
+        paddingHorizontal: 12,
+        height: 46,
+        top: 5,
+    },
+
+    titleExperiencia: {
         fontSize: 12,
         fontWeight: 'bold',
         color: '#404348',
     },
 
-    containerExperiencia: {
-        alignContent: 'center',
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        width: 350,
-        height: 54,
-        backgroundColor: "#fafafa",
-        borderWidth: 6,
-        borderRadius: 18,
-        borderColor: "#f4f4f4",
+    subtitleExperiencia: {
+        fontSize: 11,
+        color: '#404348',
     },
 
+    // ─── Botão Confirmar principal ─────────────────
     buttonConfirmar: {
-        width: 294,
-        height: 90,
-        backgroundColor: '#D3DEF5',
-        borderRadius: 10,
+        top: 20,
+        height: 42,
+        backgroundColor: '#3D5A99',
+        borderRadius: 12,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 18,
-        alignSelf: 'center',
+    },
+
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+
+    inputOutroValor: {
+        borderWidth: 1.5,
+        borderColor: '#3D5A99',
+        borderRadius: 10,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+    },
+
+    inputOutroValorText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#3D5A99',
+    },
+
+    tecladoGrid: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: 6,
+        marginTop: 6,
+        marginBottom: 6,
+    },
+
+    teclaBtn: {
+        width: 60,
+        height: 32,
+        borderRadius: 8,
+        backgroundColor: '#D3DEF5',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+
+    teclaBtnText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        color: '#3D5A99',
     },
 });
