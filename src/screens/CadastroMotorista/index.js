@@ -16,19 +16,19 @@ import { ImageBackground } from 'react-native-web';
 
 export default function CadastroMotorista({ navigation }) {
 
-  const [nomeCompletoPassageiro, setNomeCompletoPassageiro] = useState('');
-  const [cpfPassageiro, setCpfPassageiro] = useState('');
-  const [telefonePassageiro, setTelefonePassageiro] = useState('');
-  const [emailPassageiro, setEmailPassageiro] = useState('');
-  const [ruaPassageiro, setRuaPassageiro] = useState('');
-  const [complementoEnderecoPassageiro, setComplementoEnderecoPassageiro] = useState('');
-  const [numeroEnderecoPassageiro, setNumeroEnderecoPassageiro] = useState('');
-  const [bairroPassageiro, setBairroPassageiro] = useState('');
-  const [cidadePassageiro, setCidadePassageiro] = useState('');
-  const [estadoPassageiro, setEstadoPassageiro] = useState('');
-  const [cepPassageiro, setCepPassageiro] = useState('');
-  const [dataNascimentoPassageiro, setDataNascimentoPassageiro] = useState('');
-  const [senhaPassageiro, setSenhaPassageiro] = useState('');
+  const [nomeCompletoMotorista, setNomeCompletoMotorista] = useState('');
+  const [cpfMotorista, setCpfMotorista] = useState('');
+  const [telefoneMotorista, setTelefoneMotorista] = useState('');
+  const [emailMotorista, setEmailMotorista] = useState('');
+  const [ruaMotorista, setRuaMotorista] = useState('');
+  const [complementoEnderecoMotorista, setComplementoEnderecoMotorista] = useState('');
+  const [numeroEnderecoMotorista, setNumeroEnderecoMotorista] = useState('');
+  const [bairroMotorista, setBairroMotorista] = useState('');
+  const [cidadeMotorista, setCidadeMotorista] = useState('');
+  const [estadoMotorista, setEstadoMotorista] = useState('');
+  const [cepMotorista, setCepMotorista] = useState('');
+  const [dataNascimentoMotorista, setDataNascimentoMotorista] = useState('');
+  const [senhaMotorista, setSenhaMotorista] = useState('');
 
   const [showPassword, setShowPassword] = useState(false);
 
