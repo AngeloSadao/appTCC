@@ -6,7 +6,7 @@ import CadastroPassageiro from '../screens/CadastroPassageiro';
 import CadastroMotorista from '../screens/CadastroMotorista';
 import CadastroCarro from '../screens/CadastroCarro';
 import RecuperarSenha from '../screens/RecuperarSenha';
-import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
+// import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
 import EditarPerfilPassageiro from '../screens/EditarPerfilPassageiro';
 import DrawerRoutes from './drawer.routes';
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
