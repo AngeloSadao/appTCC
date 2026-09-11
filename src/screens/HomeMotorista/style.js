@@ -2,13 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
+
   // GERAL
+
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
 
   // MAPA
+
   mapContainer: {
     width: '100%',
     height: '100%',
@@ -16,6 +19,7 @@ export default StyleSheet.create({
   },
 
   // DRAWER
+
   menuButton: {
     position: 'absolute',
     top: 10,
@@ -31,6 +35,7 @@ export default StyleSheet.create({
   },
 
   // PAINEL INFERIOR
+
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
@@ -55,16 +60,25 @@ export default StyleSheet.create({
     // Sombra (Web — react-native-web costuma precisar disso)
     boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)',
   },
+  
+  /*
+   * Área responsável apenas por arrastar
+   * o painel.
+   *
+   * O ScrollView fica livre para rolar.
+   */
+
 
   dragHandle: {
     width: 60,
     height: 6,
     borderRadius: 10,
     backgroundColor: '#d0d0d0',
-    marginBottom: 5,
+    marginBottom: 1,
   },
 
-  // PAINEL - ETAPA 1
+  // ETAPA 1
+
   title: {
     lineHeight: 45,
     fontSize: 64,
@@ -89,7 +103,21 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  // PAINEL - ETAPA 2
+  // SCROLL DAS ETAPAS 2 E 3
+
+  formScroll: {
+    width: '100%',
+    flex: 1,
+  },
+
+  formScrollContent: {
+    width: '100%',
+    alignItems: 'center',
+    paddingBottom: 50,
+  },
+
+  // ETAPA 2
+
   labelInput: {
     fontSize: 18,
     fontFamily: 'Gurajada',
@@ -109,18 +137,31 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
   },
 
+  input: {
+    borderWidth: 1,
+    borderColor: '#468B5B',
+    borderRadius: 8,
+    padding: 8,
+    width: '100%',
+    marginBottom: 4,
+    fontSize: 16,
+    fontFamily: 'Gurajada',
+  },
+
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 4,
+    marginBottom: 8,
+    minHeight: 28,
   },
 
   checkboxLabel: {
     fontSize: 16,
     fontFamily: 'Gurajada',
     color: '#333',
+    flex: 1,
   },
 
   checkboxAtivo: {
@@ -130,6 +171,7 @@ export default StyleSheet.create({
     backgroundColor: '#468B5B',
     borderWidth: 1,
     borderColor: '#468B5B',
+    marginLeft: 10,
   },
 
   checkboxInativo: {
@@ -138,9 +180,19 @@ export default StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#aaa',
+    marginLeft: 10,
   },
 
-  // PAINEL - ETAPA 3
+  // ETAPA 3
+
+  titleConfirmacao: {
+    fontSize: 40,
+    fontFamily: 'Gurajada',
+    color: '#333',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+
   infoRow: {
     borderWidth: 1,
     borderColor: '#435E91',
@@ -157,17 +209,34 @@ export default StyleSheet.create({
   },
 
   // BOTÕES
+
   button: {
+    backgroundColor: '#435E91',
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 1,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+
+  buttonConfirmar: {
     backgroundColor: '#435E91',
     padding: 15,
     borderRadius: 10,
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%',
+    alignItems: 'center',
   },
 
   buttonText: {
     color: '#fff',
+    fontSize: 18,
+    fontFamily: 'Gurajada',
   },
 
-  // SUGESTÕES DE AUTOCOMPLETE
+  // SUGESTÕES
+
   sugestaoLista: {
     width: '100%',
     backgroundColor: '#fff',
@@ -191,7 +260,8 @@ export default StyleSheet.create({
     color: '#333',
   },
 
-  // PAINEL - ETAPA 4 - CHAT
+  // CHAT
+
   chatMotorista: {
     fontSize: 18,
     fontFamily: 'Gurajada',
@@ -266,12 +336,12 @@ export default StyleSheet.create({
     color: '#333',
   },
 
-  // PAINEL - ETAPA 5
+  // ETAPA 5
 
   tituloDestinoDestaque: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#2A6DF4', // azul do print
+    color: '#2A6DF4',
     textAlign: 'center',
   },
 
