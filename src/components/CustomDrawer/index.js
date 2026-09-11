@@ -92,7 +92,7 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('CorridaFinalizadaPassageiro')}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('HomePassageiro')}>
           <Text style={styles.buttonText}>Solicitar Carona</Text>
         </TouchableOpacity>
 
@@ -100,7 +100,7 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
           <Text style={styles.buttonText}>Caronas Disponíveis</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('CorridaFinalizadaPassageiro')}>
           <Text style={styles.buttonText}>Histórico de Caronas</Text>
         </TouchableOpacity>
 
@@ -118,6 +118,19 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
 
         <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
           <Text style={styles.buttonText}>Central de Ajuda</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            props.navigation.navigate('CadastroContatosEmergenciais', {
+              idPassageiro: idPassageiro,
+            })
+          }
+        >
+          <Text style={styles.buttonTextContatos}>
+            Adicionar contatos de emergência
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.rodape}>

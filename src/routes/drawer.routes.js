@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomePassageiro from '../screens/HomePassageiro';
 import HomeMotorista from '../screens/HomeMotorista';
+import CadastroContatosEmergenciais from '../screens/CadastroContatosEmergenciais';
 
 import CustomDrawer from '../components/CustomDrawer';
 
@@ -62,7 +63,17 @@ export default function DrawerRoutes({ route }) {
 
       )}
 
+      <Drawer.Screen
+        name="CadastroContatosEmergenciais"
+        component={CadastroContatosEmergenciais}
+        initialParams={{
+          idPassageiro: idPassageiro,
+        }}
+        options={{
+          headerShown: false,
+        }}
+      />
+
     </Drawer.Navigator>
   );
 }
-
