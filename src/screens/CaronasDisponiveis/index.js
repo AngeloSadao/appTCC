@@ -17,6 +17,8 @@ import L from 'leaflet';
 import {
   MapContainer,
   TileLayer,
+  Marker,
+  Popup,
 } from 'react-leaflet';
 
 import styles from './style';
@@ -250,6 +252,148 @@ export default function CaronasDisponiveis({ route }) {
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
 
+          {/* MARCADORES DAS CARONAS */}
+          {caronas.map((carona) => {
+
+            const latitude = Number(
+              carona.latitudeOrigem
+            );
+
+            const longitude = Number(
+              carona.longitudeOrigem
+            );
+
+            if (
+              !Number.isFinite(latitude) ||
+              !Number.isFinite(longitude)
+            ) {
+              return null;
+            }
+
+            return (
+              <Marker
+                key={`marcador-${carona.idCarona}`}
+                position={[
+                  latitude,
+                  longitude,
+                ]}
+                icon={icon}
+              >
+                <Popup>
+                  <div style={{ minWidth: '220px' }}>
+
+                    <div
+                      style={{
+                        fontSize: '18px',
+                        fontWeight: 'bold',
+                        color: '#526EAA',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      {carona.nomeMotorista}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '14px',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <strong>Origem:</strong>{' '}
+                      {carona.origemCarona}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '14px',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <strong>Destino:</strong>{' '}
+                      {carona.destinoCarona}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '14px',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <strong>Data:</strong>{' '}
+                      {formatarData(carona.dataCarona)}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '14px',
+                        marginBottom: '4px',
+                      }}
+                    >
+                      <strong>Horário:</strong>{' '}
+                      {formatarHorario(carona.horarioCarona)}
+                    </div>
+
+                    <div
+                      style={{
+                        fontSize: '14px',
+                        marginBottom: '8px',
+                      }}
+                    >
+                      <strong>Vagas:</strong>{' '}
+                      {quantidadeDeVagas(carona)}
+                    </div>
+
+                    {mostrarPreferencias(carona).length > 0 && (
+                      <div
+                        style={{
+                          fontSize: '13px',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        <strong>Preferências:</strong>
+                        <br />
+                        {mostrarPreferencias(carona).join(' • ')}
+                      </div>
+                    )}
+
+                    {Number(carona.maisDeUma) === 1 && (
+                      <div
+                        style={{
+                          fontSize: '13px',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        Aceita mais de uma pessoa
+                      </div>
+                    )}
+
+                    <button
+                      onClick={() => {
+                        window.alert(
+                          'Carona escolhida! O chat com o motorista será aberto aqui.'
+                        );
+                      }}
+                      style={{
+                        width: '100%',
+                        padding: '9px',
+                        border: 'none',
+                        borderRadius: '7px',
+                        backgroundColor: '#526EAA',
+                        color: '#FFFFFF',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Escolher esta carona
+                    </button>
+
+                  </div>
+                </Popup>
+              </Marker>
+            );
+          })}
+
         </MapContainer>
 
       </View>
@@ -356,8 +500,11 @@ export default function CaronasDisponiveis({ route }) {
                         styles.usuarioIcon
                       }
                     >
-                      <Ionicons name="person-outline" size={24} color="#81A1DF" />
-
+                      <Ionicons
+                        name="person-outline"
+                        size={24}
+                        color="#81A1DF"
+                      />
                     </View>
 
                     {/* INFORMAÇÕES */}
@@ -384,7 +531,7 @@ export default function CaronasDisponiveis({ route }) {
                         }
                         numberOfLines={2}
                       >
-                         {carona.origemCarona}
+                        {carona.origemCarona}
                       </Text>
 
                       {/* DESTINO */}
@@ -394,7 +541,7 @@ export default function CaronasDisponiveis({ route }) {
                         }
                         numberOfLines={2}
                       >
-                         {carona.destinoCarona}
+                        {carona.destinoCarona}
                       </Text>
 
                       {/* DATA E HORÁRIO */}
@@ -403,11 +550,11 @@ export default function CaronasDisponiveis({ route }) {
                           styles.dataHorario
                         }
                       >
-                         {formatarData(
+                        {formatarData(
                           carona.dataCarona
                         )}
                         {' às '}
-                         {formatarHorario(
+                        {formatarHorario(
                           carona.horarioCarona
                         )}
                       </Text>
@@ -433,15 +580,15 @@ export default function CaronasDisponiveis({ route }) {
                         carona.maisDeUma
                       ) === 1 && (
 
-                        <Text
-                          style={
-                            styles.preferencias
-                          }
-                        >
-                          Aceita mais de uma pessoa
-                        </Text>
+                          <Text
+                            style={
+                              styles.preferencias
+                            }
+                          >
+                            Aceita mais de uma pessoa
+                          </Text>
 
-                      )}
+                        )}
 
                     </View>
 
