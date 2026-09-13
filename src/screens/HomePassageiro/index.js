@@ -544,6 +544,26 @@ export default function HomePassageiro({ route }) {
                   10
                 )
                 : 1,
+
+            latitudeOrigem:
+              coordOrigem
+                ? coordOrigem[0]
+                : null,
+
+            longitudeOrigem:
+              coordOrigem
+                ? coordOrigem[1]
+                : null,
+
+            latitudeDestino:
+              coordDestino
+                ? coordDestino[0]
+                : null,
+
+            longitudeDestino:
+              coordDestino
+                ? coordDestino[1]
+                : null,
           }),
         }
       );

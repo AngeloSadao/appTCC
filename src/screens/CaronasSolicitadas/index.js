@@ -257,36 +257,154 @@ export default function CaronasSolicitadas({ route }) {
                                         icon={icon}
                                     >
                                         <Popup>
-                                            {item.nomePassageiro}
+                                            <div style={{ minWidth: '220px' }}>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '18px',
+                                                        fontWeight: 'bold',
+                                                        color: '#468B5B',
+                                                        marginBottom: '8px',
+                                                    }}
+                                                >
+                                                    {item.nomePassageiro}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '14px',
+                                                        marginBottom: '4px',
+                                                    }}
+                                                >
+                                                    <strong>Origem:</strong>{' '}
+                                                    {item.origemSolicitacao}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '14px',
+                                                        marginBottom: '4px',
+                                                    }}
+                                                >
+                                                    <strong>Destino:</strong>{' '}
+                                                    {item.destinoSolicitacao}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '14px',
+                                                        marginBottom: '4px',
+                                                    }}
+                                                >
+                                                    <strong>Data:</strong>{' '}
+                                                    {formatarData(
+                                                        item.dataSolicitacao
+                                                    )}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '14px',
+                                                        marginBottom: '4px',
+                                                    }}
+                                                >
+                                                    <strong>Horário:</strong>{' '}
+                                                    {formatarHorario(
+                                                        item.horarioSolicitacao
+                                                    )}
+                                                </div>
+
+                                                <div
+                                                    style={{
+                                                        fontSize: '14px',
+                                                        marginBottom: '8px',
+                                                    }}
+                                                >
+                                                    <strong>Passageiros:</strong>{' '}
+                                                    {item.quantidadePassageiros}
+                                                </div>
+
+                                                {Number(item.comPet) === 1 && (
+                                                    <div
+                                                        style={{
+                                                            fontSize: '13px',
+                                                            marginBottom: '5px',
+                                                        }}
+                                                    >
+                                                        Com pet
+                                                    </div>
+                                                )}
+
+                                                {Number(item.motoristaMasculino) === 1 && (
+                                                    <div
+                                                        style={{
+                                                            fontSize: '13px',
+                                                            marginBottom: '5px',
+                                                        }}
+                                                    >
+                                                        Prefere motorista masculino
+                                                    </div>
+                                                )}
+
+                                                {Number(item.motoristaFeminino) === 1 && (
+                                                    <div
+                                                        style={{
+                                                            fontSize: '13px',
+                                                            marginBottom: '8px',
+                                                        }}
+                                                    >
+                                                        Prefere motorista feminino
+                                                    </div>
+                                                )}
+
+                                                <div
+                                                    style={{
+                                                        textAlign: 'center',
+                                                        fontSize: '22px',
+                                                        fontWeight: 'bold',
+                                                        color: '#468B5B',
+                                                        marginBottom: '8px',
+                                                    }}
+                                                >
+                                                    {item.compatibilidade}%
+                                                    <div
+                                                        style={{
+                                                            fontSize: '11px',
+                                                            fontWeight: 'normal',
+                                                        }}
+                                                    >
+                                                        Compatibilidade
+                                                    </div>
+                                                </div>
+
+                                                <button
+                                                    onClick={() => {
+                                                        window.alert(
+                                                            'Solicitação escolhida! O chat com o passageiro será aberto aqui.'
+                                                        );
+                                                    }}
+                                                    style={{
+                                                        width: '100%',
+                                                        padding: '9px',
+                                                        border: 'none',
+                                                        borderRadius: '7px',
+                                                        backgroundColor: '#468B5B',
+                                                        color: '#FFFFFF',
+                                                        fontSize: '14px',
+                                                        fontWeight: 'bold',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    Escolher esta solicitação
+                                                </button>
+
+                                            </div>
                                         </Popup>
                                     </Marker>
                                 )}
 
-                            {item.latitudeDestino &&
-                                item.longitudeDestino && (
-                                    <Marker
-                                        position={[
-                                            Number(item.latitudeDestino),
-                                            Number(item.longitudeDestino),
-                                        ]}
-                                        icon={icon}
-                                    />
-                                )}
-
                         </React.Fragment>
                     ))}
-
-                    {pontosMapa.length > 1 && (
-                        <Polyline
-                            positions={pontosMapa}
-                            color="#468B5B"
-                            weight={4}
-                        />
-                    )}
-
-                    <AtualizarMapa
-                        pontos={pontosMapa}
-                    />
 
                 </MapContainer>
 
