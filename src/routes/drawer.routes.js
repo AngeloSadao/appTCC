@@ -8,6 +8,8 @@ import CadastroContatosEmergenciais from '../screens/CadastroContatosEmergenciai
 import CadastroContatosEmergenciaisMotorista from '../screens/CadastroContatosEmergenciaisMotorista';
 
 import CaronasDisponiveis from '../screens/CaronasDisponiveis';
+import CaronasSolicitadas from '../screens/CaronasSolicitadas';
+
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 
 import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
@@ -67,7 +69,6 @@ export default function DrawerRoutes({ route }) {
       {isMotorista ? (
 
         <>
-          {/* HOME MOTORISTA */}
 
           <Drawer.Screen
             name="HomeMotorista"
@@ -82,7 +83,17 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-          {/* CONTATOS DE EMERGÊNCIA MOTORISTA */}
+          <Drawer.Screen
+            name="CaronasSolicitadas"
+            component={CaronasSolicitadas}
+            initialParams={{
+              idMotorista: idMotorista,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
 
           <Drawer.Screen
             name="CadastroContatosEmergenciaisMotorista"
@@ -100,7 +111,6 @@ export default function DrawerRoutes({ route }) {
       ) : (
 
         <>
-          {/* HOME PASSAGEIRO */}
 
           <Drawer.Screen
             name="HomePassageiro"
@@ -115,7 +125,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-          {/* CONTATOS DE EMERGÊNCIA PASSAGEIRO */}
 
           <Drawer.Screen
             name="CadastroContatosEmergenciais"
@@ -128,7 +137,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-          {/* CARONAS DISPONÍVEIS */}
 
           <Drawer.Screen
             name="CaronasDisponiveis"
@@ -140,9 +148,8 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
-          />
-
-          {/* HISTÓRICO DE CARONAS */}
+          /> 
+          
 
           <Drawer.Screen
             name="CorridaFinalizadaPassageiro"

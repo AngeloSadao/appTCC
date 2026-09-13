@@ -153,7 +153,12 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
-          onPress={() => irPara('HomeMotorista')}
+          onPress={() => {
+            props.navigation.navigate('CaronasSolicitadas', {
+              idMotorista: idMotorista,
+            });
+            props.navigation.closeDrawer();
+          }}
         >
           <Text style={styles.buttonText}>
             Caronas Solicitadas
