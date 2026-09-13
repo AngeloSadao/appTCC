@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,12 +8,95 @@ import {
 } from 'react-native';
 
 import styles from './style';
-import { CommonActions } from '@react-navigation/native';
+import {
+  CommonActions,
+  useFocusEffect,
+} from '@react-navigation/native';
 
-export default function CustomDrawerMotorista({ nome, idMotorista, ...props }) {
+export default function CustomDrawerMotorista({
+  nome,
+  idMotorista,
+  ...props
+}) {
+
+  const [fotoPerfil, setFotoPerfil] = useState(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      buscarFotoPerfil();
+    }, [idMotorista])
+  );
+
+  async function buscarFotoPerfil() {
+
+    if (!idMotorista) {
+      return;
+    }
+
+    try {
+
+      const response = await fetch(
+        'http://localhost/appTcc/buscarMotorista.php',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idMotorista: idMotorista,
+          }),
+        }
+      );
+
+      const dados = await response.json();
+
+      console.log(
+        'Foto do motorista:',
+        dados
+      );
+
+      if (
+        dados.sucesso &&
+        dados.motorista &&
+        dados.motorista.fotoPerfilMotorista
+      ) {
+
+        setFotoPerfil(
+          `http://localhost/appTcc/img/perfilMotorista/${dados.motorista.fotoPerfilMotorista}?t=${Date.now()}`
+        );
+
+      } else {
+
+        setFotoPerfil(null);
+
+      }
+
+    } catch (error) {
+
+      console.log(
+        'Erro ao buscar foto do motorista:',
+        error
+      );
+
+      setFotoPerfil(null);
+    }
+  }
 
   function irPara(nomeTela, params = {}) {
     props.navigation.navigate(nomeTela, params);
+    props.navigation.closeDrawer();
+  }
+
+  function editarPerfil() {
+
+    props.navigation.getParent()?.navigate(
+      'EditarPerfilMotorista',
+      {
+        idMotorista: idMotorista,
+      }
+    );
+
     props.navigation.closeDrawer();
   }
 
@@ -34,17 +117,27 @@ export default function CustomDrawerMotorista({ nome, idMotorista, ...props }) {
     >
       <View style={styles.container}>
 
-        <Image
-          style={styles.fotoPerfil}
-          source={require('../../../assets/userPerfil.png')}
-        />
+        <TouchableOpacity
+          onPress={editarPerfil}
+        >
+          <Image
+            style={styles.fotoPerfil}
+            source={
+              fotoPerfil
+                ? { uri: fotoPerfil }
+                : require('../../../assets/userPerfil.png')
+            }
+          />
+        </TouchableOpacity>
 
         <Text style={styles.textNomeUsuario}>
           Olá, <Text style={styles.nomeUsuario}>{nome}!</Text>
         </Text>
 
-        <TouchableOpacity style={styles.editarPerfil}>
-          <Text style={styles.editarPerfilTexto}>
+        <TouchableOpacity
+          onPress={editarPerfil}
+        >
+          <Text style={styles.editarPerfil}>
             Editar perfil
           </Text>
         </TouchableOpacity>
@@ -53,53 +146,72 @@ export default function CustomDrawerMotorista({ nome, idMotorista, ...props }) {
           style={[styles.button, styles.buttonVerde]}
           onPress={() => irPara('HomeMotorista')}
         >
-          <Text style={styles.buttonText}>Oferecer Carona</Text>
+          <Text style={styles.buttonText}>
+            Oferecer Carona
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
           onPress={() => irPara('HomeMotorista')}
         >
-          <Text style={styles.buttonText}>Caronas Solicitadas</Text>
+          <Text style={styles.buttonText}>
+            Caronas Solicitadas
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
           onPress={() => irPara('HomeMotorista')}
         >
-          <Text style={styles.buttonText}>Histórico de Caronas</Text>
+          <Text style={styles.buttonText}>
+            Histórico de Caronas
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
           onPress={() => irPara('HomeMotorista')}
         >
-          <Text style={styles.buttonText}>Minhas Bonificações</Text>
+          <Text style={styles.buttonText}>
+            Minhas Bonificações
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
         >
-          <Text style={styles.buttonText}>Sobre Nós</Text>
+          <Text style={styles.buttonText}>
+            Sobre Nós
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
         >
-          <Text style={styles.buttonText}>Comprar Chaveiro</Text>
+          <Text style={styles.buttonText}>
+            Comprar Chaveiro
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
         >
-          <Text style={styles.buttonText}>Central de Ajuda</Text>
+          <Text style={styles.buttonText}>
+            Central de Ajuda
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, styles.buttonVerdeClaro, styles.buttonEmergencia]}
+          style={styles.button}
+          onPress={() =>
+            irPara('CadastroContatosEmergenciaisMotorista', {
+              idMotorista: idMotorista,
+            })
+          }
         >
           <Text style={styles.buttonTextContatos}>
-            Cadastrar contatos de{'\n'}emergência
+            Adicionar contatos de emergência
           </Text>
         </TouchableOpacity>
 
@@ -114,6 +226,7 @@ export default function CustomDrawerMotorista({ nome, idMotorista, ...props }) {
           </TouchableOpacity>
 
           <View style={styles.sairRow}>
+
             <Text style={styles.sairLabel}>
               Deseja sair da conta?
             </Text>
@@ -123,6 +236,7 @@ export default function CustomDrawerMotorista({ nome, idMotorista, ...props }) {
                 Sair
               </Text>
             </TouchableOpacity>
+
           </View>
 
         </View>

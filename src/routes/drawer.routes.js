@@ -3,7 +3,10 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomePassageiro from '../screens/HomePassageiro';
 import HomeMotorista from '../screens/HomeMotorista';
+
 import CadastroContatosEmergenciais from '../screens/CadastroContatosEmergenciais';
+import CadastroContatosEmergenciaisMotorista from '../screens/CadastroContatosEmergenciaisMotorista';
+
 import CaronasDisponiveis from '../screens/CaronasDisponiveis';
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 
@@ -26,10 +29,12 @@ export default function DrawerRoutes({ route }) {
   const idMotorista =
     route.params?.idMotorista;
 
-  const isMotorista = tipoUsuario === 'motorista';
+  const isMotorista =
+    tipoUsuario === 'motorista';
 
   return (
     <Drawer.Navigator
+
       drawerContent={(props) =>
         isMotorista ? (
           <CustomDrawerMotorista
@@ -45,11 +50,14 @@ export default function DrawerRoutes({ route }) {
           />
         )
       }
+
       screenOptions={{
         drawerStyle: {
           width: 280,
           backgroundColor: '#000',
-          borderColor: isMotorista ? '#a2dab3' : '#435E91',
+          borderColor: isMotorista
+            ? '#468B5B'
+            : '#435E91',
           borderRightWidth: 30,
         },
         headerShown: false,
@@ -57,17 +65,43 @@ export default function DrawerRoutes({ route }) {
     >
 
       {isMotorista ? (
-        <Drawer.Screen
-          name="HomeMotorista"
-          component={HomeMotorista}
-          initialParams={{
-            nome: nome,
-            idMotorista: idMotorista,
-            tipoUsuario: 'motorista',
-          }}
-        />
-      ) : (
+
         <>
+          {/* HOME MOTORISTA */}
+
+          <Drawer.Screen
+            name="HomeMotorista"
+            component={HomeMotorista}
+            initialParams={{
+              nome: nome,
+              idMotorista: idMotorista,
+              tipoUsuario: 'motorista',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          {/* CONTATOS DE EMERGÊNCIA MOTORISTA */}
+
+          <Drawer.Screen
+            name="CadastroContatosEmergenciaisMotorista"
+            component={CadastroContatosEmergenciaisMotorista}
+            initialParams={{
+              idMotorista: idMotorista,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+        </>
+
+      ) : (
+
+        <>
+          {/* HOME PASSAGEIRO */}
+
           <Drawer.Screen
             name="HomePassageiro"
             component={HomePassageiro}
@@ -76,7 +110,12 @@ export default function DrawerRoutes({ route }) {
               idPassageiro: idPassageiro,
               tipoUsuario: 'passageiro',
             }}
+            options={{
+              headerShown: false,
+            }}
           />
+
+          {/* CONTATOS DE EMERGÊNCIA PASSAGEIRO */}
 
           <Drawer.Screen
             name="CadastroContatosEmergenciais"
@@ -84,7 +123,12 @@ export default function DrawerRoutes({ route }) {
             initialParams={{
               idPassageiro: idPassageiro,
             }}
+            options={{
+              headerShown: false,
+            }}
           />
+
+          {/* CARONAS DISPONÍVEIS */}
 
           <Drawer.Screen
             name="CaronasDisponiveis"
@@ -93,7 +137,12 @@ export default function DrawerRoutes({ route }) {
               idPassageiro: idPassageiro,
               nome: nome,
             }}
+            options={{
+              headerShown: false,
+            }}
           />
+
+          {/* HISTÓRICO DE CARONAS */}
 
           <Drawer.Screen
             name="CorridaFinalizadaPassageiro"
@@ -102,8 +151,13 @@ export default function DrawerRoutes({ route }) {
               idPassageiro: idPassageiro,
               nome: nome,
             }}
+            options={{
+              headerShown: false,
+            }}
           />
+
         </>
+
       )}
 
     </Drawer.Navigator>

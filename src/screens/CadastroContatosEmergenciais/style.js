@@ -74,9 +74,21 @@ export default StyleSheet.create({
     conteudo: {
         position: 'absolute',
         top: 460,
+        bottom: 0,
         left: 0,
         right: 0,
         paddingHorizontal: 28,
+    },
+
+    scrollConteudo: {
+        flex: 1,
+        width: '100%',
+    },
+
+    scrollConteudoInterno: {
+        width: '100%',
+        alignItems: 'center',
+        paddingBottom: 30,
     },
 
     // Card de cadastro

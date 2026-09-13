@@ -5,7 +5,7 @@ import {
     TextInput,
     TouchableOpacity,
     ImageBackground,
-    Alert,
+    ScrollView,
 } from 'react-native';
 
 import styles from './style';
@@ -23,10 +23,19 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
         buscarContatos();
     }, [idPassageiro]);
 
-    const buscarContatos = async () => {
-        if (!idPassageiro) return;
+    async function buscarContatos() {
+
+        if (!idPassageiro) {
+            return;
+        }
 
         try {
+
+            console.log(
+                'Buscando contatos do passageiro:',
+                idPassageiro
+            );
+
             const response = await fetch(
                 'http://localhost/appTcc/buscarContatosEmergenciais.php',
                 {
@@ -36,39 +45,70 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        idPassageiro: idPassageiro
+                        idPassageiro: idPassageiro,
                     }),
                 }
             );
 
             const dados = await response.json();
 
-            console.log('Contatos encontrados:', dados);
+            console.log(
+                'Contatos encontrados:',
+                dados
+            );
 
             if (dados.sucesso) {
-                setContatos(dados.contatos);
+                setContatos(dados.contatos || []);
+            } else {
+                setContatos([]);
             }
+
         } catch (error) {
-            console.log('Erro ao buscar contatos:', error);
+
+            console.log(
+                'Erro ao buscar contatos:',
+                error
+            );
+
+            setContatos([]);
         }
-    };
+    }
 
     function mascaraTelefone(texto) {
+
         const numeros = texto.replace(/\D/g, '');
-        if (numeros.length <= 2) return `(${numeros}`;
-        if (numeros.length <= 7) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+
+        if (numeros.length <= 2) {
+            return `(${numeros}`;
+        }
+
+        if (numeros.length <= 7) {
+            return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
+        }
+
         return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
     }
 
-    const adicionarContato = async () => {
+    async function adicionarContato() {
 
-        if (nome.trim() === '' || telefone.trim() === '') {
-            window.alert('Atenção, Preencha o nome e o telefone.');
+        if (
+            nome.trim() === '' ||
+            telefone.trim() === ''
+        ) {
+
+            window.alert(
+                'Atenção, preencha o nome e o telefone.'
+            );
+
             return;
         }
 
         if (contatos.length >= 3) {
-            window.alert('Limite atingido', 'Você pode adicionar até 3 contatos.');
+
+            window.alert(
+                'Você pode adicionar até 3 contatos.'
+            );
+
             return;
         }
 
@@ -78,36 +118,31 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                 'http://localhost/appTcc/salvarContatoEmergencial.php',
                 {
                     method: 'POST',
-
                     headers: {
                         Accept: 'application/json',
                         'Content-Type': 'application/json',
                     },
-
                     body: JSON.stringify({
                         idPassageiro: idPassageiro,
                         nome: nome,
-                        telefone: telefone
+                        telefone: telefone,
                     }),
                 }
             );
 
             const dados = await response.json();
 
-            console.log('Resposta do contato:', dados);
+            console.log(
+                'Resposta do contato:',
+                dados
+            );
 
             if (dados.sucesso) {
 
-                const novoContato = {
-                    idContatoEmergencial: dados.idContatoEmergencial,
-                    nome: nome,
-                    telefone: telefone
-                };
-
-                setContatos([...contatos, novoContato]);
-
                 setNome('');
                 setTelefone('');
+
+                await buscarContatos();
 
                 window.alert(
                     'Contato adicionado com sucesso!'
@@ -116,24 +151,29 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
             } else {
 
                 window.alert(
-                    'Atenção',
                     dados.mensagem
                 );
             }
 
         } catch (error) {
 
-            console.log('Erro ao cadastrar contato:', error);
+            console.log(
+                'Erro ao cadastrar contato:',
+                error
+            );
 
-            Alert.alert(
-                'Erro',
+            window.alert(
                 'Não foi possível conectar ao servidor.'
             );
         }
-    };
+    }
 
-    const removerContato = async (idContatoEmergencial) => {
+    async function removerContato(
+        idContatoEmergencial
+    ) {
+
         try {
+
             const response = await fetch(
                 'http://localhost/appTcc/removerContatoEmergencial.php',
                 {
@@ -143,33 +183,46 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        idContatoEmergencial: idContatoEmergencial
+                        idContatoEmergencial:
+                            idContatoEmergencial,
                     }),
                 }
             );
 
             const dados = await response.json();
 
-            console.log('Remover contato:', dados);
+            console.log(
+                'Remover contato:',
+                dados
+            );
 
             if (dados.sucesso) {
-                setContatos(
-                    contatos.filter(
-                        contato =>
-                            contato.idContatoEmergencial != idContatoEmergencial
-                    )
+
+                await buscarContatos();
+
+                window.alert(
+                    'Contato removido com sucesso!'
                 );
 
-                window.alert('Contato removido com sucesso!');
             } else {
-                Alert.alert('Atenção', dados.mensagem);
+
+                window.alert(
+                    dados.mensagem
+                );
             }
 
         } catch (error) {
-            console.log('Erro ao remover contato:', error);
-            Alert.alert('Erro', 'Não foi possível remover o contato.');
+
+            console.log(
+                'Erro ao remover contato:',
+                error
+            );
+
+            window.alert(
+                'Não foi possível remover o contato.'
+            );
         }
-    };
+    }
 
     return (
         <View style={styles.container}>
@@ -180,12 +233,14 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                 resizeMode="stretch"
             >
 
-                {/* Menu */}
+                {/* MENU */}
+
                 <TouchableOpacity
                     style={styles.menuButton}
                     onPress={() => {
-                        console.log('CLICOU NO MENU');
-                        navigation.dispatch(DrawerActions.openDrawer());
+                        navigation.dispatch(
+                            DrawerActions.openDrawer()
+                        );
                     }}
                 >
                     <View style={styles.menuLinha} />
@@ -193,7 +248,8 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                     <View style={styles.menuLinha} />
                 </TouchableOpacity>
 
-                {/* Títulos */}
+                {/* TÍTULOS */}
+
                 <View style={styles.titulosContainer}>
 
                     <Text style={styles.title}>
@@ -206,98 +262,160 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
 
                 </View>
 
-                {/* Linha abaixo do título */}
+                {/* LINHA */}
+
                 <View style={styles.linha} />
 
-                {/* Conteúdo */}
+                {/* ÁREA DO CONTEÚDO */}
+
                 <View style={styles.conteudo}>
 
-                    {/* Card de cadastro */}
-                    <View style={styles.cardCadastro}>
+                    <ScrollView
+                        style={styles.scrollConteudo}
+                        contentContainerStyle={
+                            styles.scrollConteudoInterno
+                        }
+                        showsVerticalScrollIndicator={true}
+                        nestedScrollEnabled={true}
+                    >
 
-                        <Text style={styles.textoExplicativo}>
-                            Adicione até 3 contatos de alguém
-                        </Text>
+                        {/* CARD DE CADASTRO */}
 
-                        <Text style={styles.textoExplicativo}>
-                            de confiança para enviar um SMS
-                        </Text>
+                        <View style={styles.cardCadastro}>
 
-                        <Text style={styles.textoExplicativo}>
-                            de emergência pelo chaveiro.
-                        </Text>
-
-                        {/* Nome */}
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite o nome"
-                            placeholderTextColor="#7D9BE6"
-                            value={nome}
-                            onChangeText={setNome}
-                        />
-
-                        {/* Telefone */}
-                        <TextInput
-                            style={styles.input}
-                            placeholder="Digite o telefone"
-                            placeholderTextColor="#7D9BE6"
-                            keyboardType="phone-pad"
-                            value={telefone}
-                            onChangeText={(texto) =>
-                                setTelefone(mascaraTelefone(texto))
-                            }
-                        />
-
-                        {/* Botão adicionar */}
-                        <TouchableOpacity
-                            style={styles.botaoAdicionar}
-                            onPress={adicionarContato}
-                        >
-                            <Text style={styles.textoBotao}>
-                                Adicionar
+                            <Text style={styles.textoExplicativo}>
+                                Adicione até 3 contatos de alguém
                             </Text>
-                        </TouchableOpacity>
 
-                    </View>
+                            <Text style={styles.textoExplicativo}>
+                                de confiança para enviar um SMS
+                            </Text>
 
-                    {/* Contatos adicionados */}
-                    {contatos.map((contato) => (
-                        <View
-                            key={contato.idContatoEmergencial}
-                            style={styles.contatoCard}
-                        >
-                            <View style={styles.contatoInformacoes}>
-                                <Text style={styles.contatoNome}>
-                                    {contato.nomeContatoEmergencial || contato.nome}
-                                </Text>
+                            <Text style={styles.textoExplicativo}>
+                                de emergência pelo chaveiro.
+                            </Text>
 
-                                <Text style={styles.contatoTelefone}>
-                                    {contato.telefoneContatoEmergencial || contato.telefone}
-                                </Text>
-                            </View>
+                            {/* NOME */}
+
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite o nome"
+                                placeholderTextColor="#7D9BE6"
+                                value={nome}
+                                onChangeText={setNome}
+                            />
+
+                            {/* TELEFONE */}
+
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Digite o telefone"
+                                placeholderTextColor="#7D9BE6"
+                                keyboardType="phone-pad"
+                                value={telefone}
+                                onChangeText={(texto) =>
+                                    setTelefone(
+                                        mascaraTelefone(texto)
+                                    )
+                                }
+                            />
+
+                            {/* ADICIONAR */}
 
                             <TouchableOpacity
-                                onPress={() =>
-                                    removerContato(contato.idContatoEmergencial)
-                                }
+                                style={styles.botaoAdicionar}
+                                onPress={adicionarContato}
                             >
-                                <Text style={styles.remover}>Remover</Text>
+                                <Text style={styles.textoBotao}>
+                                    Adicionar
+                                </Text>
                             </TouchableOpacity>
 
                         </View>
-                    ))}
 
-                    {/* Botão continuar */}
-                    {contatos.length > 0 && (
-                        <TouchableOpacity
-                            style={styles.botaoContinuar}
-                            onPress={() => navigation.navigate('HomePassageiro')}
-                        >
-                            <Text style={styles.textoBotaoContinuar}>
-                                Continuar
-                            </Text>
-                        </TouchableOpacity>
-                    )}
+                        {/* CONTATOS */}
+
+                        {contatos.map((contato) => (
+
+                            <View
+                                key={
+                                    contato.idContatoEmergencial
+                                }
+                                style={styles.contatoCard}
+                            >
+
+                                <View
+                                    style={
+                                        styles.contatoInformacoes
+                                    }
+                                >
+
+                                    <Text
+                                        style={styles.contatoNome}
+                                    >
+                                        {
+                                            contato.nomeContatoEmergencial ||
+                                            contato.nome
+                                        }
+                                    </Text>
+
+                                    <Text
+                                        style={
+                                            styles.contatoTelefone
+                                        }
+                                    >
+                                        {
+                                            contato.telefoneContatoEmergencial ||
+                                            contato.telefone
+                                        }
+                                    </Text>
+
+                                </View>
+
+                                <TouchableOpacity
+                                    onPress={() =>
+                                        removerContato(
+                                            contato.idContatoEmergencial
+                                        )
+                                    }
+                                >
+                                    <Text
+                                        style={styles.remover}
+                                    >
+                                        Remover
+                                    </Text>
+                                </TouchableOpacity>
+
+                            </View>
+
+                        ))}
+
+                        {/* CONTINUAR */}
+
+                        {contatos.length > 0 && (
+
+                            <TouchableOpacity
+                                style={
+                                    styles.botaoContinuar
+                                }
+                                onPress={() =>
+                                    navigation.navigate(
+                                        'HomePassageiro'
+                                    )
+                                }
+                            >
+                                <Text
+                                    style={
+                                        styles.textoBotaoContinuar
+                                    }
+                                >
+                                    Continuar
+                                </Text>
+                            </TouchableOpacity>
+
+                        )}
+
+                    </ScrollView>
 
                 </View>
 

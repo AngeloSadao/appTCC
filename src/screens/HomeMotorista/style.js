@@ -31,7 +31,7 @@ export default StyleSheet.create({
 
   menuIcon: {
     fontSize: 40,
-    color: '#435E91',
+    color: '#60BC7C',
   },
 
   // PAINEL INFERIOR
@@ -44,7 +44,7 @@ export default StyleSheet.create({
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     borderTopWidth: 10,
-    borderColor: '#435E91',
+    borderColor: '#84d89f',
     padding: 20,
     alignItems: 'center',
 
@@ -87,7 +87,7 @@ export default StyleSheet.create({
   },
 
   titleNome: {
-    color: '#435E91',
+    color: '#60BC7C',
   },
 
   text: {
@@ -195,7 +195,7 @@ export default StyleSheet.create({
 
   infoRow: {
     borderWidth: 1,
-    borderColor: '#435E91',
+    borderColor: '#BCF2CD',
     borderRadius: 8,
     padding: 8,
     width: '100%',
@@ -211,7 +211,7 @@ export default StyleSheet.create({
   // BOTÕES
 
   button: {
-    backgroundColor: '#435E91',
+    backgroundColor: '#60BC7C',
     padding: 10,
     borderRadius: 10,
     marginTop: 1,
@@ -220,7 +220,7 @@ export default StyleSheet.create({
   },
 
   buttonConfirmar: {
-    backgroundColor: '#435E91',
+    backgroundColor: '#60BC7C',
     padding: 15,
     borderRadius: 10,
     marginTop: 20,

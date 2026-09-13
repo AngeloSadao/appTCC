@@ -29,12 +29,13 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 
-  editarPerfilTexto: {
+  editarPerfil: {
     fontSize: 24,
     lineHeight: 20,
     fontFamily: 'Gurajada',
     color: '#468B5B',
     marginBottom: 24,
+    marginTop: 4,
   },
 
   button: {
