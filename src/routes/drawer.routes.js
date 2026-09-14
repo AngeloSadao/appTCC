@@ -1,10 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import HomePassageiro from '../screens/HomePassageiro';
 import HomeMotorista from '../screens/HomeMotorista';
 
-import CustomDrawer from '../components/CustomDrawer';
+import CadastroContatosEmergenciais from '../screens/CadastroContatosEmergenciais';
+import CadastroContatosEmergenciaisMotorista from '../screens/CadastroContatosEmergenciaisMotorista';
+
+import CaronasDisponiveis from '../screens/CaronasDisponiveis';
+import CaronasSolicitadas from '../screens/CaronasSolicitadas';
+
+import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
+
+import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
+import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 
 const Drawer = createDrawerNavigator();
 
@@ -19,50 +28,145 @@ export default function DrawerRoutes({ route }) {
   const idPassageiro =
     route.params?.idPassageiro;
 
+  const idMotorista =
+    route.params?.idMotorista;
+
+  const isMotorista =
+    tipoUsuario === 'motorista';
+
   return (
     <Drawer.Navigator
 
-      drawerContent={(props) => (
-        <CustomDrawer
-          {...props}
-          nome={nome}
-          idPassageiro={idPassageiro}
-        />
-      )}
+      drawerContent={(props) =>
+        isMotorista ? (
+          <CustomDrawerMotorista
+            {...props}
+            nome={nome}
+            idMotorista={idMotorista}
+          />
+        ) : (
+          <CustomDrawerPassageiro
+            {...props}
+            nome={nome}
+            idPassageiro={idPassageiro}
+          />
+        )
+      }
 
       screenOptions={{
         drawerStyle: {
           width: 280,
           backgroundColor: '#000',
-          borderColor: '#435E91',
+          borderColor: isMotorista
+            ? '#468B5B'
+            : '#435E91',
           borderRightWidth: 30,
         },
+        headerShown: false,
       }}
     >
 
-      {tipoUsuario === 'passageiro' ? (
+      {isMotorista ? (
 
-        <Drawer.Screen
-          name="HomePassageiro"
-          component={HomePassageiro}
-          options={{ headerShown: false }}
-          initialParams={{
-            nome: nome,
-            idPassageiro: idPassageiro,
-          }}
-        />
+        <>
+
+          <Drawer.Screen
+            name="HomeMotorista"
+            component={HomeMotorista}
+            initialParams={{
+              nome: nome,
+              idMotorista: idMotorista,
+              tipoUsuario: 'motorista',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+          <Drawer.Screen
+            name="CaronasSolicitadas"
+            component={CaronasSolicitadas}
+            initialParams={{
+              idMotorista: idMotorista,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+
+          <Drawer.Screen
+            name="CadastroContatosEmergenciaisMotorista"
+            component={CadastroContatosEmergenciaisMotorista}
+            initialParams={{
+              idMotorista: idMotorista,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+        </>
 
       ) : (
 
-        <Drawer.Screen
-          name="HomeMotorista"
-          component={HomeMotorista}
-          options={{ headerShown: false }}
-        />
+        <>
+
+          <Drawer.Screen
+            name="HomePassageiro"
+            component={HomePassageiro}
+            initialParams={{
+              nome: nome,
+              idPassageiro: idPassageiro,
+              tipoUsuario: 'passageiro',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+
+          <Drawer.Screen
+            name="CadastroContatosEmergenciais"
+            component={CadastroContatosEmergenciais}
+            initialParams={{
+              idPassageiro: idPassageiro,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+
+          <Drawer.Screen
+            name="CaronasDisponiveis"
+            component={CaronasDisponiveis}
+            initialParams={{
+              idPassageiro: idPassageiro,
+              nome: nome,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          /> 
+          
+
+          <Drawer.Screen
+            name="CorridaFinalizadaPassageiro"
+            component={CorridaFinalizadaPassageiro}
+            initialParams={{
+              idPassageiro: idPassageiro,
+              nome: nome,
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
+        </>
 
       )}
 
     </Drawer.Navigator>
   );
 }
-

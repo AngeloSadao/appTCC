@@ -69,6 +69,12 @@ export default function StackRoutes() {
       />
 
       <Stack.Screen
+        name="EditarPerfilMotorista"
+        component={EditarPerfilMotorista}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
         name="CadastroCarro"
         component={CadastroCarro}
         options={{ headerShown: false }}

@@ -3,12 +3,14 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
 
   // GERAL
+
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
 
   // MAPA
+
   mapContainer: {
     width: '100%',
     height: '100%',
@@ -16,6 +18,7 @@ export default StyleSheet.create({
   },
 
   // DRAWER
+
   menuButton: {
     position: 'absolute',
     top: 10,
@@ -31,6 +34,7 @@ export default StyleSheet.create({
   },
 
   // PAINEL INFERIOR
+
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
@@ -42,18 +46,16 @@ export default StyleSheet.create({
     borderColor: '#435E91',
     padding: 20,
     alignItems: 'center',
-
-    // Sombra (iOS)
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
+    shadowOffset: {
+      width: 0,
+      height: -4,
+    },
     shadowOpacity: 0.15,
     shadowRadius: 12,
-
-    // Sombra (Android)
     elevation: 10,
-
-    // Sombra (Web — react-native-web costuma precisar disso)
-    boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)',
+    boxShadow:
+      '0px -4px 12px rgba(0, 0, 0, 0.15)',
   },
 
   dragHandle: {
@@ -64,7 +66,8 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
-  // PAINEL - ETAPA 1
+  // ETAPA 1
+
   title: {
     lineHeight: 45,
     fontSize: 64,
@@ -89,7 +92,21 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  // PAINEL - ETAPA 2
+  // SCROLL DO FORMULÁRIO
+
+  formScroll: {
+    width: '100%',
+    flex: 1,
+  },
+
+  formScrollContent: {
+    width: '100%',
+    alignItems: 'center',
+    paddingBottom: 50,
+  },
+
+  // ETAPA 2
+
   labelInput: {
     fontSize: 18,
     fontFamily: 'Gurajada',
@@ -109,18 +126,33 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
   },
 
+  input: {
+    borderWidth: 1,
+    borderColor: '#468B5B',
+    borderRadius: 8,
+    padding: 8,
+    width: '100%',
+    marginBottom: 4,
+    fontSize: 16,
+    fontFamily: 'Gurajada',
+  },
+
+  // CHECKBOXES
+
   checkboxRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 4,
+    marginBottom: 8,
+    minHeight: 28,
   },
 
   checkboxLabel: {
     fontSize: 16,
     fontFamily: 'Gurajada',
     color: '#333',
+    flex: 1,
   },
 
   checkboxAtivo: {
@@ -130,6 +162,7 @@ export default StyleSheet.create({
     backgroundColor: '#468B5B',
     borderWidth: 1,
     borderColor: '#468B5B',
+    marginLeft: 10,
   },
 
   checkboxInativo: {
@@ -138,9 +171,19 @@ export default StyleSheet.create({
     borderRadius: 4,
     borderWidth: 1,
     borderColor: '#aaa',
+    marginLeft: 10,
   },
 
-  // PAINEL - ETAPA 3
+  // ETAPA 3 - CONFIRMAÇÃO
+
+  titleConfirmacao: {
+    fontSize: 40,
+    fontFamily: 'Gurajada',
+    color: '#333',
+    marginBottom: 5,
+    textAlign: 'center',
+  },
+
   infoRow: {
     borderWidth: 1,
     borderColor: '#435E91',
@@ -157,17 +200,34 @@ export default StyleSheet.create({
   },
 
   // BOTÕES
+
   button: {
     backgroundColor: '#435E91',
     padding: 15,
     borderRadius: 10,
+    marginTop: 10,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+
+  buttonConfirmar: {
+    backgroundColor: '#435E91',
+    padding: 15,
+    borderRadius: 10,
+    marginTop: 20,
+    marginBottom: 20,
+    width: '100%',
+    alignItems: 'center',
   },
 
   buttonText: {
     color: '#fff',
+    fontSize: 18,
+    fontFamily: 'Gurajada',
   },
 
-  // SUGESTÕES DE AUTOCOMPLETE
+  // AUTOCOMPLETE
+
   sugestaoLista: {
     width: '100%',
     backgroundColor: '#fff',
@@ -189,90 +249,6 @@ export default StyleSheet.create({
     fontSize: 13,
     fontFamily: 'Gurajada',
     color: '#333',
-  },
-
-  // PAINEL - ETAPA 4 - CHAT
-  chatMotorista: {
-    fontSize: 18,
-    fontFamily: 'Gurajada',
-    color: '#468B5B',
-  },
-
-  chatPassageiro: {
-    fontSize: 18,
-    fontFamily: 'Gurajada',
-    color: '#435E91',
-    marginBottom: 10,
-  },
-
-  chatContainer: {
-    width: '100%',
-  },
-
-  mensagemEsquerda: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    marginBottom: 8,
-  },
-
-  mensagemDireita: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    marginBottom: 8,
-  },
-
-  fotoUsuario: {
-    width: 25,
-    height: 25,
-    borderRadius: 15,
-    backgroundColor: '#ddd',
-    marginHorizontal: 5,
-  },
-
-  balaoVerde: {
-    borderWidth: 1,
-    borderColor: '#468B5B',
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    maxWidth: '70%',
-  },
-
-  balaoAzul: {
-    borderWidth: 1,
-    borderColor: '#435E91',
-    borderRadius: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    maxWidth: '70%',
-  },
-
-  textoMensagem: {
-    fontSize: 14,
-    fontFamily: 'Gurajada',
-    color: '#333',
-  },
-
-  chatNextButton: {
-    alignSelf: 'flex-end',
-    marginTop: 5,
-    padding: 5,
-  },
-
-  chatNextText: {
-    fontSize: 35,
-    color: '#333',
-  },
-
-  // PAINEL - ETAPA 5
-
-  tituloDestinoDestaque: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#2A6DF4', // azul do print
-    textAlign: 'center',
   },
 
 });

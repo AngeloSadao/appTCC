@@ -54,6 +54,13 @@ export default StyleSheet.create({
     fontSize: 15,
   },
 
+  buttonTextContatos: {
+    color: '#435E91',
+    fontWeight: '500',
+    fontSize: 15,
+    marginTop: -9,
+  },
+
   rodape: {
     marginTop: 'auto',
     alignItems: 'center',

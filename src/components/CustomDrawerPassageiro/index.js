@@ -7,13 +7,10 @@ import {
   ScrollView,
 } from 'react-native';
 
-
-import styles from './styles';
-
+import styles from './style';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
 
-export default function CustomDrawer({ nome, idPassageiro, ...props }) {
-
+export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props }) {
   const [fotoPerfil, setFotoPerfil] = useState(null);
 
   useFocusEffect(
@@ -48,6 +45,7 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
 
       if (
         dados.sucesso &&
+        dados.passageiro &&
         dados.passageiro.fotoPerfilPassageiro
       ) {
         setFotoPerfil(
@@ -56,17 +54,31 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
       } else {
         setFotoPerfil(null);
       }
-
     } catch (error) {
       console.log('Erro ao buscar foto de perfil:', error);
     }
   }
 
+  function irPara(nomeTela, params = {}) {
+    props.navigation.navigate(nomeTela, params);
+    props.navigation.closeDrawer();
+  }
+
+  function sair() {
+    props.navigation.dispatch(
+      CommonActions.reset({
+        index: 0,
+        routes: [{ name: 'Inicial' }],
+      })
+    );
+  }
+
   return (
-    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flex: 1 }}>
-
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
       <View style={styles.container}>
-
         <Image
           style={styles.fotoPerfil}
           source={
@@ -87,37 +99,57 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
             })
           }
         >
-          <Text style={styles.editarPerfil}>
-            Editar perfil
-          </Text>
+          <Text style={styles.editarPerfil}>Editar perfil</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('CorridaFinalizadaPassageiro')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => irPara('HomePassageiro')}
+        >
           <Text style={styles.buttonText}>Solicitar Carona</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => irPara('CaronasDisponiveis')}
+        >
           <Text style={styles.buttonText}>Caronas Disponíveis</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => irPara('CorridaFinalizadaPassageiro')}
+        >
           <Text style={styles.buttonText}>Histórico de Caronas</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Motoristas Favoritos</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Sobre nós</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Comprar Chaveiro</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('')}>
+        <TouchableOpacity style={styles.button}>
           <Text style={styles.buttonText}>Central de Ajuda</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            irPara('CadastroContatosEmergenciais', {
+              idPassageiro: idPassageiro,
+            })
+          }
+        >
+          <Text style={styles.buttonTextContatos}>
+            Adicionar contatos de emergência
+          </Text>
         </TouchableOpacity>
 
         <View style={styles.rodape}>
@@ -128,21 +160,11 @@ export default function CustomDrawer({ nome, idPassageiro, ...props }) {
           <View style={styles.sairRow}>
             <Text style={styles.sairLabel}>Deseja sair da conta?</Text>
 
-            <TouchableOpacity
-              onPress={() =>
-                props.navigation.dispatch(
-                  CommonActions.reset({
-                    index: 0,
-                    routes: [{ name: 'Inicial' }],
-                  })
-                )
-              }
-            >
+            <TouchableOpacity onPress={sair}>
               <Text style={styles.sairLink}>Sair</Text>
             </TouchableOpacity>
           </View>
         </View>
-
       </View>
     </ScrollView>
   );
