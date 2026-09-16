@@ -11,6 +11,7 @@ import EditarPerfilPassageiro from '../screens/EditarPerfilPassageiro';
 import DrawerRoutes from './drawer.routes';
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 import Chat from '../screens/Chat';
+import CorridaEmAndamento from '../screens/CorridaEmAndamento';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -96,6 +97,13 @@ export default function StackRoutes() {
         component={Chat}
         options={{ headerShown: false }}
       />
+
+      <Stack.Screen
+        name="CorridaEmAndamento"
+        component={CorridaEmAndamento}
+        options={{ headerShown: false,}}
+      />
+
 
     </Stack.Navigator>
   );

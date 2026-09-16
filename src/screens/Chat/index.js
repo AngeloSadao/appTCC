@@ -9,8 +9,10 @@ import {
   Platform,
   ActivityIndicator,
 } from 'react-native';
+
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+
 import styles from './style';
 
 const API_URL = 'http://localhost/appTcc';
@@ -21,6 +23,7 @@ export default function Chat({ route }) {
 
   const {
     idConversa,
+    idCarona,
     idPassageiro,
     idMotorista,
     tipoUsuario,
@@ -36,6 +39,10 @@ export default function Chat({ route }) {
   const [mensagens, setMensagens] = useState([]);
   const [carregando, setCarregando] = useState(true);
   const [enviando, setEnviando] = useState(false);
+  const [iniciandoCorrida, setIniciandoCorrida] = useState(false);
+
+  const [corridaIniciada, setCorridaIniciada] = useState(false);
+  const [idCorridaAtual, setIdCorridaAtual] = useState(null);
 
   const formatarHora = (data) => {
     if (!data) return '';
@@ -72,12 +79,19 @@ export default function Chat({ route }) {
         }),
       });
     } catch (erro) {
-      console.log('Erro ao marcar mensagens como lidas:', erro);
+      console.log(
+        'Erro ao marcar mensagens como lidas:',
+        erro
+      );
     }
   };
 
   const carregarMensagens = async () => {
-    if (!idConversa || !idRemetente || !tipoUsuario) {
+    if (
+      !idConversa ||
+      !idRemetente ||
+      !tipoUsuario
+    ) {
       setCarregando(false);
       return;
     }
@@ -94,7 +108,11 @@ export default function Chat({ route }) {
       try {
         dados = JSON.parse(texto);
       } catch {
-        console.log('Resposta do PHP:', texto);
+        console.log(
+          'Resposta do PHP:',
+          texto
+        );
+
         return;
       }
 
@@ -105,7 +123,10 @@ export default function Chat({ route }) {
       await marcarComoLido();
 
     } catch (erro) {
-      console.log('Erro ao carregar mensagens:', erro);
+      console.log(
+        'Erro ao carregar mensagens:',
+        erro
+      );
     } finally {
       setCarregando(false);
     }
@@ -119,7 +140,88 @@ export default function Chat({ route }) {
     }, 3000);
 
     return () => clearInterval(intervalo);
-  }, [idConversa, idRemetente, tipoUsuario]);
+  }, [
+    idConversa,
+    idRemetente,
+    tipoUsuario,
+  ]);
+
+  async function verificarCorrida() {
+    if (
+      tipoUsuario !== 'passageiro' ||
+      !idCarona
+    ) {
+      return;
+    }
+
+    try {
+      const resposta = await fetch(
+        `${API_URL}/buscarCorridaPorCarona.php?idCarona=${idCarona}`
+      );
+
+      const texto = await resposta.text();
+
+      let dados;
+
+      try {
+        dados = JSON.parse(texto);
+      } catch {
+        console.log(
+          'Resposta buscar corrida:',
+          texto
+        );
+        return;
+      }
+
+      if (
+        dados.sucesso &&
+        dados.existe &&
+        dados.corrida
+      ) {
+        if (
+          dados.corrida.status ===
+          'em_andamento'
+        ) {
+          setCorridaIniciada(true);
+          setIdCorridaAtual(
+            dados.corrida.idCorrida
+          );
+        } else {
+          setCorridaIniciada(false);
+          setIdCorridaAtual(null);
+        }
+      } else {
+        setCorridaIniciada(false);
+        setIdCorridaAtual(null);
+      }
+
+    } catch (erro) {
+      console.log(
+        'Erro ao verificar corrida:',
+        erro
+      );
+    }
+  }
+
+  useEffect(() => {
+    if (
+      tipoUsuario !== 'passageiro' ||
+      !idCarona
+    ) {
+      return;
+    }
+
+    verificarCorrida();
+
+    const intervalo = setInterval(() => {
+      verificarCorrida();
+    }, 3000);
+
+    return () => clearInterval(intervalo);
+  }, [
+    idCarona,
+    tipoUsuario,
+  ]);
 
   const enviarMensagem = async () => {
     const texto = mensagem.trim();
@@ -147,10 +249,12 @@ export default function Chat({ route }) {
         }
       );
 
-      const resultado = await resposta.json();
+      const resultado =
+        await resposta.json();
 
       if (resultado.sucesso) {
         setMensagem('');
+
         await carregarMensagens();
 
         setTimeout(() => {
@@ -158,27 +262,155 @@ export default function Chat({ route }) {
             animated: true,
           });
         }, 100);
+
       } else {
+
         window.alert(
-          resultado.mensagem || 'Não foi possível enviar a mensagem.'
+          resultado.mensagem ||
+          'Não foi possível enviar a mensagem.'
         );
       }
 
     } catch (erro) {
-      console.log('Erro ao enviar mensagem:', erro);
+
+      console.log(
+        'Erro ao enviar mensagem:',
+        erro
+      );
 
       window.alert(
         'Não foi possível enviar a mensagem.'
       );
+
     } finally {
       setEnviando(false);
     }
   };
 
+  const iniciarCorrida = async () => {
+
+    if (
+      iniciandoCorrida ||
+      !idCarona ||
+      !idMotorista ||
+      !idPassageiro
+    ) {
+      window.alert(
+        'Não foi possível iniciar a corrida. Dados incompletos.'
+      );
+
+      return;
+    }
+
+    setIniciandoCorrida(true);
+
+    try {
+
+      const resposta = await fetch(
+        `${API_URL}/iniciarCorrida.php`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idCarona,
+            idMotorista,
+            idPassageiro,
+          }),
+        }
+      );
+
+      const texto = await resposta.text();
+
+      console.log(
+        'Resposta iniciar corrida:',
+        texto
+      );
+
+      let resultado;
+
+      try {
+        resultado = JSON.parse(texto);
+      } catch {
+        console.log(
+          'Resposta inválida:',
+          texto
+        );
+
+        window.alert(
+          'O servidor retornou uma resposta inválida.'
+        );
+
+        return;
+      }
+
+      if (!resultado.sucesso) {
+
+        window.alert(
+          resultado.mensagem ||
+          'Não foi possível iniciar a corrida.'
+        );
+
+        return;
+      }
+
+      navigation.navigate(
+        'CorridaEmAndamento',
+        {
+          idCorrida: resultado.idCorrida,
+          idCarona: idCarona,
+          idMotorista: idMotorista,
+          idPassageiro: idPassageiro,
+          tipoUsuario: tipoUsuario,
+          nomeOutroUsuario: nomeOutroUsuario,
+        }
+      );
+
+    } catch (erro) {
+
+      console.log(
+        'Erro ao iniciar corrida:',
+        erro
+      );
+
+      window.alert(
+        'Não foi possível iniciar a corrida.'
+      );
+
+    } finally {
+      setIniciandoCorrida(false);
+    }
+  };
+
+  function acompanharCorrida() {
+    if (!idCorridaAtual) {
+      window.alert(
+        'A corrida ainda não foi iniciada pelo motorista.'
+      );
+      return;
+    }
+
+    navigation.navigate(
+      'CorridaEmAndamento',
+      {
+        idCorrida: idCorridaAtual,
+        idCarona,
+        idMotorista,
+        idPassageiro,
+        tipoUsuario: 'passageiro',
+        nomeOutroUsuario,
+      }
+    );
+  }
+
   const renderMensagem = ({ item }) => {
+
     const minhaMensagem =
-      Number(item.idRemetente) === Number(idRemetente) &&
-      item.tipoRemetente === tipoUsuario;
+      Number(item.idRemetente) ===
+      Number(idRemetente) &&
+      item.tipoRemetente ===
+      tipoUsuario;
 
     return (
       <View
@@ -189,6 +421,7 @@ export default function Chat({ route }) {
             : styles.linhaOutra,
         ]}
       >
+
         <View
           style={[
             styles.balao,
@@ -197,6 +430,7 @@ export default function Chat({ route }) {
               : styles.balaoOutra,
           ]}
         >
+
           <Text
             style={[
               styles.textoMensagem,
@@ -208,7 +442,12 @@ export default function Chat({ route }) {
             {item.mensagem}
           </Text>
 
-          <View style={styles.informacoesMensagem}>
+          <View
+            style={
+              styles.informacoesMensagem
+            }
+          >
+
             <Text
               style={[
                 styles.hora,
@@ -217,10 +456,13 @@ export default function Chat({ route }) {
                   : styles.horaOutra,
               ]}
             >
-              {formatarHora(item.dataHora)}
+              {formatarHora(
+                item.dataHora
+              )}
             </Text>
 
             {minhaMensagem && (
+
               <Ionicons
                 name={
                   item.status === 'lido'
@@ -234,20 +476,27 @@ export default function Chat({ route }) {
                     : '#777'
                 }
               />
+
             )}
+
           </View>
+
         </View>
+
       </View>
     );
   };
 
   if (carregando) {
+
     return (
       <View style={styles.carregando}>
+
         <ActivityIndicator
           size="large"
           color="#468B5B"
         />
+
       </View>
     );
   }
@@ -266,30 +515,39 @@ export default function Chat({ route }) {
 
         <TouchableOpacity
           style={styles.botaoVoltar}
-          onPress={() => navigation.goBack()}
+          onPress={() =>
+            navigation.goBack()
+          }
         >
+
           <Ionicons
             name="arrow-back"
             size={25}
             color="#fff"
           />
+
         </TouchableOpacity>
 
         <View style={styles.infoHeader}>
+
           <View style={styles.avatar}>
+
             <Ionicons
               name="person"
               size={22}
               color="#468B5B"
             />
+
           </View>
 
           <Text
             style={styles.nomeUsuario}
             numberOfLines={1}
           >
-            {nomeOutroUsuario || 'Usuário'}
+            {nomeOutroUsuario ||
+              'Usuário'}
           </Text>
+
         </View>
 
       </View>
@@ -297,49 +555,161 @@ export default function Chat({ route }) {
       <View style={styles.areaMensagens}>
 
         {mensagens.length === 0 ? (
+
           <View style={styles.semMensagens}>
+
             <Ionicons
               name="chatbubble-outline"
               size={45}
               color="#aaa"
             />
 
-            <Text style={styles.textoSemMensagens}>
+            <Text
+              style={
+                styles.textoSemMensagens
+              }
+            >
               Nenhuma mensagem ainda
             </Text>
 
-            <Text style={styles.subtextoSemMensagens}>
-              Envie uma mensagem para iniciar a conversa.
+            <Text
+              style={
+                styles.subtextoSemMensagens
+              }
+            >
+              Envie uma mensagem para
+              iniciar a conversa.
             </Text>
+
           </View>
+
         ) : (
+
           <FlatList
             ref={flatListRef}
             data={mensagens}
             keyExtractor={(item) =>
               String(item.idMensagem)
             }
-            renderItem={renderMensagem}
+            renderItem={
+              renderMensagem
+            }
             contentContainerStyle={
               styles.listaMensagens
             }
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={
+              false
+            }
             onContentSizeChange={() =>
               flatListRef.current?.scrollToEnd({
                 animated: false,
               })
             }
           />
+
         )}
 
       </View>
+
+      {tipoUsuario === 'motorista' && (
+
+        <TouchableOpacity
+          onPress={iniciarCorrida}
+          disabled={iniciandoCorrida}
+          style={{
+            marginHorizontal: 15,
+            marginBottom: 10,
+            height: 45,
+            borderRadius: 10,
+            backgroundColor:
+              iniciandoCorrida
+                ? '#9AB9A3'
+                : '#468B5B',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}
+        >
+
+          {iniciandoCorrida ? (
+
+            <ActivityIndicator
+              size="small"
+              color="#fff"
+            />
+
+          ) : (
+
+            <>
+              <Ionicons
+                name="car-outline"
+                size={21}
+                color="#fff"
+              />
+
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 15,
+                  fontWeight: 'bold',
+                  marginLeft: 8,
+                }}
+              >
+                Iniciar corrida
+              </Text>
+            </>
+
+          )}
+
+        </TouchableOpacity>
+
+      )}
+
+      {tipoUsuario === 'passageiro' && corridaIniciada && (
+
+        <TouchableOpacity
+          onPress={acompanharCorrida}
+          style={{
+            marginHorizontal: 15,
+            marginBottom: 10,
+            height: 45,
+            borderRadius: 10,
+            backgroundColor: '#435E91',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexDirection: 'row',
+          }}
+        >
+
+          <Ionicons
+            name="navigate-outline"
+            size={21}
+            color="#fff"
+          />
+
+          <Text
+            style={{
+              color: '#fff',
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginLeft: 8,
+            }}
+          >
+            Acompanhar corrida
+          </Text>
+
+        </TouchableOpacity>
+
+      )}
 
       <View style={styles.areaEntrada}>
 
         <TextInput
           style={styles.input}
           value={mensagem}
-          onChangeText={setMensagem}
+          onChangeText={
+            setMensagem
+          }
           placeholder="Digite uma mensagem..."
           placeholderTextColor="#888"
           multiline
@@ -349,17 +719,25 @@ export default function Chat({ route }) {
         <TouchableOpacity
           style={[
             styles.botaoEnviar,
-            (!mensagem.trim() || enviando) &&
-              styles.botaoEnviarDesativado,
+            (!mensagem.trim() ||
+              enviando) &&
+            styles.botaoEnviarDesativado,
           ]}
-          onPress={enviarMensagem}
-          disabled={!mensagem.trim() || enviando}
+          onPress={
+            enviarMensagem
+          }
+          disabled={
+            !mensagem.trim() ||
+            enviando
+          }
         >
+
           <Ionicons
             name="send"
             size={21}
             color="#fff"
           />
+
         </TouchableOpacity>
 
       </View>
