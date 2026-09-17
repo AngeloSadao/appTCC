@@ -3,6 +3,7 @@ import {
   View,
   Text,
   TextInput,
+  Image,
   TouchableOpacity,
   FlatList,
   KeyboardAvoidingView,
@@ -35,6 +36,105 @@ export default function Chat({ route }) {
     tipoUsuario === 'passageiro'
       ? idPassageiro
       : idMotorista;
+
+  const [nomeMotorista, setNomeMotorista] = useState(
+    tipoUsuario === 'motorista'
+      ? 'Motorista'
+      : nomeOutroUsuario || 'Motorista'
+  );
+
+  const [nomePassageiro, setNomePassageiro] = useState(
+    tipoUsuario === 'passageiro'
+      ? 'Passageiro'
+      : 'Passageiro'
+  );
+
+  const [fotoMotorista, setFotoMotorista] = useState(null);
+  const [fotoPassageiro, setFotoPassageiro] = useState(null);
+
+  const carregarPerfis = async () => {
+    try {
+      const requisicoes = [];
+
+      if (idMotorista) {
+        requisicoes.push(
+          fetch(`${API_URL}/buscarMotorista.php`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              idMotorista,
+            }),
+          }).then(resposta => resposta.json())
+        );
+      } else {
+        requisicoes.push(Promise.resolve(null));
+      }
+
+      if (idPassageiro) {
+        requisicoes.push(
+          fetch(`${API_URL}/buscarPassageiro.php`, {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              idPassageiro,
+            }),
+          }).then(resposta => resposta.json())
+        );
+      } else {
+        requisicoes.push(Promise.resolve(null));
+      }
+
+      const [dadosMotorista, dadosPassageiro] =
+        await Promise.all(requisicoes);
+
+      if (
+        dadosMotorista?.sucesso &&
+        dadosMotorista.motorista
+      ) {
+        const motorista = dadosMotorista.motorista;
+
+        setNomeMotorista(
+          motorista.nomeCompletoMotorista ||
+          'Motorista'
+        );
+
+        if (motorista.fotoPerfilMotorista) {
+          setFotoMotorista(
+            `${API_URL}/img/perfilMotorista/${motorista.fotoPerfilMotorista}`
+          );
+        }
+      }
+
+      if (
+        dadosPassageiro?.sucesso &&
+        dadosPassageiro.passageiro
+      ) {
+        const passageiro = dadosPassageiro.passageiro;
+
+        setNomePassageiro(
+          passageiro.nomeCompletoPassageiro ||
+          'Passageiro'
+        );
+
+        if (passageiro.fotoPerfilPassageiro) {
+          setFotoPassageiro(
+            `${API_URL}/img/perfil/${passageiro.fotoPerfilPassageiro}`
+          );
+        }
+      }
+    } catch (erro) {
+      console.log(
+        'Erro ao carregar perfis do chat:',
+        erro
+      );
+    }
+  };
 
   const [mensagem, setMensagem] = useState('');
   const [mensagens, setMensagens] = useState([]);
@@ -134,6 +234,7 @@ export default function Chat({ route }) {
   };
 
   useEffect(() => {
+    carregarPerfis();
     carregarMensagens();
 
     const intervalo = setInterval(() => {
@@ -414,6 +515,11 @@ export default function Chat({ route }) {
       item.tipoRemetente ===
       tipoUsuario;
 
+    const fotoRemetente =
+      item.tipoRemetente === 'motorista'
+        ? fotoMotorista
+        : fotoPassageiro;
+
     return (
       <View
         style={[
@@ -423,6 +529,25 @@ export default function Chat({ route }) {
             : styles.linhaOutra,
         ]}
       >
+
+        {!minhaMensagem && (
+          <View style={styles.avatarMensagem}>
+            {fotoRemetente ? (
+              <Image
+                source={{
+                  uri: fotoRemetente,
+                }}
+                style={styles.fotoMensagem}
+              />
+            ) : (
+              <Ionicons
+                name="person"
+                size={18}
+                color="#468B5B"
+              />
+            )}
+          </View>
+        )}
 
         <View
           style={[
@@ -485,6 +610,25 @@ export default function Chat({ route }) {
 
         </View>
 
+        {minhaMensagem && (
+          <View style={styles.avatarMensagem}>
+            {fotoRemetente ? (
+              <Image
+                source={{
+                  uri: fotoRemetente,
+                }}
+                style={styles.fotoMensagem}
+              />
+            ) : (
+              <Ionicons
+                name="person"
+                size={18}
+                color="#468B5B"
+              />
+            )}
+          </View>
+        )}
+
       </View>
     );
   };
@@ -532,23 +676,23 @@ export default function Chat({ route }) {
 
         <View style={styles.infoHeader}>
 
-          <View style={styles.avatar}>
+          <View style={styles.nomesHeader}>
 
-            <Ionicons
-              name="person"
-              size={22}
-              color="#468B5B"
-            />
+            <Text
+              style={styles.nomeMotoristaHeader}
+              numberOfLines={1}
+            >
+              Motorista: {nomeMotorista}
+            </Text>
+
+            <Text
+              style={styles.nomePassageiroHeader}
+              numberOfLines={1}
+            >
+              Passageiro: {nomePassageiro}
+            </Text>
 
           </View>
-
-          <Text
-            style={styles.nomeUsuario}
-            numberOfLines={1}
-          >
-            {nomeOutroUsuario ||
-              'Usuário'}
-          </Text>
 
         </View>
 

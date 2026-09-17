@@ -30,27 +30,46 @@ export default StyleSheet.create({
   },
 
   infoHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: 5,
     flex: 1,
+    justifyContent: 'center',
+    marginLeft: 5,
   },
 
-  avatar: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+  nomesHeader: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+
+  nomeMotoristaHeader: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+    lineHeight: 19,
+  },
+
+  nomePassageiroHeader: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+    lineHeight: 19,
+  },
+
+  avatarMensagem: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     backgroundColor: '#fff',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
+    marginHorizontal: 6,
+    alignSelf: 'flex-end',
+    overflow: 'hidden',
   },
 
-  nomeUsuario: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-    flex: 1,
+  fotoMensagem: {
+    width: '100%',
+    height: '100%',
+    borderRadius: 16,
   },
 
   areaMensagens: {
@@ -66,6 +85,7 @@ export default StyleSheet.create({
     width: '100%',
     marginBottom: 10,
     flexDirection: 'row',
+    alignItems: 'flex-end',
   },
 
   linhaMinha: {
