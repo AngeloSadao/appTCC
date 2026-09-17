@@ -2,22 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-  // GERAL
-
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
-
-  // MAPA
 
   mapContainer: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
   },
-
-  // DRAWER
 
   menuButton: {
     position: 'absolute',
@@ -32,8 +26,6 @@ export default StyleSheet.create({
     fontSize: 40,
     color: '#435E91',
   },
-
-  // PAINEL INFERIOR
 
   bottomSheet: {
     position: 'absolute',
@@ -66,8 +58,6 @@ export default StyleSheet.create({
     marginBottom: 5,
   },
 
-  // ETAPA 1
-
   title: {
     lineHeight: 45,
     fontSize: 64,
@@ -92,8 +82,6 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  // SCROLL DO FORMULÁRIO
-
   formScroll: {
     width: '100%',
     flex: 1,
@@ -104,8 +92,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 50,
   },
-
-  // ETAPA 2
 
   labelInput: {
     fontSize: 18,
@@ -136,8 +122,6 @@ export default StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Gurajada',
   },
-
-  // CHECKBOXES
 
   checkboxRow: {
     flexDirection: 'row',
@@ -174,8 +158,6 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
 
-  // ETAPA 3 - CONFIRMAÇÃO
-
   titleConfirmacao: {
     fontSize: 40,
     fontFamily: 'Gurajada',
@@ -199,7 +181,6 @@ export default StyleSheet.create({
     color: '#333',
   },
 
-  // BOTÕES
 
   button: {
     backgroundColor: '#435E91',
@@ -224,9 +205,8 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontFamily: 'Gurajada',
+    marginTop: -14,
   },
-
-  // AUTOCOMPLETE
 
   sugestaoLista: {
     width: '100%',

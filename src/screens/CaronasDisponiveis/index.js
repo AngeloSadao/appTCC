@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import 'leaflet/dist/leaflet.css';
@@ -54,9 +54,11 @@ export default function CaronasDisponiveis({ route }) {
 
   const startY = useRef(0);
 
-  useEffect(() => {
-    buscarCaronas();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      buscarCaronas();
+    }, [])
+  );
 
   async function buscarCaronas() {
     try {
@@ -94,12 +96,6 @@ export default function CaronasDisponiveis({ route }) {
     }
   }
 
-  /*
-   * O PanResponder fica SOMENTE na barrinha.
-   *
-   * Assim o ScrollView consegue receber
-   * o gesto de rolagem normalmente.
-   */
   const panResponder = PanResponder.create({
     onMoveShouldSetPanResponder: (_, gesture) => {
       return Math.abs(gesture.dy) > 5;
@@ -220,15 +216,86 @@ export default function CaronasDisponiveis({ route }) {
     return preferencias;
   }
 
-  function selecionarCarona(carona) {
-    navigation.navigate(
-      'DetalhesCarona',
-      {
-        carona: carona,
-        nome: nome,
-        idPassageiro: idPassageiro,
+  async function abrirChat(carona) {
+    try {
+      const resposta = await fetch(
+        'http://localhost/appTcc/criarConversa.php',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idCarona: carona.idCarona,
+            idPassageiro: idPassageiro,
+            idMotorista: carona.idMotorista
+          })
+        }
+      );
+
+      const texto = await resposta.text();
+
+      console.log(
+        'Resposta criar conversa passageiro:',
+        texto
+      );
+
+      let dados;
+
+      try {
+        dados = JSON.parse(texto);
+      } catch (erro) {
+        console.log(
+          'Resposta inválida do PHP:',
+          texto
+        );
+
+        window.alert(
+          'O servidor retornou uma resposta inválida.'
+        );
+
+        return;
       }
-    );
+
+      if (!dados.sucesso) {
+        window.alert(
+          dados.mensagem ||
+          'Não foi possível abrir a conversa.'
+        );
+
+        return;
+      }
+
+      const stackNavigation =
+        navigation.getParent();
+
+      if (!stackNavigation) {
+        window.alert(
+          'Não foi possível acessar a navegação principal.'
+        );
+
+        return;
+      }
+
+      stackNavigation.navigate('Chat', {
+        idConversa: dados.idConversa,
+        idCarona: carona.idCarona,
+        idPassageiro: idPassageiro,
+        idMotorista: carona.idMotorista,
+        tipoUsuario: 'passageiro',
+        nomeOutroUsuario: carona.nomeMotorista,
+      });
+
+    } catch (erro) {
+      console.log(
+        'Erro ao abrir conversa:',
+        erro
+      );
+
+      window.alert(
+        'Não foi possível abrir o chat.'
+      );
+    }
   }
 
   return (
@@ -368,11 +435,7 @@ export default function CaronasDisponiveis({ route }) {
                     )}
 
                     <button
-                      onClick={() => {
-                        window.alert(
-                          'Carona escolhida! O chat com o motorista será aberto aqui.'
-                        );
-                      }}
+                      onClick={() => abrirChat(carona)}
                       style={{
                         width: '100%',
                         padding: '9px',
@@ -488,9 +551,7 @@ export default function CaronasDisponiveis({ route }) {
                     key={carona.idCarona}
                     style={styles.caronaCard}
                     onPress={() =>
-                      selecionarCarona(
-                        carona
-                      )
+                      abrirChat(carona)
                     }
                   >
 

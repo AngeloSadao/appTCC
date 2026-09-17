@@ -12,8 +12,14 @@ import CaronasSolicitadas from '../screens/CaronasSolicitadas';
 
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 
+import HistoricoPassageiro from '../screens/HistoricoPassageiro';
+import HistoricoMotorista from '../screens/HistoricoMotorista';
+
 import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
 import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
+
+import MotoristasFavoritos from '../screens/MotoristasFavoritos';
+import MinhasBonificacoesMotorista from '../screens/MinhasBonificacoesMotorista';
 
 const Drawer = createDrawerNavigator();
 
@@ -64,6 +70,7 @@ export default function DrawerRoutes({ route }) {
         },
         headerShown: false,
       }}
+
     >
 
       {isMotorista ? (
@@ -94,6 +101,18 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
+          <Drawer.Screen
+            name="HistoricoMotorista"
+            component={HistoricoMotorista}
+            initialParams={{
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
 
           <Drawer.Screen
             name="CadastroContatosEmergenciaisMotorista"
@@ -104,6 +123,11 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
+          />
+
+          <Drawer.Screen
+            name="MinhasBonificacoesMotorista"
+            component={MinhasBonificacoesMotorista}
           />
 
         </>
@@ -125,7 +149,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-
           <Drawer.Screen
             name="CadastroContatosEmergenciais"
             component={CadastroContatosEmergenciais}
@@ -137,7 +160,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-
           <Drawer.Screen
             name="CaronasDisponiveis"
             component={CaronasDisponiveis}
@@ -148,8 +170,20 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
-          /> 
-          
+          />
+
+          <Drawer.Screen
+            name="HistoricoPassageiro"
+            component={HistoricoPassageiro}
+            initialParams={{
+              idPassageiro: idPassageiro,
+              nome: nome,
+              tipoUsuario: 'passageiro',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
 
           <Drawer.Screen
             name="CorridaFinalizadaPassageiro"
@@ -161,6 +195,11 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
+          />
+
+          <Drawer.Screen
+            name="MotoristasFavoritos"
+            component={MotoristasFavoritos}
           />
 
         </>

@@ -166,8 +166,12 @@ export default function CustomDrawerMotorista({
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, styles.buttonVerde]}
-          onPress={() => irPara('HomeMotorista')}
+          style={styles.button}
+          onPress={() =>
+            irPara('HistoricoMotorista', {
+              idMotorista: idMotorista,
+            })
+          }
         >
           <Text style={styles.buttonText}>
             Histórico de Caronas
@@ -176,7 +180,13 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
-          onPress={() => irPara('HomeMotorista')}
+          onPress={() =>
+            irPara('MinhasBonificacoesMotorista', {
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            })
+          }
         >
           <Text style={styles.buttonText}>
             Minhas Bonificações

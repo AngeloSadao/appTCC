@@ -10,6 +10,10 @@ import EditarPerfilMotorista from '../screens/EditarPerfilMotorista';
 import EditarPerfilPassageiro from '../screens/EditarPerfilPassageiro';
 import DrawerRoutes from './drawer.routes';
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
+import CorridaFinalizadaMotorista from '../screens/CorridaFinalizadaMotorista';
+import Chat from '../screens/Chat';
+import CorridaEmAndamento from '../screens/CorridaEmAndamento';
+import EnvioGorjeta from '../screens/EnvioGorjeta';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -51,14 +55,12 @@ export default function StackRoutes() {
       <Stack.Screen
         name="HomePassageiro"
         component={DrawerRoutes}
-        headerShown
         options={{ headerShown: false }}
       />
 
       <Stack.Screen
         name="HomeMotorista"
         component={DrawerRoutes}
-        headerShown
         options={{ headerShown: false }}
       />
 
@@ -89,6 +91,30 @@ export default function StackRoutes() {
       <Stack.Screen
         name="CorridaFinalizadaPassageiro"
         component={CorridaFinalizadaPassageiro}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="Chat"
+        component={Chat}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="CorridaEmAndamento"
+        component={CorridaEmAndamento}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="EnvioGorjeta"
+        component={EnvioGorjeta}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="CorridaFinalizadaMotorista"
+        component={CorridaFinalizadaMotorista}
         options={{ headerShown: false }}
       />
 

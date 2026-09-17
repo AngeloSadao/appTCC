@@ -199,8 +199,6 @@ export default function CadastroMotorista({ navigation }) {
 
       const blob = await responseImage.blob();
 
-
-      // Nome temporário da foto
       const nomeArquivo = `cnh_${Date.now()}.jpg`;
 
       const formData = new FormData();

@@ -2,23 +2,16 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-
-  // GERAL
-
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
-
-  // MAPA
 
   mapContainer: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
   },
-
-  // DRAWER
 
   menuButton: {
     position: 'absolute',
@@ -34,8 +27,6 @@ export default StyleSheet.create({
     color: '#60BC7C',
   },
 
-  // PAINEL INFERIOR
-
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
@@ -47,28 +38,14 @@ export default StyleSheet.create({
     borderColor: '#84d89f',
     padding: 20,
     alignItems: 'center',
-
-    // Sombra (iOS)
     shadowColor: '#000',
     shadowOffset: { width: 0, height: -4 },
     shadowOpacity: 0.15,
     shadowRadius: 12,
-
-    // Sombra (Android)
     elevation: 10,
-
-    // Sombra (Web — react-native-web costuma precisar disso)
     boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)',
   },
   
-  /*
-   * Área responsável apenas por arrastar
-   * o painel.
-   *
-   * O ScrollView fica livre para rolar.
-   */
-
-
   dragHandle: {
     width: 60,
     height: 6,
@@ -76,8 +53,6 @@ export default StyleSheet.create({
     backgroundColor: '#d0d0d0',
     marginBottom: 1,
   },
-
-  // ETAPA 1
 
   title: {
     lineHeight: 45,
@@ -103,8 +78,6 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  // SCROLL DAS ETAPAS 2 E 3
-
   formScroll: {
     width: '100%',
     flex: 1,
@@ -115,8 +88,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     paddingBottom: 50,
   },
-
-  // ETAPA 2
 
   labelInput: {
     fontSize: 18,
@@ -183,8 +154,6 @@ export default StyleSheet.create({
     marginLeft: 10,
   },
 
-  // ETAPA 3
-
   titleConfirmacao: {
     fontSize: 40,
     fontFamily: 'Gurajada',
@@ -207,8 +176,6 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
     color: '#333',
   },
-
-  // BOTÕES
 
   button: {
     backgroundColor: '#60BC7C',
@@ -233,9 +200,8 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontFamily: 'Gurajada',
+    marginTop: -14,
   },
-
-  // SUGESTÕES
 
   sugestaoLista: {
     width: '100%',
@@ -259,8 +225,6 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
     color: '#333',
   },
-
-  // CHAT
 
   chatMotorista: {
     fontSize: 18,
@@ -335,8 +299,6 @@ export default StyleSheet.create({
     fontSize: 35,
     color: '#333',
   },
-
-  // ETAPA 5
 
   tituloDestinoDestaque: {
     fontSize: 22,

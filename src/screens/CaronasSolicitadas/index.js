@@ -144,6 +144,90 @@ export default function CaronasSolicitadas({ route }) {
         );
     }
 
+    async function abrirChat(item) {
+        try {
+            const resposta = await fetch(
+                'http://localhost/appTcc/criarConversa.php',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        idCarona: item.idCarona,
+                        idSolicitacao: item.idSolicitacao,
+                        idPassageiro: item.idPassageiro,
+                        idMotorista: idMotorista,
+                    }),
+                }
+            );
+
+            const texto = await resposta.text();
+
+            console.log(
+                'Resposta criar conversa motorista:',
+                texto
+            );
+
+            let dados;
+
+            try {
+                dados = JSON.parse(texto);
+            } catch (erro) {
+                console.log(
+                    'Resposta inválida do PHP:',
+                    texto
+                );
+
+                window.alert(
+                    'O servidor retornou uma resposta inválida.'
+                );
+
+                return;
+            }
+
+            if (!dados.sucesso) {
+                window.alert(
+                    dados.mensagem ||
+                    'Não foi possível abrir a conversa.'
+                );
+
+                return;
+            }
+
+            const stackNavigation =
+                navigation.getParent();
+
+            if (!stackNavigation) {
+                window.alert(
+                    'Não foi possível acessar a navegação principal.'
+                );
+
+                return;
+            }
+
+            stackNavigation.navigate('Chat', {
+                idConversa: dados.idConversa,
+                idCarona: item.idCarona,
+                idSolicitacao: item.idSolicitacao,
+                idPassageiro: item.idPassageiro,
+                idMotorista: idMotorista,
+                tipoUsuario: 'motorista',
+                nomeOutroUsuario: item.nomePassageiro,
+            });
+
+        } catch (erro) {
+            console.log(
+                'Erro ao abrir conversa:',
+                erro
+            );
+
+            window.alert(
+                'Não foi possível abrir o chat.'
+            );
+        }
+    }
+
     const pontosMapa = [];
 
     solicitacoes.forEach(item => {
@@ -378,11 +462,7 @@ export default function CaronasSolicitadas({ route }) {
                                                 </div>
 
                                                 <button
-                                                    onClick={() => {
-                                                        window.alert(
-                                                            'Solicitação escolhida! O chat com o passageiro será aberto aqui.'
-                                                        );
-                                                    }}
+                                                    onClick={() => abrirChat(item)}
                                                     style={{
                                                         width: '100%',
                                                         padding: '9px',
@@ -695,7 +775,7 @@ export default function CaronasSolicitadas({ route }) {
                                                     style={
                                                         styles.botaoEscolher
                                                     }
-                                                    onPress={() => { }}
+                                                    onPress={() => abrirChat(item)}
                                                 >
 
                                                     <Text

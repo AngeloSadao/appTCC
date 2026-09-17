@@ -236,8 +236,6 @@ export default function CadastroContatosEmergenciaisMotorista({
         resizeMode="stretch"
       >
 
-        {/* MENU */}
-
         <TouchableOpacity
           style={styles.menuButton}
           onPress={() =>
@@ -251,8 +249,6 @@ export default function CadastroContatosEmergenciaisMotorista({
           <View style={styles.menuLinha} />
         </TouchableOpacity>
 
-        {/* TÍTULOS */}
-
         <View style={styles.titulosContainer}>
 
           <Text style={styles.title}>
@@ -265,11 +261,7 @@ export default function CadastroContatosEmergenciaisMotorista({
 
         </View>
 
-        {/* LINHA */}
-
         <View style={styles.linha} />
-
-        {/* CONTEÚDO ROLÁVEL */}
 
         <View style={styles.conteudo}>
 
@@ -281,8 +273,6 @@ export default function CadastroContatosEmergenciaisMotorista({
             showsVerticalScrollIndicator={true}
             nestedScrollEnabled={true}
           >
-
-            {/* CADASTRO */}
 
             <View style={styles.cardCadastro}>
 
@@ -330,8 +320,6 @@ export default function CadastroContatosEmergenciaisMotorista({
 
             </View>
 
-            {/* CONTATOS */}
-
             {contatos.map((contato) => (
 
               <View
@@ -370,8 +358,6 @@ export default function CadastroContatosEmergenciaisMotorista({
               </View>
 
             ))}
-
-            {/* CONTINUAR */}
 
             {contatos.length > 0 && (
 

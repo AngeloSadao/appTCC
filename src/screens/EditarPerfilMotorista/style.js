@@ -155,7 +155,6 @@ export default StyleSheet.create({
     color: '#285A48',
   },
 
-
   // EXCLUIR / CANCELAR
   cancelButton: {
     alignItems: 'center',

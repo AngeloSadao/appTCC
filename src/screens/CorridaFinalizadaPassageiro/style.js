@@ -45,7 +45,6 @@ export default StyleSheet.create({
         gap: 8,
     },
 
-    // ─── Card Resumo ───────────────────────────────
     containerResumo: {
         backgroundColor: '#fafafa',
         borderWidth: 5,
@@ -101,7 +100,6 @@ export default StyleSheet.create({
         color: '#404348',
     },
 
-    // ─── Card Recompensas ──────────────────────────
     containerRecompensa: {
         top: 5,
         backgroundColor: '#fafafa',
@@ -167,7 +165,6 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
     },
 
-    // ─── Card Experiência ──────────────────────────
     containerExperiencia: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -192,7 +189,6 @@ export default StyleSheet.create({
         color: '#404348',
     },
 
-    // ─── Botão Confirmar principal ─────────────────
     buttonConfirmar: {
         top: 20,
         height: 42,
@@ -246,5 +242,116 @@ export default StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         color: '#3D5A99',
+    },
+
+    carregando: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#fff',
+    },
+
+    textoCarregando: {
+        marginTop: 10,
+        fontSize: 15,
+        color: '#555',
+    },
+
+    erro: {
+        color: '#555',
+        fontSize: 16,
+    },
+
+    recompensaTitulo: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#435E91',
+        marginBottom: 5,
+    },
+
+    recompensaSubtitulo: {
+        fontSize: 12,
+        color: '#555',
+        marginBottom: 10,
+    },
+
+    gorjetasContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    botaoGorjeta: {
+        borderWidth: 1,
+        borderColor: '#9DB2D4',
+        borderRadius: 8,
+        paddingVertical: 7,
+        paddingHorizontal: 12,
+        backgroundColor: '#fff',
+    },
+
+    botaoGorjetaSelecionado: {
+        backgroundColor: '#435E91',
+    },
+
+    textoGorjeta: {
+        fontSize: 11,
+        color: '#435E91',
+        fontWeight: '500',
+    },
+
+    textoGorjetaSelecionado: {
+        color: '#fff',
+    },
+
+    inputOutroValor: {
+        height: 38,
+        borderWidth: 1,
+        borderColor: '#9DB2D4',
+        borderRadius: 8,
+        marginTop: 10,
+        paddingHorizontal: 12,
+        fontSize: 13,
+        backgroundColor: '#fff',
+    },
+
+    estrelasContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+
+    estrela: {
+        marginHorizontal: 3,
+    },
+
+    textoAvaliacao: {
+        textAlign: 'center',
+        marginTop: 5,
+        fontSize: 12,
+        color: '#666',
+    },
+
+    buttonFavorito: {
+        backgroundColor: '#468B5B',
+        height: 42,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 7,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+
+    buttonFavoritoAdicionado: {
+        backgroundColor: '#7AC992',
+    },
+
+    buttonTextFavorito: {
+        color: '#FFFFFF',
+        fontSize: 11,
+        fontWeight: 'bold',
     },
 });

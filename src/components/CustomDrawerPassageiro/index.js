@@ -118,13 +118,28 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => irPara('CorridaFinalizadaPassageiro')}
+          onPress={() =>
+            irPara('HistoricoPassageiro', {
+              idPassageiro: idPassageiro,
+            })
+          }
         >
           <Text style={styles.buttonText}>Histórico de Caronas</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Motoristas Favoritos</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            irPara('MotoristasFavoritos', {
+              idPassageiro: idPassageiro,
+              nome: nome,
+              tipoUsuario: 'passageiro',
+            })
+          }
+        >
+          <Text style={styles.buttonText}>
+            Motoristas Favoritos
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button}>

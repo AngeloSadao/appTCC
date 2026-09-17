@@ -38,10 +38,17 @@ export default function EditarPerfilMotorista({ navigation, route }) {
   const [foto, setFoto] = useState(null);
 
   useEffect(() => {
-    buscarDados();
-  }, []);
+    if (idMotorista) {
+      buscarDados();
+    }
+  }, [idMotorista]);
 
   async function buscarDados() {
+
+    if (!idMotorista) {
+      console.log('ID do motorista não informado.');
+      return;
+    }
 
     try {
 

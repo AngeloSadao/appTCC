@@ -233,8 +233,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                 resizeMode="stretch"
             >
 
-                {/* MENU */}
-
                 <TouchableOpacity
                     style={styles.menuButton}
                     onPress={() => {
@@ -248,8 +246,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                     <View style={styles.menuLinha} />
                 </TouchableOpacity>
 
-                {/* TÍTULOS */}
-
                 <View style={styles.titulosContainer}>
 
                     <Text style={styles.title}>
@@ -262,11 +258,9 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
 
                 </View>
 
-                {/* LINHA */}
 
                 <View style={styles.linha} />
 
-                {/* ÁREA DO CONTEÚDO */}
 
                 <View style={styles.conteudo}>
 
@@ -278,8 +272,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                         showsVerticalScrollIndicator={true}
                         nestedScrollEnabled={true}
                     >
-
-                        {/* CARD DE CADASTRO */}
 
                         <View style={styles.cardCadastro}>
 
@@ -295,7 +287,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                                 de emergência pelo chaveiro.
                             </Text>
 
-                            {/* NOME */}
 
                             <TextInput
                                 style={styles.input}
@@ -304,8 +295,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                                 value={nome}
                                 onChangeText={setNome}
                             />
-
-                            {/* TELEFONE */}
 
                             <TextInput
                                 style={styles.input}
@@ -320,8 +309,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                                 }
                             />
 
-                            {/* ADICIONAR */}
-
                             <TouchableOpacity
                                 style={styles.botaoAdicionar}
                                 onPress={adicionarContato}
@@ -332,8 +319,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                             </TouchableOpacity>
 
                         </View>
-
-                        {/* CONTATOS */}
 
                         {contatos.map((contato) => (
 
@@ -389,8 +374,6 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
                             </View>
 
                         ))}
-
-                        {/* CONTINUAR */}
 
                         {contatos.length > 0 && (
 
