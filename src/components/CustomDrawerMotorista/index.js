@@ -166,8 +166,12 @@ export default function CustomDrawerMotorista({
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, styles.buttonVerde]}
-          onPress={() => irPara('HomeMotorista')}
+          style={styles.button}
+          onPress={() =>
+            irPara('HistoricoMotorista', {
+              idMotorista: idMotorista,
+            })
+          }
         >
           <Text style={styles.buttonText}>
             Histórico de Caronas

@@ -103,7 +103,7 @@ export default function StackRoutes() {
       <Stack.Screen
         name="CorridaEmAndamento"
         component={CorridaEmAndamento}
-        options={{ headerShown: false, }}
+        options={{ headerShown: false }}
       />
 
       <Stack.Screen

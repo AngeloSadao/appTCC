@@ -12,6 +12,9 @@ import CaronasSolicitadas from '../screens/CaronasSolicitadas';
 
 import CorridaFinalizadaPassageiro from '../screens/CorridaFinalizadaPassageiro';
 
+import HistoricoPassageiro from '../screens/HistoricoPassageiro';
+import HistoricoMotorista from '../screens/HistoricoMotorista';
+
 import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
 import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 
@@ -94,6 +97,18 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
+          <Drawer.Screen
+            name="HistoricoMotorista"
+            component={HistoricoMotorista}
+            initialParams={{
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
 
           <Drawer.Screen
             name="CadastroContatosEmergenciaisMotorista"
@@ -125,7 +140,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-
           <Drawer.Screen
             name="CadastroContatosEmergenciais"
             component={CadastroContatosEmergenciais}
@@ -137,7 +151,6 @@ export default function DrawerRoutes({ route }) {
             }}
           />
 
-
           <Drawer.Screen
             name="CaronasDisponiveis"
             component={CaronasDisponiveis}
@@ -148,8 +161,20 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
-          /> 
-          
+          />
+
+          <Drawer.Screen
+            name="HistoricoPassageiro"
+            component={HistoricoPassageiro}
+            initialParams={{
+              idPassageiro: idPassageiro,
+              nome: nome,
+              tipoUsuario: 'passageiro',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
 
           <Drawer.Screen
             name="CorridaFinalizadaPassageiro"
