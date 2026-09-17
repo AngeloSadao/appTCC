@@ -375,22 +375,16 @@ export default function MotoristasFavoritos({ route }) {
         <View style={styles.menuContainer}>
 
           <TouchableOpacity
-            style={styles.botaoMenu}
+            style={styles.menuButton}
             onPress={() =>
-              navigation.dispatch(
-                DrawerActions.openDrawer()
-              )
+              navigation.openDrawer()
             }
           >
-
-            <Ionicons
-              name="menu-outline"
-              size={35}
-              color="#7AC992"
-            />
-
+            <Text style={styles.menuIcon}>
+              ☰
+            </Text>
           </TouchableOpacity>
-
+          
         </View>
 
         <View style={styles.conteudo}>

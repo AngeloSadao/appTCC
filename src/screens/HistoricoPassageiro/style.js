@@ -37,19 +37,18 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  menuContainer: {
+  menuButton: {
     position: 'absolute',
-    top: 30,
-    left: 30,
-    zIndex: 10,
-    marginTop: 15,
+    top: 10,
+    left: 10,
+    zIndex: 1000,
+    padding: 10,
+    borderRadius: 10,
   },
 
-  botaoMenu: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+  menuIcon: {
+    fontSize: 40,
+    color: '#7AC992',
   },
 
   cardsContainer: {

@@ -181,12 +181,11 @@ export default StyleSheet.create({
     color: '#333',
   },
 
-
   button: {
     backgroundColor: '#435E91',
-    padding: 15,
+    padding: 10,
     borderRadius: 10,
-    marginTop: 10,
+    marginTop: -3,
     marginBottom: 10,
     alignItems: 'center',
   },

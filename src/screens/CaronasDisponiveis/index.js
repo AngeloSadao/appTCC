@@ -316,7 +316,7 @@ export default function CaronasDisponiveis({ route }) {
         >
 
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           {/* MARCADORES DAS CARONAS */}
@@ -464,13 +464,13 @@ export default function CaronasDisponiveis({ route }) {
       {/* MENU */}
       <TouchableOpacity
         style={styles.menuButton}
-        onPress={() => navigation.openDrawer()}
+        onPress={() =>
+          navigation.openDrawer()
+        }
       >
-        <Ionicons
-          name="menu"
-          size={38}
-          color="#435E91"
-        />
+        <Text style={styles.menuIcon}>
+          ☰
+        </Text>
       </TouchableOpacity>
 
       {/* PAINEL */}
@@ -583,6 +583,26 @@ export default function CaronasDisponiveis({ route }) {
                         numberOfLines={1}
                       >
                         {carona.nomeMotorista}
+                      </Text>
+
+                      {/* CARRO */}
+                      <Text
+                        style={
+                          styles.origem
+                        }
+                        numberOfLines={1}
+                      >
+                        {carona.modeloCarro}
+                      </Text>
+
+                      {/* PLACA */}
+                      <Text
+                        style={
+                          styles.origem
+                        }
+                        numberOfLines={1}
+                      >
+                        Placa: {carona.placaCarro}
                       </Text>
 
                       {/* ORIGEM */}

@@ -235,15 +235,13 @@ export default function CadastroContatosEmergenciais({ navigation, route }) {
 
                 <TouchableOpacity
                     style={styles.menuButton}
-                    onPress={() => {
-                        navigation.dispatch(
-                            DrawerActions.openDrawer()
-                        );
-                    }}
+                    onPress={() =>
+                        navigation.openDrawer()
+                    }
                 >
-                    <View style={styles.menuLinha} />
-                    <View style={styles.menuLinha} />
-                    <View style={styles.menuLinha} />
+                    <Text style={styles.menuIcon}>
+                        ☰
+                    </Text>
                 </TouchableOpacity>
 
                 <View style={styles.titulosContainer}>

@@ -13,18 +13,18 @@ export default StyleSheet.create({
         height: '100%',
     },
 
-    menuContainer: {
+    menuButton: {
         position: 'absolute',
-        top: 42,
-        left: 27,
-        zIndex: 20,
+        top: 10,
+        left: 10,
+        zIndex: 1000,
+        padding: 10,
+        borderRadius: 10,
     },
 
-    botaoMenu: {
-        width: 45,
-        height: 45,
-        alignItems: 'center',
-        justifyContent: 'center',
+    menuIcon: {
+        fontSize: 40,
+        color: '#7AC992',
     },
 
     titulosContainer: {
