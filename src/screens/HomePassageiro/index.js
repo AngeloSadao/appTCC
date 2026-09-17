@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import {
   View,
   Text,
@@ -860,14 +862,15 @@ export default function HomePassageiro({ route }) {
                 Você está em:
               </Text>
 
-              <TextInput
-                style={styles.inputField}
-                placeholder="Origem"
-                value={origemTexto}
-                onChangeText={
-                  setOrigemTexto
-                }
-              />
+              <View style={styles.inputFieldWrapper}>
+                <TextInput
+                  style={styles.inputFieldInner}
+                  placeholder="Origem"
+                  value={origemTexto}
+                  onChangeText={setOrigemTexto}
+                />
+                <Ionicons name="pencil-outline" size={18} color="#468B5B" />
+              </View>
 
               {sugestoesOrigem.length >
                 0 && (
@@ -1072,13 +1075,10 @@ export default function HomePassageiro({ route }) {
                   Motorista do sexo masculino
                 </Text>
 
-                <View
-                  style={
-                    preferencias.motoristaMasculino
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.motoristaMasculino
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
 
               </TouchableOpacity>
 
@@ -1099,13 +1099,10 @@ export default function HomePassageiro({ route }) {
                   Motorista do sexo feminino
                 </Text>
 
-                <View
-                  style={
-                    preferencias.motoristaFeminino
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.motoristaFeminino
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
 
               </TouchableOpacity>
 
@@ -1126,13 +1123,9 @@ export default function HomePassageiro({ route }) {
                   Carona com pet
                 </Text>
 
-                <View
-                  style={
-                    preferencias.comPet
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.comPet
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
 
               </TouchableOpacity>
 
@@ -1153,13 +1146,9 @@ export default function HomePassageiro({ route }) {
                   Carona para mais de uma pessoa
                 </Text>
 
-                <View
-                  style={
-                    preferencias.maisDeUma
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.maisDeUma
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
 
               </TouchableOpacity>
 
@@ -1393,56 +1382,40 @@ export default function HomePassageiro({ route }) {
                 </>
               )}
 
-              <Text
-                style={styles.labelInput}
-              >
+              <Text style={styles.labelInput}>
                 Preferências selecionadas:
               </Text>
 
-              {preferencias.motoristaMasculino && (
-                <Text
-                  style={styles.infoText}
-                >
-                  • Motorista do sexo masculino
-                </Text>
-              )}
-
-              {preferencias.motoristaFeminino && (
-                <Text
-                  style={styles.infoText}
-                >
-                  • Motorista do sexo feminino
-                </Text>
-              )}
-
-              {preferencias.comPet && (
-                <Text
-                  style={styles.infoText}
-                >
-                  • Carona com pet
-                </Text>
-              )}
-
-              {preferencias.maisDeUma && (
-                <Text
-                  style={styles.infoText}
-                >
-                  • Mais de uma pessoa
-                </Text>
-              )}
-
-              {!preferencias.motoristaMasculino &&
-                !preferencias.motoristaFeminino &&
-                !preferencias.comPet &&
-                !preferencias.maisDeUma && (
-
-                  <Text
-                    style={styles.infoText}
-                  >
-                    • Nenhuma preferência selecionada
+              <View style={styles.infoRow}>
+                {preferencias.motoristaMasculino && (
+                  <Text style={styles.infoText}>
+                    • Motorista do sexo masculino
                   </Text>
-
                 )}
+                {preferencias.motoristaFeminino && (
+                  <Text style={styles.infoText}>
+                    • Motorista do sexo feminino
+                  </Text>
+                )}
+                {preferencias.comPet && (
+                  <Text style={styles.infoText}>
+                    • Carona com pet
+                  </Text>
+                )}
+                {preferencias.maisDeUma && (
+                  <Text style={styles.infoText}>
+                    • Mais de uma pessoa
+                  </Text>
+                )}
+                {!preferencias.motoristaMasculino &&
+                  !preferencias.motoristaFeminino &&
+                  !preferencias.comPet &&
+                  !preferencias.maisDeUma && (
+                    <Text style={styles.infoText}>
+                      • Nenhuma preferência selecionada
+                    </Text>
+                  )}
+              </View>
 
               <View
                 style={{

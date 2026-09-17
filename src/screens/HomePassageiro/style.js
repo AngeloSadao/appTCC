@@ -101,7 +101,31 @@ export default StyleSheet.create({
     color: '#333',
   },
 
+  inputFieldWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#d6eedd',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#468B5B',
+    width: '100%',
+    marginBottom: 4,
+  },
+
+  inputFieldInner: {
+    flex: 1,
+    padding: 8,
+    fontSize: 16,
+    fontFamily: 'Gurajada',
+  },
+
+  inputIcon: {
+    paddingHorizontal: 8,
+    fontSize: 16,
+  },
+
   inputField: {
+    backgroundColor: '#d6eedd',
     borderWidth: 1,
     borderColor: '#468B5B',
     borderRadius: 8,
@@ -113,6 +137,7 @@ export default StyleSheet.create({
   },
 
   input: {
+    backgroundColor: '#d6eedd',
     borderWidth: 1,
     borderColor: '#468B5B',
     borderRadius: 8,
@@ -147,6 +172,10 @@ export default StyleSheet.create({
     borderWidth: 1,
     borderColor: '#468B5B',
     marginLeft: 10,
+    color: '#fff',
+    fontSize: 14,
+    textAlign: 'center',
+    lineHeight: 20,
   },
 
   checkboxInativo: {
@@ -167,8 +196,9 @@ export default StyleSheet.create({
   },
 
   infoRow: {
+    backgroundColor: '#d6eedd',
     borderWidth: 1,
-    borderColor: '#435E91',
+    borderColor: '#468B5B',
     borderRadius: 8,
     padding: 8,
     width: '100%',
