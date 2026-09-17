@@ -61,36 +61,48 @@ export default function Login({ navigation }) {
 
       console.log('Resposta do login:', dados);
 
-      if (dados.sucesso) {
-
-        // PASSAGEIRO
-        if (dados.tipoUsuario === 'passageiro') {
-
-          navigation.navigate('HomePassageiro', {
-            nome: dados.nome,
-            idPassageiro: dados.id,
-            tipoUsuario: 'passageiro'
-          });
-
-        }
-
-        // MOTORISTA
-        else if (dados.tipoUsuario === 'motorista') {
-
-          navigation.navigate('HomeMotorista', {
-            nome: dados.nome,
-            idMotorista: dados.id,
-            tipoUsuario: 'motorista'
-          });
-
-        }
-
-      } else {
-
+      if (!dados.sucesso) {
         mostrarAlert(
           'Erro no login',
           dados.mensagem
         );
+        return;
+      }
+
+      // PASSAGEIRO
+      if (dados.tipoUsuario === 'passageiro') {
+
+        console.log(
+          'Entrando como passageiro:',
+          dados.id,
+          dados.nome
+        );
+
+        navigation.navigate('HomePassageiro', {
+          nome: dados.nome,
+          idPassageiro: dados.id,
+          tipoUsuario: 'passageiro'
+        });
+
+        return;
+      }
+
+      // MOTORISTA
+      if (dados.tipoUsuario === 'motorista') {
+
+        console.log(
+          'Entrando como motorista:',
+          dados.id,
+          dados.nome
+        );
+
+        navigation.navigate('HomeMotorista', {
+          nome: dados.nome,
+          idMotorista: dados.id,
+          tipoUsuario: 'motorista'
+        });
+
+        return;
       }
 
     } catch (error) {
@@ -103,7 +115,6 @@ export default function Login({ navigation }) {
       );
     }
   }
-
 
   return (
     <View style={styles.container}>
