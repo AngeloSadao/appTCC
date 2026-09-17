@@ -13,8 +13,6 @@ export default StyleSheet.create({
         height: '100%',
     },
 
-    // Menu
-
     menuButton: {
         position: 'absolute',
         top: 390,
@@ -32,8 +30,6 @@ export default StyleSheet.create({
         backgroundColor: '#7D9BE6',
         borderRadius: 2,
     },
-
-    // Títulos
 
     titulosContainer: {
         position: 'absolute',
@@ -69,8 +65,6 @@ export default StyleSheet.create({
         backgroundColor: '#AAB3BB',
     },
 
-    // Conteúdo
-
     conteudo: {
         position: 'absolute',
         top: 460,
@@ -91,8 +85,6 @@ export default StyleSheet.create({
         paddingBottom: 30,
     },
 
-    // Card de cadastro
-
     cardCadastro: {
         backgroundColor: '#FAFAFA',
         borderWidth: 4,
@@ -110,8 +102,6 @@ export default StyleSheet.create({
         lineHeight: 13,
     },
 
-    // Inputs
-
     input: {
         width: '100%',
         height: 36,
@@ -125,9 +115,6 @@ export default StyleSheet.create({
         color: '#404348',
         textAlign: 'center',
     },
-
-
-    // Botão Adicionar
 
     botaoAdicionar: {
         width: '80%',
@@ -144,8 +131,6 @@ export default StyleSheet.create({
         fontSize: 22,
         fontWeight: 'bold',
     },
-
-    // Contatos adicionados
 
     contatoCard: {
         width: '100%',
@@ -181,10 +166,6 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         color: '#526EAA',
     },
-
-    // ─────────────────────────────────────
-    // Botão Continuar
-    // ─────────────────────────────────────
 
     botaoContinuar: {
         width: '100%',

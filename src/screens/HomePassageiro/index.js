@@ -27,8 +27,6 @@ import {
 
 import styles from './style';
 
-// FORMATAR DATA
-
 const formatarData = (texto) => {
   const numeros = texto.replace(/\D/g, '').slice(0, 8);
 
@@ -49,8 +47,6 @@ const formatarData = (texto) => {
   );
 };
 
-// FORMATAR HORÁRIO
-
 const formatarHorario = (texto) => {
   const numeros = texto.replace(/\D/g, '').slice(0, 4);
 
@@ -60,8 +56,6 @@ const formatarHorario = (texto) => {
 
   return numeros.slice(0, 2) + ':' + numeros.slice(2);
 };
-
-// ÍCONE DO MAPA
 
 const icon = new L.Icon({
   iconUrl:
@@ -73,8 +67,6 @@ const icon = new L.Icon({
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
-
-// COMPONENTE DO MAPA
 
 function AtualizarMapa({ origem, destino }) {
   const map = useMap();
@@ -95,8 +87,6 @@ function AtualizarMapa({ origem, destino }) {
   return null;
 }
 
-// HOME PASSAGEIRO
-
 export default function HomePassageiro({ route }) {
 
   const nome = route.params?.nome ?? 'Usuário';
@@ -104,15 +94,11 @@ export default function HomePassageiro({ route }) {
 
   const navigation = useNavigation();
 
-  // DADOS DA SOLICITAÇÃO
-
   const [origemTexto, setOrigemTexto] = useState('');
   const [destinoTexto, setDestinoTexto] = useState('');
   const [dataSolicitacao, setDataSolicitacao] = useState('');
   const [horarioSolicitacao, setHorarioSolicitacao] = useState('');
   const [quantidadePassageiros, setQuantidadePassageiros] = useState('');
-
-  // PREFERÊNCIAS
 
   const [preferencias, setPreferencias] = useState({
     motoristaMasculino: false,
@@ -136,8 +122,6 @@ export default function HomePassageiro({ route }) {
     });
   }
 
-  // AUTOCOMPLETE
-
   const [sugestoesOrigem, setSugestoesOrigem] = useState([]);
   const [sugestoesDestino, setSugestoesDestino] = useState([]);
 
@@ -147,15 +131,9 @@ export default function HomePassageiro({ route }) {
   const selecionouOrigem = useRef(false);
   const selecionouDestino = useRef(false);
 
-  // ROTA
-
   const [rota, setRota] = useState([]);
 
-  // ETAPAS
-
   const [etapa, setEtapa] = useState(1);
-
-  // ANIMAÇÕES
 
   const alturaAnim = useRef(
     new Animated.Value(220)
@@ -181,8 +159,6 @@ export default function HomePassageiro({ route }) {
     alturas[etapa] - alturaVisivel;
 
   const startY = useRef(0);
-
-  // BUSCAR SUGESTÕES
 
   async function buscarSugestoes(texto, tipo) {
 
@@ -225,7 +201,6 @@ export default function HomePassageiro({ route }) {
     }
   }
 
-  // AUTOCOMPLETE ORIGEM
 
   useEffect(() => {
 
@@ -247,7 +222,6 @@ export default function HomePassageiro({ route }) {
 
   }, [origemTexto]);
 
-  // AUTOCOMPLETE DESTINO
 
   useEffect(() => {
 
@@ -269,7 +243,6 @@ export default function HomePassageiro({ route }) {
 
   }, [destinoTexto]);
 
-  // CALCULAR ROTA
 
   async function calcularRota(
     cOrigem,
@@ -331,8 +304,6 @@ export default function HomePassageiro({ route }) {
 
   }, [coordOrigem, coordDestino]);
 
-  // MUDAR ETAPA
-
   function mudarEtapa(novaEtapa) {
 
     const novaAltura =
@@ -385,8 +356,6 @@ export default function HomePassageiro({ route }) {
     });
   }
 
-  // LIMPAR SOLICITAÇÃO
-
   function limparSolicitacao() {
 
     setOrigemTexto('');
@@ -411,7 +380,6 @@ export default function HomePassageiro({ route }) {
     });
   }
 
-  // VALIDAR SOLICITAÇÃO
 
   function validarSolicitacao() {
 
@@ -475,8 +443,6 @@ export default function HomePassageiro({ route }) {
 
     return true;
   }
-
-  // CONFIRMAR SOLICITAÇÃO
 
   async function confirmarSolicitacao() {
 
@@ -629,8 +595,6 @@ export default function HomePassageiro({ route }) {
     }
   }
 
-  // PAN RESPONDER
-
   const panResponder =
     PanResponder.create({
 
@@ -729,12 +693,8 @@ export default function HomePassageiro({ route }) {
         },
     });
 
-  // INTERFACE
-
   return (
     <View style={styles.container}>
-
-      {/* MAPA */}
 
       <View style={styles.mapContainer}>
 
@@ -795,8 +755,6 @@ export default function HomePassageiro({ route }) {
 
       </View>
 
-      {/* MENU */}
-
       <TouchableOpacity
         style={styles.menuButton}
         onPress={() =>
@@ -807,8 +765,6 @@ export default function HomePassageiro({ route }) {
           ☰
         </Text>
       </TouchableOpacity>
-
-      {/* PAINEL */}
 
       <Animated.View
         style={[
@@ -824,8 +780,6 @@ export default function HomePassageiro({ route }) {
           },
         ]}
       >
-
-        {/* BARRINHA PARA ARRASTAR */}
 
         <View
           {...panResponder.panHandlers}
@@ -843,8 +797,6 @@ export default function HomePassageiro({ route }) {
             alignItems: 'center',
           }}
         >
-
-          {/* ETAPA 1 */}
 
           {etapa === 1 && (
             <>
@@ -884,8 +836,6 @@ export default function HomePassageiro({ route }) {
             </>
           )}
 
-          {/* ETAPA 2 */}
-
           {etapa === 2 && (
             <ScrollView
               style={styles.formScroll}
@@ -895,8 +845,6 @@ export default function HomePassageiro({ route }) {
               showsVerticalScrollIndicator={true}
               nestedScrollEnabled={true}
             >
-
-              {/* ORIGEM */}
 
               <Text
                 style={styles.labelInput}
@@ -977,8 +925,6 @@ export default function HomePassageiro({ route }) {
                   </ScrollView>
                 )}
 
-              {/* DESTINO */}
-
               <Text
                 style={styles.labelInput}
               >
@@ -1058,8 +1004,6 @@ export default function HomePassageiro({ route }) {
                   </ScrollView>
                 )}
 
-              {/* DATA */}
-
               <Text
                 style={styles.labelInput}
               >
@@ -1078,8 +1022,6 @@ export default function HomePassageiro({ route }) {
                 keyboardType="numeric"
                 maxLength={10}
               />
-
-              {/* HORÁRIO */}
 
               <Text
                 style={styles.labelInput}
@@ -1100,15 +1042,11 @@ export default function HomePassageiro({ route }) {
                 maxLength={5}
               />
 
-              {/* PREFERÊNCIAS */}
-
               <Text
                 style={styles.labelInput}
               >
                 Preferências:
               </Text>
-
-              {/* MOTORISTA MASCULINO */}
 
               <TouchableOpacity
                 style={styles.checkboxRow}
@@ -1137,8 +1075,6 @@ export default function HomePassageiro({ route }) {
 
               </TouchableOpacity>
 
-              {/* MOTORISTA FEMININO */}
-
               <TouchableOpacity
                 style={styles.checkboxRow}
                 onPress={() =>
@@ -1165,8 +1101,6 @@ export default function HomePassageiro({ route }) {
                 />
 
               </TouchableOpacity>
-
-              {/* PET */}
 
               <TouchableOpacity
                 style={styles.checkboxRow}
@@ -1195,8 +1129,6 @@ export default function HomePassageiro({ route }) {
 
               </TouchableOpacity>
 
-              {/* MAIS DE UMA PESSOA */}
-
               <TouchableOpacity
                 style={styles.checkboxRow}
                 onPress={() =>
@@ -1223,8 +1155,6 @@ export default function HomePassageiro({ route }) {
                 />
 
               </TouchableOpacity>
-
-              {/* QUANTIDADE */}
 
               {preferencias.maisDeUma && (
                 <>
@@ -1258,8 +1188,6 @@ export default function HomePassageiro({ route }) {
                 </>
               )}
 
-              {/* AVANÇAR */}
-
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
@@ -1284,8 +1212,6 @@ export default function HomePassageiro({ route }) {
             </ScrollView>
           )}
 
-          {/* ETAPA 3 */}
-
           {etapa === 3 && (
             <ScrollView
               style={styles.formScroll}
@@ -1304,8 +1230,6 @@ export default function HomePassageiro({ route }) {
                 Confirmar solicitação
               </Text>
 
-              {/* PASSAGEIRO */}
-
               <Text
                 style={styles.labelInput}
               >
@@ -1321,8 +1245,6 @@ export default function HomePassageiro({ route }) {
                   {nome}
                 </Text>
               </View>
-
-              {/* DATA */}
 
               <Text
                 style={styles.labelInput}
@@ -1340,8 +1262,6 @@ export default function HomePassageiro({ route }) {
                 </Text>
               </View>
 
-              {/* HORÁRIO */}
-
               <Text
                 style={styles.labelInput}
               >
@@ -1357,8 +1277,6 @@ export default function HomePassageiro({ route }) {
                   {horarioSolicitacao}
                 </Text>
               </View>
-
-              {/* ORIGEM */}
 
               <Text
                 style={styles.labelInput}
@@ -1376,8 +1294,6 @@ export default function HomePassageiro({ route }) {
                 </Text>
               </View>
 
-              {/* DESTINO */}
-
               <Text
                 style={styles.labelInput}
               >
@@ -1393,8 +1309,6 @@ export default function HomePassageiro({ route }) {
                   {destinoTexto}
                 </Text>
               </View>
-
-              {/* QUANTIDADE */}
 
               {preferencias.maisDeUma && (
                 <>
@@ -1419,8 +1333,6 @@ export default function HomePassageiro({ route }) {
                   </View>
                 </>
               )}
-
-              {/* PREFERÊNCIAS */}
 
               <Text
                 style={styles.labelInput}
@@ -1473,7 +1385,6 @@ export default function HomePassageiro({ route }) {
 
                 )}
 
-              {/* BOTÃO FINAL */}
 
               <TouchableOpacity
                 style={

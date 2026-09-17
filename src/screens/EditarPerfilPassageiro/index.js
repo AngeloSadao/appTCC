@@ -136,9 +136,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
     try {
 
       console.log('ID DO PASSAGEIRO:', idPassageiro);
-
-      // 1. Atualizar os dados do passageiro
-
       const response = await fetch(
         'http://localhost/appTcc/editarPassageiro.php',
         {
@@ -176,8 +173,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         return;
       }
 
-
-      // 2. Se escolheu uma nova foto, enviar a foto
 
       if (foto && !foto.startsWith('http')) {
 
@@ -222,9 +217,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         }
       }
 
-
-      // 3. Tudo deu certo
-
       Alert.alert(
         'Sucesso',
         'Perfil atualizado com sucesso!'
@@ -251,17 +243,12 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         showsVerticalScrollIndicator={false}
       >
 
-        {/* CABEÇALHO */}
-
         <ImageBackground
           source={require('../../../assets/backgroundCadastroGoTogether.png')}
           style={styles.backgroundImage}
           resizeMode="stretch"
         >
         </ImageBackground>
-
-
-        {/* TÍTULO */}
 
         <View style={styles.titleArea}>
 
@@ -274,8 +261,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
           </Text>
 
         </View>
-
-        {/* FOTO */}
 
         <TouchableOpacity
           style={styles.fotoContainer}
@@ -359,9 +344,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
               autoCapitalize="none"
             />
           </View>
-
-
-          {/* ENDEREÇO */}
 
           <Text style={styles.sectionTitle}>
             Endereço
@@ -467,9 +449,6 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
             />
           </View>
         </View>
-
-
-        {/* BOTÃO */}
 
         <TouchableOpacity
           style={styles.button}

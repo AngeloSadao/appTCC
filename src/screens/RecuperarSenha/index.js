@@ -207,7 +207,6 @@ export default function RecuperarSenha({ navigation }) {
           <View style={styles.radioContainer}>
 
             {/* PASSAGEIRO */}
-
             <TouchableOpacity
               style={styles.option}
               onPress={() =>
@@ -238,7 +237,6 @@ export default function RecuperarSenha({ navigation }) {
 
 
             {/* MOTORISTA */}
-
             <TouchableOpacity
               style={styles.option}
               onPress={() =>

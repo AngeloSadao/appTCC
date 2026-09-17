@@ -45,7 +45,6 @@ export default StyleSheet.create({
         gap: 8,
     },
 
-    // ─── Card Resumo ───────────────────────────────
     containerResumo: {
         backgroundColor: '#fafafa',
         borderWidth: 5,
@@ -101,7 +100,6 @@ export default StyleSheet.create({
         color: '#404348',
     },
 
-    // ─── Card Recompensas ──────────────────────────
     containerRecompensa: {
         top: 5,
         backgroundColor: '#fafafa',
@@ -167,7 +165,6 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
     },
 
-    // ─── Card Experiência ──────────────────────────
     containerExperiencia: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -192,7 +189,6 @@ export default StyleSheet.create({
         color: '#404348',
     },
 
-    // ─── Botão Confirmar principal ─────────────────
     buttonConfirmar: {
         top: 20,
         height: 42,

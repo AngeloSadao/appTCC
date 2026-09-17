@@ -55,14 +55,12 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  // LINHA COM DOIS CAMPOS
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
   },
 
-  // CAMPO DA ESQUERDA
   inputHalfLeft: {
     width: '48%',
     height: 46,
@@ -85,7 +83,6 @@ export default StyleSheet.create({
     elevation: 1,
   },
 
-  // CAMPO DA DIREITA
   inputHalfRight: {
     width: '48%',
     height: 46,
@@ -178,8 +175,6 @@ export default StyleSheet.create({
   overlay: {
     flex: 1,
     paddingHorizontal: 18,
-
-    // Mantém o formulário abaixo da logo
     paddingTop: 130,
   },
 

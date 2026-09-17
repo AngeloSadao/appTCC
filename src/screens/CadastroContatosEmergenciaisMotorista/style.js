@@ -13,8 +13,6 @@ export default StyleSheet.create({
     height: '100%',
   },
 
-  // MENU
-
   menuButton: {
     position: 'absolute',
     top: 390,
@@ -32,8 +30,6 @@ export default StyleSheet.create({
     backgroundColor: '#60BC7C',
     borderRadius: 2,
   },
-
-  // TÍTULOS
 
   titulosContainer: {
     position: 'absolute',
@@ -71,8 +67,6 @@ export default StyleSheet.create({
     zIndex: 10,
   },
 
-  // ÁREA DOS CONTATOS
-
   conteudo: {
     position: 'absolute',
     top: 460,
@@ -93,8 +87,6 @@ export default StyleSheet.create({
     paddingBottom: 30,
   },
 
-  // CARD DE CADASTRO
-
   cardCadastro: {
     width: '100%',
     backgroundColor: '#FAFAFA',
@@ -113,8 +105,6 @@ export default StyleSheet.create({
     lineHeight: 13,
   },
 
-  // INPUTS
-
   input: {
     width: '100%',
     height: 36,
@@ -128,8 +118,6 @@ export default StyleSheet.create({
     color: '#404348',
     textAlign: 'center',
   },
-
-  // BOTÃO ADICIONAR
 
   botaoAdicionar: {
     width: '80%',
@@ -146,8 +134,6 @@ export default StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
   },
-
-  // CONTATOS
 
   contatoCard: {
     width: '100%',
@@ -183,8 +169,6 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     color: '#2b795c',
   },
-
-  // BOTÃO CONTINUAR
 
   botaoContinuar: {
     width: '100%',

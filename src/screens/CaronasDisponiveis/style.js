@@ -2,20 +2,17 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
 
-  // GERAL
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
 
-  // MAPA
   mapContainer: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
   },
 
-  // MENU
   menuButton: {
     position: 'absolute',
     top: 10,
@@ -30,7 +27,6 @@ export default StyleSheet.create({
     color: '#526EAA',
   },
 
-  // PAINEL
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
@@ -43,7 +39,6 @@ export default StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 4,
     alignItems: 'center',
-
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -51,14 +46,11 @@ export default StyleSheet.create({
     },
     shadowOpacity: 0.15,
     shadowRadius: 10,
-
     elevation: 10,
-
     boxShadow:
       '0px -4px 12px rgba(0, 0, 0, 0.15)',
   },
 
-  // ÁREA DA BARRINHA
   dragArea: {
     width: '100%',
     height: 28,
@@ -66,7 +58,6 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  // BARRINHA
   dragHandle: {
     width: 55,
     height: 6,
@@ -74,7 +65,6 @@ export default StyleSheet.create({
     backgroundColor: '#cfcfcf',
   },
 
-  // TÍTULO
   tituloContainer: {
     width: '100%',
     height: 48,
@@ -90,20 +80,17 @@ export default StyleSheet.create({
     color: '#526EAA',
   },
 
-  // SCROLL DA LISTA
   listaScroll: {
     width: '100%',
     flex: 1,
   },
 
-  // LISTA
   lista: {
     width: '100%',
     alignItems: 'center',
     paddingBottom: 20,
   },
 
-  // CARD DA CARONA
   caronaCard: {
     width: '100%',
     minHeight: 105,
@@ -117,7 +104,6 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
-  // ÍCONE USUÁRIO
   usuarioIcon: {
     width: 44,
     height: 44,
@@ -132,7 +118,6 @@ export default StyleSheet.create({
     fontSize: 24,
   },
 
-  // INFORMAÇÕES
   informacoes: {
     flex: 1,
     paddingRight: 8,
@@ -178,7 +163,6 @@ export default StyleSheet.create({
     marginTop: 3,
   },
 
-  // VAGAS
   vagasContainer: {
     width: 72,
     minHeight: 70,
@@ -206,7 +190,6 @@ export default StyleSheet.create({
     textAlign: 'center',
   },
 
-  // MENSAGEM
   mensagem: {
     fontSize: 17,
     fontFamily: 'Gurajada',
