@@ -155,6 +155,7 @@ export default function CaronasSolicitadas({ route }) {
                     },
                     body: JSON.stringify({
                         idCarona: item.idCarona,
+                        idSolicitacao: item.idSolicitacao,
                         idPassageiro: item.idPassageiro,
                         idMotorista: idMotorista,
                     }),

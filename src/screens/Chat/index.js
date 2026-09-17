@@ -156,7 +156,7 @@ export default function Chat({ route }) {
 
     try {
       const resposta = await fetch(
-        `${API_URL}/buscarCorridaPorCarona.php?idCarona=${idCarona}`
+       `${API_URL}/buscarCorridaPorCarona.php?idCarona=${idCarona}&idPassageiro=${idPassageiro}`
       );
 
       const texto = await resposta.text();

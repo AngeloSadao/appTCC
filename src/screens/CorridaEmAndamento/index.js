@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -48,6 +48,8 @@ export default function CorridaEmAndamento({ route }) {
   const [carregando, setCarregando] = useState(true);
   const [finalizando, setFinalizando] = useState(false);
 
+  const navegandoParaFinalizada = useRef(false);
+
   useEffect(() => {
     buscarCorrida();
 
@@ -78,13 +80,30 @@ export default function CorridaEmAndamento({ route }) {
 
       const dados = JSON.parse(texto);
 
-      if (dados.sucesso) {
-        setCorrida(dados.corrida);
+      if (!dados.sucesso || !dados.corrida) {
+        setCarregando(false);
+        return;
+      }
 
-        if (
-          dados.corrida.status === 'finalizada' &&
-          tipoUsuario === 'passageiro'
-        ) {
+      const corridaAtual = dados.corrida;
+
+      console.log(
+        'Status da corrida:',
+        corridaAtual.status
+      );
+
+      console.log(
+        'Gorjeta confirmada:',
+        corridaAtual.gorjetaConfirmada
+      );
+
+      if (
+        corridaAtual.status === 'finalizada' &&
+        tipoUsuario === 'passageiro'
+      ) {
+        if (!navegandoParaFinalizada.current) {
+          navegandoParaFinalizada.current = true;
+
           navigation.replace(
             'CorridaFinalizadaPassageiro',
             {
@@ -93,21 +112,47 @@ export default function CorridaEmAndamento({ route }) {
               idMotorista,
               idPassageiro,
               tipoUsuario: 'passageiro',
+              nomePassageiro:
+                corridaAtual.nomeCompletoPassageiro,
             }
           );
         }
-      } else {
-        window.alert(
-          dados.mensagem ||
-          'Não foi possível carregar a corrida.'
-        );
+
+        return;
       }
 
+      if (
+        corridaAtual.status === 'finalizada' &&
+        tipoUsuario === 'motorista' &&
+        Number(corridaAtual.gorjetaConfirmada) === 1
+      ) {
+        if (!navegandoParaFinalizada.current) {
+          navegandoParaFinalizada.current = true;
+
+          navigation.replace(
+            'CorridaFinalizadaMotorista',
+            {
+              idCorrida,
+              idCarona,
+              idMotorista,
+              idPassageiro,
+              tipoUsuario: 'motorista',
+            }
+          );
+        }
+
+        return;
+      }
+
+      setCorrida(corridaAtual);
+
     } catch (erro) {
+
       console.log(
         'Erro ao buscar corrida:',
         erro
       );
+
     } finally {
       setCarregando(false);
     }
@@ -166,18 +211,12 @@ export default function CorridaEmAndamento({ route }) {
         return;
       }
 
-      navigation.replace(
-        'CorridaFinalizadaMotorista',
-        {
-          idCorrida,
-          idCarona,
-          idMotorista,
-          idPassageiro,
-          tipoUsuario: 'motorista',
-        }
+      window.alert(
+        'Corrida finalizada! Aguardando a confirmação do passageiro.'
       );
 
     } catch (erro) {
+
       console.log(
         'Erro ao finalizar corrida:',
         erro
@@ -252,9 +291,9 @@ export default function CorridaEmAndamento({ route }) {
   const centroMapa =
     origemValida
       ? [
-          latitudeOrigem,
-          longitudeOrigem,
-        ]
+        latitudeOrigem,
+        longitudeOrigem,
+      ]
       : [-24.4979, -47.8449];
 
   return (

@@ -18,6 +18,7 @@ export default function CorridaFinalizadaPassageiro({ navigation, route }) {
     idCarona,
     idMotorista,
     idPassageiro,
+    nomePassageiro,
   } = route.params || {};
 
   const [corrida, setCorrida] = useState(null);
@@ -96,9 +97,9 @@ export default function CorridaFinalizadaPassageiro({ navigation, route }) {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos((lat1 * Math.PI) / 180) *
-        Math.cos((lat2 * Math.PI) / 180) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distancia = R * c;
@@ -152,16 +153,25 @@ export default function CorridaFinalizadaPassageiro({ navigation, route }) {
   }
 
   function confirmar() {
+    if (!gorjetaSelecionada) {
+      window.alert('Escolha um valor de gorjeta.');
+      return;
+    }
+
     if (avaliacao === 0) {
       window.alert('Selecione uma avaliação de 1 a 5 estrelas.');
       return;
     }
 
-    window.alert(
-      `Avaliação de ${avaliacao} estrela${avaliacao > 1 ? 's' : ''} registrada!`
-    );
-
-    navigation.navigate('Login');
+    navigation.navigate('EnvioGorjeta', {
+      idCorrida,
+      idCarona,
+      idMotorista,
+      idPassageiro,
+      nomePassageiro,
+      valorGorjeta: gorjetaSelecionada,
+      avaliacao,
+    });
   }
 
   if (carregando) {
@@ -274,14 +284,14 @@ export default function CorridaFinalizadaPassageiro({ navigation, route }) {
                   style={[
                     styles.botaoGorjeta,
                     gorjetaSelecionada === opcao &&
-                      styles.botaoGorjetaSelecionado,
+                    styles.botaoGorjetaSelecionado,
                   ]}
                 >
                   <Text
                     style={[
                       styles.textoGorjeta,
                       gorjetaSelecionada === opcao &&
-                        styles.textoGorjetaSelecionado,
+                      styles.textoGorjetaSelecionado,
                     ]}
                   >
                     {opcao}
