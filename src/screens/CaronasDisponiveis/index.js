@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
 import 'leaflet/dist/leaflet.css';
@@ -54,9 +54,11 @@ export default function CaronasDisponiveis({ route }) {
 
   const startY = useRef(0);
 
-  useEffect(() => {
-    buscarCaronas();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      buscarCaronas();
+    }, [])
+  );
 
   async function buscarCaronas() {
     try {
@@ -226,8 +228,8 @@ export default function CaronasDisponiveis({ route }) {
           body: JSON.stringify({
             idCarona: carona.idCarona,
             idPassageiro: idPassageiro,
-            idMotorista: carona.idMotorista,
-          }),
+            idMotorista: carona.idMotorista
+          })
         }
       );
 
@@ -639,15 +641,15 @@ export default function CaronasDisponiveis({ route }) {
                         carona.maisDeUma
                       ) === 1 && (
 
-                        <Text
-                          style={
-                            styles.preferencias
-                          }
-                        >
-                          Aceita mais de uma pessoa
-                        </Text>
+                          <Text
+                            style={
+                              styles.preferencias
+                            }
+                          >
+                            Aceita mais de uma pessoa
+                          </Text>
 
-                      )}
+                        )}
 
                     </View>
 

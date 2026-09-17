@@ -209,6 +209,7 @@ export default function CaronasSolicitadas({ route }) {
             stackNavigation.navigate('Chat', {
                 idConversa: dados.idConversa,
                 idCarona: item.idCarona,
+                idSolicitacao: item.idSolicitacao,
                 idPassageiro: item.idPassageiro,
                 idMotorista: idMotorista,
                 tipoUsuario: 'motorista',

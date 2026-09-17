@@ -24,6 +24,7 @@ export default function Chat({ route }) {
   const {
     idConversa,
     idCarona,
+    idSolicitacao,
     idPassageiro,
     idMotorista,
     tipoUsuario,
@@ -156,7 +157,7 @@ export default function Chat({ route }) {
 
     try {
       const resposta = await fetch(
-       `${API_URL}/buscarCorridaPorCarona.php?idCarona=${idCarona}&idPassageiro=${idPassageiro}`
+        `${API_URL}/buscarCorridaPorCarona.php?idCarona=${idCarona}&idPassageiro=${idPassageiro}`
       );
 
       const texto = await resposta.text();
@@ -315,6 +316,7 @@ export default function Chat({ route }) {
           },
           body: JSON.stringify({
             idCarona,
+            idSolicitacao,
             idMotorista,
             idPassageiro,
           }),
