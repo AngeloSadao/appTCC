@@ -180,8 +180,10 @@ export default function CadastroCarro({ navigation, route }) {
                     'Motorista e carro cadastrados com sucesso!'
                 );
 
-                navigation.navigate('HomePassageiro', {
-                    nome: nomeMotorista
+                navigation.navigate('HomeMotorista', {
+                    nome: nomeMotorista,
+                    idMotorista: idMotorista,
+                    tipoUsuario: 'motorista'
                 });
 
             }
@@ -258,70 +260,71 @@ export default function CadastroCarro({ navigation, route }) {
 
                     <View style={styles.containerInput}>
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Modelo"
-                        placeholderTextColor="#7D9BE6"
-                        value={modeloCarro}
-                        onChangeText={setModeloCarro}
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Ano do carro"
-                        placeholderTextColor="#7D9BE6"
-                        value={anoCarro}
-                        onChangeText={setAnoCarro}
-                        keyboardType="numeric"
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Placa"
-                        placeholderTextColor="#7D9BE6"
-                        value={placaCarro}
-                        onChangeText={setPlacaCarro}
-                        autoCapitalize="characters"
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Cor"
-                        placeholderTextColor="#7D9BE6"
-                        value={corCarro}
-                        onChangeText={setCorCarro}
-                    />
-
-                    <TouchableOpacity
-                        style={styles.input}
-                        onPress={escolherFotoCarro}
-                    >
-                        <Ionicons
-                            name="image-outline"
-                            size={20}
-                            color="#4D6CB3"
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Modelo"
+                            placeholderTextColor="#7D9BE6"
+                            value={modeloCarro}
+                            onChangeText={setModeloCarro}
                         />
 
-                        <Text style={styles.fotoButtonText}>
-                            {fotoCarro
-                                ? 'Foto do carro selecionada'
-                                : 'Foto do carro'}
-                        </Text>
-
-                    </TouchableOpacity>
-
-                    {fotoCarro && (
-                        <Image
-                            source={{ uri: fotoCarro }}
-                            style={{
-                                width: '100%',
-                                height: 100,
-                                borderRadius: 10,
-                                marginBottom: 15,
-                            }}
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Ano do carro"
+                            placeholderTextColor="#7D9BE6"
+                            value={anoCarro}
+                            onChangeText={setAnoCarro}
+                            keyboardType="numeric"
                         />
-                    )}
-                    
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Placa"
+                            placeholderTextColor="#7D9BE6"
+                            value={placaCarro}
+                            onChangeText={setPlacaCarro}
+                            autoCapitalize="characters"
+                        />
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Cor"
+                            placeholderTextColor="#7D9BE6"
+                            value={corCarro}
+                            onChangeText={setCorCarro}
+                        />
+
+                        <TouchableOpacity
+                            style={styles.input}
+                            onPress={escolherFotoCarro}
+                        >
+
+                            <Ionicons
+                                name="image-outline"
+                                size={20}
+                                color="#4D6CB3"
+                            />
+
+                            <Text style={styles.fotoButtonText}>
+                                {fotoCarro
+                                    ? 'Foto do carro selecionada'
+                                    : 'Foto do carro'}
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        {fotoCarro && (
+                            <Image
+                                source={{ uri: fotoCarro }}
+                                style={{
+                                    width: '100%',
+                                    height: 100,
+                                    borderRadius: 10,
+                                    marginBottom: 15,
+                                }}
+                            />
+                        )}
+
                     </View>
 
                     <TouchableOpacity

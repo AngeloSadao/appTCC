@@ -47,6 +47,7 @@ export default function CorridaEmAndamento({ route }) {
   const [corrida, setCorrida] = useState(null);
   const [carregando, setCarregando] = useState(true);
   const [finalizando, setFinalizando] = useState(false);
+  const [rota, setRota] = useState([]);
 
   const navegandoParaFinalizada = useRef(false);
 
@@ -157,6 +158,53 @@ export default function CorridaEmAndamento({ route }) {
       setCarregando(false);
     }
   }
+
+  async function calcularRota(cOrigem, cDestino) {
+    if (!cOrigem || !cDestino) return;
+
+    const url =
+      'https://router.project-osrm.org/route/v1/driving/' +
+      cOrigem[1] + ',' + cOrigem[0] + ';' +
+      cDestino[1] + ',' + cDestino[0] +
+      '?overview=full&geometries=geojson';
+
+    try {
+      const resposta = await fetch(url);
+      const dados = await resposta.json();
+
+      if (dados.routes && dados.routes.length > 0) {
+        const coords = dados.routes[0].geometry.coordinates;
+        const latlngs = coords.map(c => [c[1], c[0]]);
+        setRota(latlngs);
+      } else {
+        setRota([]);
+      }
+    } catch (erro) {
+      console.log('Erro ao calcular rota:', erro);
+      setRota([]);
+    }
+  }
+
+  useEffect(() => {
+    if (corrida) {
+      const latitudeOrigem = Number(corrida.latitudeOrigem);
+      const longitudeOrigem = Number(corrida.longitudeOrigem);
+      const latitudeDestino = Number(corrida.latitudeDestino);
+      const longitudeDestino = Number(corrida.longitudeDestino);
+
+      if (
+        Number.isFinite(latitudeOrigem) &&
+        Number.isFinite(longitudeOrigem) &&
+        Number.isFinite(latitudeDestino) &&
+        Number.isFinite(longitudeDestino)
+      ) {
+        calcularRota(
+          [latitudeOrigem, longitudeOrigem],
+          [latitudeDestino, longitudeDestino]
+        );
+      }
+    }
+  }, [corrida]);
 
   async function finalizarCorrida() {
     if (
@@ -272,22 +320,6 @@ export default function CorridaEmAndamento({ route }) {
     Number.isFinite(latitudeDestino) &&
     Number.isFinite(longitudeDestino);
 
-  const pontosRota = [];
-
-  if (origemValida) {
-    pontosRota.push([
-      latitudeOrigem,
-      longitudeOrigem,
-    ]);
-  }
-
-  if (destinoValido) {
-    pontosRota.push([
-      latitudeDestino,
-      longitudeDestino,
-    ]);
-  }
-
   const centroMapa =
     origemValida
       ? [
@@ -313,7 +345,7 @@ export default function CorridaEmAndamento({ route }) {
         >
 
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           {origemValida && (
@@ -348,9 +380,9 @@ export default function CorridaEmAndamento({ route }) {
             </Marker>
           )}
 
-          {pontosRota.length === 2 && (
+          {rota.length > 0 && (
             <Polyline
-              positions={pontosRota}
+              positions={rota}
               color="#468B5B"
               weight={5}
             />
