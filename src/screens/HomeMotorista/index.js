@@ -265,6 +265,14 @@ export default function HomeMotorista({ route }) {
     });
   }
 
+  function voltarEtapa() {
+    if (etapa === 3) {
+      mudarEtapa(2);
+    } else if (etapa === 2) {
+      mudarEtapa(1);
+    }
+  }
+
   function limparCarona() {
     setOrigemTexto('');
     setDestinoTexto('');
@@ -889,18 +897,68 @@ export default function HomeMotorista({ route }) {
                 </>
               )}
 
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  if (validarCarona()) {
-                    mudarEtapa(3);
-                  }
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 8,
+                  marginTop: 5,
+                  paddingHorizontal: 10,
+                  boxSizing: 'border-box',
                 }}
               >
-                <Text style={styles.buttonText}>
-                  →
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={voltarEtapa}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#468B5B',
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    ←
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#468B5B',
+                  }}
+                  onPress={() => {
+                    if (validarCarona()) {
+                      mudarEtapa(3);
+                    }
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    →
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
             </ScrollView>
           )}
@@ -1024,15 +1082,58 @@ export default function HomeMotorista({ route }) {
                   </Text>
                 )}
 
-              {/* BOTÃO FINAL */}
-              <TouchableOpacity
-                style={styles.buttonConfirmar}
-                onPress={confirmarCarona}
+              {/* BOTÕES FINAIS */}
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 8,
+                  marginTop: 5,
+                  paddingHorizontal: 10,
+                  boxSizing: 'border-box',
+                }}
               >
-                <Text style={styles.buttonText}>
-                  Confirmar carona
-                </Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={voltarEtapa}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#468B5B',
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    ←
+                  </Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                  style={[
+                    styles.buttonConfirmar,
+                    {
+                      width: '65%',
+                      height: 38,
+                      margin: 0,
+                    },
+                  ]}
+                  onPress={confirmarCarona}
+                >
+                  <Text style={styles.buttonText}>
+                    Confirmar carona
+                  </Text>
+                </TouchableOpacity>
+              </View>
 
             </ScrollView>
           )}

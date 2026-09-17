@@ -205,6 +205,7 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontFamily: 'Gurajada',
+    marginTop: -14,
   },
 
   sugestaoLista: {

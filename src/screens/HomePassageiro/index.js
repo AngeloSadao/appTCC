@@ -356,6 +356,14 @@ export default function HomePassageiro({ route }) {
     });
   }
 
+  function voltarEtapa() {
+    if (etapa === 3) {
+      mudarEtapa(2);
+    } else if (etapa === 2) {
+      mudarEtapa(1);
+    }
+  }
+
   function limparSolicitacao() {
 
     setOrigemTexto('');
@@ -919,7 +927,6 @@ export default function HomePassageiro({ route }) {
                           </Text>
 
                         </TouchableOpacity>
-
                       )
                     )}
                   </ScrollView>
@@ -1188,26 +1195,78 @@ export default function HomePassageiro({ route }) {
                 </>
               )}
 
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-
-                  if (
-                    validarSolicitacao()
-                  ) {
-                    mudarEtapa(3);
-                  }
-
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 8,
+                  marginTop: 5,
+                  paddingHorizontal: 10,
+                  boxSizing: 'border-box',
                 }}
               >
 
-                <Text
-                  style={styles.buttonText}
+                <TouchableOpacity
+                  onPress={voltarEtapa}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#4563A0',
+                  }}
                 >
-                  →
-                </Text>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    ←
+                  </Text>
+                </TouchableOpacity>
 
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.button,
+                    {
+                      width: 38,
+                      height: 38,
+                      borderRadius: 10,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    },
+                  ]}
+                  onPress={() => {
+
+                    if (
+                      validarSolicitacao()
+                    ) {
+                      mudarEtapa(3);
+                    }
+
+                  }}
+                >
+
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    →
+                  </Text>
+
+                </TouchableOpacity>
+
+              </View>
 
             </ScrollView>
           )}
@@ -1385,23 +1444,63 @@ export default function HomePassageiro({ route }) {
 
                 )}
 
-
-              <TouchableOpacity
-                style={
-                  styles.buttonConfirmar
-                }
-                onPress={
-                  confirmarSolicitacao
-                }
+              <View
+                style={{
+                  flexDirection: 'row',
+                  width: '100%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: 10,
+                  marginTop: 5,
+                }}
               >
 
-                <Text
-                  style={styles.buttonText}
+                <TouchableOpacity
+                  onPress={voltarEtapa}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#4563A0',
+                  }}
                 >
-                  Confirmar solicitação
-                </Text>
+                  <Text
+                    style={{
+                      color: '#FFFFFF',
+                      fontSize: 25,
+                      fontWeight: 'bold',
+                      lineHeight: 28,
+                    }}
+                  >
+                    ←
+                  </Text>
+                </TouchableOpacity>
 
-              </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.buttonConfirmar,
+                    {
+                      width: '65%',
+                      height: 38,
+                      margin: 0,
+                    },
+                  ]}
+                  onPress={
+                    confirmarSolicitacao
+                  }
+                >
+
+                  <Text
+                    style={styles.buttonText}
+                  >
+                    Confirmar solicitação
+                  </Text>
+
+                </TouchableOpacity>
+
+              </View>
 
             </ScrollView>
           )}

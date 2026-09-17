@@ -18,6 +18,8 @@ import HistoricoMotorista from '../screens/HistoricoMotorista';
 import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
 import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 
+import MotoristasFavoritos from '../screens/MotoristasFavoritos';
+
 const Drawer = createDrawerNavigator();
 
 export default function DrawerRoutes({ route }) {
@@ -67,6 +69,7 @@ export default function DrawerRoutes({ route }) {
         },
         headerShown: false,
       }}
+
     >
 
       {isMotorista ? (
@@ -186,6 +189,11 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
+          />
+
+          <Drawer.Screen
+            name="MotoristasFavoritos"
+            component={MotoristasFavoritos}
           />
 
         </>

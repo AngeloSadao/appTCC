@@ -332,4 +332,26 @@ export default StyleSheet.create({
         fontSize: 12,
         color: '#666',
     },
+
+    buttonFavorito: {
+        backgroundColor: '#468B5B',
+        height: 42,
+        borderRadius: 10,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 7,
+        marginTop: 5,
+        marginBottom: 5,
+    },
+
+    buttonFavoritoAdicionado: {
+        backgroundColor: '#7AC992',
+    },
+
+    buttonTextFavorito: {
+        color: '#FFFFFF',
+        fontSize: 11,
+        fontWeight: 'bold',
+    },
 });
