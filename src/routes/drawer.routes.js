@@ -19,6 +19,7 @@ import CustomDrawerPassageiro from '../components/CustomDrawerPassageiro';
 import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 
 import MotoristasFavoritos from '../screens/MotoristasFavoritos';
+import MinhasBonificacoesMotorista from '../screens/MinhasBonificacoesMotorista';
 
 const Drawer = createDrawerNavigator();
 
@@ -122,6 +123,11 @@ export default function DrawerRoutes({ route }) {
             options={{
               headerShown: false,
             }}
+          />
+
+          <Drawer.Screen
+            name="MinhasBonificacoesMotorista"
+            component={MinhasBonificacoesMotorista}
           />
 
         </>

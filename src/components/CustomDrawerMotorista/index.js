@@ -180,7 +180,13 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
-          onPress={() => irPara('HomeMotorista')}
+          onPress={() =>
+            irPara('MinhasBonificacoesMotorista', {
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            })
+          }
         >
           <Text style={styles.buttonText}>
             Minhas Bonificações
