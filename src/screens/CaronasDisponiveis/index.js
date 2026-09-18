@@ -39,7 +39,6 @@ export default function CaronasDisponiveis({ route }) {
   const [caronas, setCaronas] = useState([]);
   const [carregando, setCarregando] = useState(true);
 
-  // PAINEL
   const alturaPainel = 500;
   const alturaFechada = 55;
   const fechadoY = alturaPainel - alturaFechada;
@@ -216,10 +215,15 @@ export default function CaronasDisponiveis({ route }) {
     return preferencias;
   }
 
-  async function abrirChat(carona) {
+  async function confirmarCarona(carona) {
     try {
+      if (!idPassageiro || !carona?.idCarona || !carona?.idMotorista) {
+        window.alert('Dados da carona incompletos.');
+        return;
+      }
+
       const resposta = await fetch(
-        'http://localhost/appTcc/criarConversa.php',
+        'http://localhost/appTcc/confirmarCarona.php',
         {
           method: 'POST',
           headers: {
@@ -228,15 +232,17 @@ export default function CaronasDisponiveis({ route }) {
           body: JSON.stringify({
             idCarona: carona.idCarona,
             idPassageiro: idPassageiro,
-            idMotorista: carona.idMotorista
-          })
+            idMotorista: carona.idMotorista,
+            idSolicitacao: carona.idSolicitacao ?? null,
+            tipoUsuario: 'passageiro',
+          }),
         }
       );
 
       const texto = await resposta.text();
 
       console.log(
-        'Resposta criar conversa passageiro:',
+        'Resposta confirmação passageiro:',
         texto
       );
 
@@ -260,7 +266,15 @@ export default function CaronasDisponiveis({ route }) {
       if (!dados.sucesso) {
         window.alert(
           dados.mensagem ||
-          'Não foi possível abrir a conversa.'
+          'Não foi possível confirmar a carona.'
+        );
+
+        return;
+      }
+
+      if (!dados.pronto) {
+        window.alert(
+          'Carona confirmada! Agora aguarde a confirmação do motorista para liberar o chat.'
         );
 
         return;
@@ -280,6 +294,7 @@ export default function CaronasDisponiveis({ route }) {
       stackNavigation.navigate('Chat', {
         idConversa: dados.idConversa,
         idCarona: carona.idCarona,
+        idSolicitacao: dados.idSolicitacao || carona.idSolicitacao,
         idPassageiro: idPassageiro,
         idMotorista: carona.idMotorista,
         tipoUsuario: 'passageiro',
@@ -288,15 +303,16 @@ export default function CaronasDisponiveis({ route }) {
 
     } catch (erro) {
       console.log(
-        'Erro ao abrir conversa:',
+        'Erro ao confirmar carona:',
         erro
       );
 
       window.alert(
-        'Não foi possível abrir o chat.'
+        'Não foi possível confirmar a carona.'
       );
     }
   }
+
 
   return (
     <View style={styles.container}>
@@ -435,7 +451,7 @@ export default function CaronasDisponiveis({ route }) {
                     )}
 
                     <button
-                      onClick={() => abrirChat(carona)}
+                      onClick={() => confirmarCarona(carona)}
                       style={{
                         width: '100%',
                         padding: '9px',
@@ -551,7 +567,7 @@ export default function CaronasDisponiveis({ route }) {
                     key={carona.idCarona}
                     style={styles.caronaCard}
                     onPress={() =>
-                      abrirChat(carona)
+                      confirmarCarona(carona)
                     }
                   >
 

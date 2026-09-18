@@ -16,7 +16,7 @@ export default StyleSheet.create({
 
   header: {
     height: 70,
-    backgroundColor: '#468B5B',
+    backgroundColor: '#526EAA',
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
@@ -177,7 +177,7 @@ export default StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 23,
-    backgroundColor: '#468B5B',
+    backgroundColor: '#526EAA',
     justifyContent: 'center',
     alignItems: 'center',
   },

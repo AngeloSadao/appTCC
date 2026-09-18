@@ -543,7 +543,7 @@ export default function Chat({ route }) {
               <Ionicons
                 name="person"
                 size={18}
-                color="#468B5B"
+                color="#526EAA"
               />
             )}
           </View>
@@ -623,7 +623,7 @@ export default function Chat({ route }) {
               <Ionicons
                 name="person"
                 size={18}
-                color="#468B5B"
+                color="#526EAA"
               />
             )}
           </View>
@@ -640,7 +640,7 @@ export default function Chat({ route }) {
 
         <ActivityIndicator
           size="large"
-          color="#468B5B"
+          color="#526EAA"
         />
 
       </View>
@@ -769,8 +769,8 @@ export default function Chat({ route }) {
             borderRadius: 10,
             backgroundColor:
               iniciandoCorrida
-                ? '#9AB9A3'
-                : '#468B5B',
+                ? '#a9b3c7'
+                : '#526EAA',
             alignItems: 'center',
             justifyContent: 'center',
             flexDirection: 'row',

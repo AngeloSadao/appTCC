@@ -45,7 +45,7 @@ export default StyleSheet.create({
   titulo: {
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#468B5B',
+    color: '#526EAA',
     textAlign: 'center',
     marginBottom: 12,
   },
@@ -91,20 +91,20 @@ export default StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#468B5B',
+    backgroundColor: '#526EAA',
     marginRight: 7,
   },
 
   statusTexto: {
     fontSize: 14,
-    color: '#468B5B',
+    color: '#526EAA',
     fontWeight: 'bold',
   },
 
   botaoFinalizar: {
     height: 48,
     borderRadius: 10,
-    backgroundColor: '#468B5B',
+    backgroundColor: '#526EAA',
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',

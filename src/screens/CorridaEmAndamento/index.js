@@ -284,7 +284,7 @@ export default function CorridaEmAndamento({ route }) {
       <View style={styles.carregando}>
         <ActivityIndicator
           size="large"
-          color="#468B5B"
+          color="#526EAA"
         />
       </View>
     );
@@ -383,7 +383,7 @@ export default function CorridaEmAndamento({ route }) {
           {rota.length > 0 && (
             <Polyline
               positions={rota}
-              color="#468B5B"
+              color="#526EAA"
               weight={5}
             />
           )}
@@ -399,7 +399,7 @@ export default function CorridaEmAndamento({ route }) {
           <Ionicons
             name="arrow-back"
             size={24}
-            color="#468B5B"
+            color="#526EAA"
           />
         </TouchableOpacity>
 
@@ -418,7 +418,7 @@ export default function CorridaEmAndamento({ route }) {
           <Ionicons
             name="person-outline"
             size={21}
-            color="#468B5B"
+            color="#526EAA"
           />
 
           <View style={styles.textos}>
@@ -444,7 +444,7 @@ export default function CorridaEmAndamento({ route }) {
           <Ionicons
             name="location-outline"
             size={21}
-            color="#468B5B"
+            color="#526EAA"
           />
 
           <View style={styles.textos}>
@@ -469,7 +469,7 @@ export default function CorridaEmAndamento({ route }) {
           <Ionicons
             name="flag-outline"
             size={21}
-            color="#468B5B"
+            color="#526EAA"
           />
 
           <View style={styles.textos}>
