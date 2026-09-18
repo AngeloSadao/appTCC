@@ -38,6 +38,7 @@ export default StyleSheet.create({
     borderColor: '#435E91',
     padding: 20,
     alignItems: 'center',
+
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -46,8 +47,8 @@ export default StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 12,
     elevation: 10,
-    boxShadow:
-      '0px -4px 12px rgba(0, 0, 0, 0.15)',
+
+    boxShadow: '0px -4px 12px rgba(0, 0, 0, 0.15)',
   },
 
   dragHandle: {
@@ -90,36 +91,75 @@ export default StyleSheet.create({
   formScrollContent: {
     width: '100%',
     alignItems: 'center',
-    paddingBottom: 50,
+    paddingTop: 0,
+    paddingBottom: 25,
   },
 
   labelInput: {
-    fontSize: 18,
+    fontSize: 22,
+    lineHeight: 22,
     fontFamily: 'Gurajada',
     alignSelf: 'flex-start',
-    marginTop: 8,
-    color: '#333',
+    marginTop: 5,
+    marginBottom: 3,
+    color: '#435E91',
+  },
+
+  inputFieldWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#D3DEF5',
+    borderRadius: 6,
+    outlineStyle: 'none',
+    borderWidth: 1,
+    borderColor: '#435E91',
+    width: '100%',
+    height: 32,
+    marginBottom: 3,
+  },
+
+  inputFieldInner: {
+    flex: 1,
+    outlineStyle: 'none',
+    paddingHorizontal: 9,
+    paddingVertical: 0,
+    height: 30,
+    fontSize: 18,
+    fontFamily: 'Gurajada',
+  },
+
+  inputIcon: {
+    paddingHorizontal: 8,
+    fontSize: 18,
   },
 
   inputField: {
+    backgroundColor: '#D3DEF5',
     borderWidth: 1,
-    borderColor: '#468B5B',
-    borderRadius: 8,
-    padding: 8,
+    borderColor: '#435E91',
+    borderRadius: 6,
+    outlineStyle: 'none',
+    paddingHorizontal: 9,
+    paddingVertical: 0,
     width: '100%',
-    marginBottom: 4,
-    fontSize: 16,
+    height: 34,
+    marginBottom: 3,
+    fontSize: 18,
     fontFamily: 'Gurajada',
   },
 
   input: {
+    backgroundColor: '#D3DEF5',
     borderWidth: 1,
-    borderColor: '#468B5B',
-    borderRadius: 8,
-    padding: 8,
+    outlineStyle: 'none',
+    borderColor: '#435E91',
+    borderRadius: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 0,
     width: '100%',
-    marginBottom: 4,
-    fontSize: 16,
+    height: 34,
+    marginBottom: 3,
+    fontSize: 18,
     fontFamily: 'Gurajada',
   },
 
@@ -128,12 +168,13 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    marginBottom: 8,
-    minHeight: 28,
+    marginBottom: 2,
+    minHeight: 27,
   },
 
   checkboxLabel: {
-    fontSize: 16,
+    fontSize: 19,
+    lineHeight: 21,
     fontFamily: 'Gurajada',
     color: '#333',
     flex: 1,
@@ -143,10 +184,14 @@ export default StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 4,
-    backgroundColor: '#468B5B',
+    backgroundColor: '#435E91',
     borderWidth: 1,
-    borderColor: '#468B5B',
+    borderColor: '#435E91',
     marginLeft: 10,
+    color: '#fff',
+    fontSize: 14,
+    textAlign: 'center',
+    lineHeight: 19,
   },
 
   checkboxInativo: {
@@ -159,24 +204,30 @@ export default StyleSheet.create({
   },
 
   titleConfirmacao: {
-    fontSize: 40,
+    fontSize: 34,
+    lineHeight: 34,
     fontFamily: 'Gurajada',
     color: '#333',
-    marginBottom: 5,
+    marginTop: 0,
+    marginBottom: 2,
     textAlign: 'center',
   },
 
   infoRow: {
+    backgroundColor: '#D3DEF5',
     borderWidth: 1,
     borderColor: '#435E91',
-    borderRadius: 8,
-    padding: 8,
+    borderRadius: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
     width: '100%',
-    marginBottom: 4,
+    marginBottom: 3,
+    minHeight: 32,
   },
 
   infoText: {
-    fontSize: 16,
+    fontSize: 18,
+    lineHeight: 21,
     fontFamily: 'Gurajada',
     color: '#333',
   },
@@ -190,6 +241,7 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
+  /* BOTÃO DE CONFIRMAR MANTIDO */
   buttonConfirmar: {
     backgroundColor: '#435E91',
     padding: 15,
@@ -212,20 +264,21 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 4,
-    maxHeight: 120,
+    borderRadius: 6,
+    marginBottom: 2,
+    maxHeight: 100,
     overflow: 'hidden',
   },
 
   sugestaoItem: {
-    padding: 8,
+    padding: 6,
     borderBottomWidth: 1,
     borderBottomColor: '#eee',
   },
 
   sugestaoTexto: {
     fontSize: 13,
+    lineHeight: 15,
     fontFamily: 'Gurajada',
     color: '#333',
   },
