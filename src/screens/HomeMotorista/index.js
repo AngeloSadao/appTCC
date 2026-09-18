@@ -805,13 +805,10 @@ export default function HomeMotorista({ route }) {
                   Passageiro do sexo masculino
                 </Text>
 
-                <View
-                  style={
-                    preferencias.passageiroMasculino
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.passageiroMasculino
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
               </TouchableOpacity>
 
               {/* FEMININO */}
@@ -827,13 +824,10 @@ export default function HomeMotorista({ route }) {
                   Passageiro do sexo feminino
                 </Text>
 
-                <View
-                  style={
-                    preferencias.passageiroFeminino
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.passageiroFeminino
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
               </TouchableOpacity>
 
               {/* PET */}
@@ -847,13 +841,10 @@ export default function HomeMotorista({ route }) {
                   Carona com pet
                 </Text>
 
-                <View
-                  style={
-                    preferencias.comPet
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.comPet
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
               </TouchableOpacity>
 
               {/* MAIS DE UMA PESSOA */}
@@ -867,13 +858,10 @@ export default function HomeMotorista({ route }) {
                   Carona para mais de uma pessoa
                 </Text>
 
-                <View
-                  style={
-                    preferencias.maisDeUma
-                      ? styles.checkboxAtivo
-                      : styles.checkboxInativo
-                  }
-                />
+                {preferencias.maisDeUma
+                  ? <Text style={styles.checkboxAtivo}>✓</Text>
+                  : <View style={styles.checkboxInativo} />}
+
               </TouchableOpacity>
 
               {preferencias.maisDeUma && (
@@ -922,7 +910,7 @@ export default function HomeMotorista({ route }) {
                 >
                   <Text
                     style={{
-                      color: '#FFFFFF',
+                      color: '#FF FFFF',
                       fontSize: 25,
                       fontWeight: 'bold',
                       lineHeight: 28,
