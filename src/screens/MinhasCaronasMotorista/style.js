@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
   titulosContainer: {
     position: 'absolute',
-    top: 370,
+    top: 285,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -23,7 +23,7 @@ export default StyleSheet.create({
 
   title: {
     color: '#526EAA',
-    fontSize: 50,
+    fontSize: 55,
     fontFamily: 'Gurajada',
     lineHeight: 32,
     userSelect: 'none',
@@ -31,13 +31,20 @@ export default StyleSheet.create({
 
   title2: {
     color: '#7AC992',
-    fontSize: 35,
+    fontSize: 38,
     fontFamily: 'Gurajada',
     lineHeight: 22,
     userSelect: 'none',
   },
 
- menuButton: {
+  menuContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 1000,
+  },
+
+  menuButton: {
     position: 'absolute',
     top: 10,
     left: 10,
@@ -53,7 +60,7 @@ export default StyleSheet.create({
 
   cardsContainer: {
     position: 'absolute',
-    top: 460,
+    top: 360,
     left: 0,
     right: 0,
     bottom: 0,
@@ -149,43 +156,22 @@ export default StyleSheet.create({
     color: '#404348',
   },
 
-  avaliacaoTexto: {
-    fontSize: 8,
-    fontWeight: 'bold',
-    color: '#468B5B',
-    marginTop: 2,
-  },
-
-  avaliacaoContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  estrela: {
-    marginRight: 1,
-  },
-
-  gorjetaContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#e1f2e5',
+  botaoCancelar: {
+    width: '100%',
+    height: 32,
+    backgroundColor: '#C94A4A',
     borderRadius: 8,
-    paddingVertical: 5,
-    paddingHorizontal: 8,
-    marginTop: 2,
+    marginTop: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
   },
 
-  gorjetaLabel: {
-    fontSize: 8,
-    color: '#468B5B',
-    fontWeight: 'bold',
-  },
-
-  gorjetaValor: {
+  textoBotaoCancelar: {
     fontSize: 9,
-    color: '#468B5B',
     fontWeight: 'bold',
+    color: '#FFFFFF',
   },
 
   carregando: {
