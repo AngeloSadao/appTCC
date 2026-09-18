@@ -18,6 +18,14 @@ const mostrarAlert = (titulo, mensagem) => {
   }
 };
 
+const mostrarConfirmacao = (titulo, mensagem) => {
+  if (typeof window !== 'undefined') {
+    return window.confirm(`${titulo}\n\n${mensagem}`);
+  }
+
+  return true;
+};
+
 export default function RecuperarSenha({ navigation }) {
 
   const [email, setEmail] = useState('');
@@ -34,7 +42,7 @@ export default function RecuperarSenha({ navigation }) {
 
     if (!email || !novaSenha) {
 
-      mostrarAlert( 
+      mostrarAlert(
         'Atenção',
         'Preencha o email e a nova senha.'
       );
@@ -42,6 +50,14 @@ export default function RecuperarSenha({ navigation }) {
       return;
     }
 
+    const confirmou = mostrarConfirmacao(
+      'Confirmação',
+      'Tem certeza que quer alterar a senha?'
+    );
+
+    if (!confirmou) {
+      return;
+    }
 
     try {
 
@@ -78,17 +94,12 @@ export default function RecuperarSenha({ navigation }) {
 
       if (dados.sucesso) {
 
-        mostrarAlert( 
+        mostrarAlert(
           'Sucesso!',
-          'Senha alterada com sucesso.',
-          [
-            {
-              text: 'OK',
-              onPress: () =>
-                navigation.navigate('Login')
-            }
-          ]
+          'Senha alterada com sucesso.'
         );
+
+        navigation.navigate('Login');
 
       } else {
 
@@ -284,12 +295,18 @@ export default function RecuperarSenha({ navigation }) {
             onPress={() =>
               navigation.navigate('Login')
             }
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 5,
+              padding: 5,
+            }}
           >
-
-            <Text style={styles.voltar}>
-              Voltar para o login
-            </Text>
-
+            <Ionicons
+              name="arrow-back"
+              size={30}
+              color="#6C92E6"
+            />
           </TouchableOpacity>
 
 
@@ -302,4 +319,3 @@ export default function RecuperarSenha({ navigation }) {
   );
 
 }
-
