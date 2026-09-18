@@ -1221,16 +1221,14 @@ export default function HomePassageiro({ route }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  style={[
-                    styles.button,
-                    {
-                      width: 38,
-                      height: 38,
-                      borderRadius: 10,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    },
-                  ]}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#4563A0',
+                  }}
                   onPress={() => {
 
                     if (

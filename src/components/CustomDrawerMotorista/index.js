@@ -315,6 +315,21 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
+          onPress={() =>
+            irPara('MinhasCaronasMotorista', {
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            })
+          }
+        >
+          <Text style={styles.buttonText}>
+            Minhas Caronas
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, styles.buttonVerdeClaro]}
           onPress={() => {
             props.navigation.navigate('CaronasSolicitadas', {
               idMotorista: idMotorista,

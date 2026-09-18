@@ -21,6 +21,9 @@ import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 import MotoristasFavoritos from '../screens/MotoristasFavoritos';
 import MinhasBonificacoesMotorista from '../screens/MinhasBonificacoesMotorista';
 
+import MinhasCaronasMotorista from '../screens/MinhasCaronasMotorista';
+import MinhasCaronasPassageiro from '../screens/MinhasCaronasPassageiro';
+
 const Drawer = createDrawerNavigator();
 
 export default function DrawerRoutes({ route }) {
@@ -130,6 +133,19 @@ export default function DrawerRoutes({ route }) {
             component={MinhasBonificacoesMotorista}
           />
 
+          <Drawer.Screen
+            name="MinhasCaronasMotorista"
+            component={MinhasCaronasMotorista}
+            initialParams={{
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            }}
+            options={{
+              headerShown: false,
+            }}
+          />
+
         </>
 
       ) : (
@@ -200,6 +216,19 @@ export default function DrawerRoutes({ route }) {
           <Drawer.Screen
             name="MotoristasFavoritos"
             component={MotoristasFavoritos}
+          />
+
+          <Drawer.Screen
+            name="MinhasCaronasPassageiro"
+            component={MinhasCaronasPassageiro}
+            initialParams={{
+              idPassageiro: idPassageiro,
+              nome: nome,
+              tipoUsuario: 'passageiro',
+            }}
+            options={{
+              headerShown: false,
+            }}
           />
 
         </>

@@ -17,7 +17,7 @@ export default StyleSheet.create({
   },
 
   title: {
-    marginTop: 310,
+    marginTop: 360,
     color: '#526EAA',
     alignSelf: 'center',
     fontSize: 45,
