@@ -146,7 +146,7 @@ export default function CaronasSolicitadas({ route }) {
 
     async function confirmarSolicitacao(item) {
         try {
-            if (!idMotorista || !item?.idCarona || !item?.idPassageiro || !item?.idSolicitacao) {
+            if (!idMotorista || !item?.idPassageiro || !item?.idSolicitacao) {
                 window.alert('Dados da solicitação incompletos.');
                 return;
             }
@@ -159,11 +159,12 @@ export default function CaronasSolicitadas({ route }) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        idCarona: item.idCarona,
+                        idCarona: item.idCarona || null,
                         idSolicitacao: item.idSolicitacao,
                         idPassageiro: item.idPassageiro,
                         idMotorista: idMotorista,
                         tipoUsuario: 'motorista',
+                        solicitacaoSemCarona: !item.idCarona,
                     }),
                 }
             );
@@ -222,7 +223,7 @@ export default function CaronasSolicitadas({ route }) {
 
             stackNavigation.navigate('Chat', {
                 idConversa: dados.idConversa,
-                idCarona: item.idCarona,
+                idCarona: dados.idCarona || item.idCarona,
                 idSolicitacao: dados.idSolicitacao || item.idSolicitacao,
                 idPassageiro: item.idPassageiro,
                 idMotorista: idMotorista,

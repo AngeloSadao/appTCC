@@ -12,6 +12,7 @@ import {
   CommonActions,
   useFocusEffect,
 } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CustomDrawerMotorista({
   nome,
@@ -20,10 +21,30 @@ export default function CustomDrawerMotorista({
 }) {
 
   const [fotoPerfil, setFotoPerfil] = useState(null);
+  const [mensagensNaoLidas, setMensagensNaoLidas] = useState(0);
+  const [conversasNaoLidas, setConversasNaoLidas] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
       buscarFotoPerfil();
+    }, [idMotorista])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+
+      if (!idMotorista) {
+        return;
+      }
+
+      buscarMensagensNaoLidas();
+
+      const intervalo = setInterval(() => {
+        buscarMensagensNaoLidas();
+      }, 3000);
+
+      return () => clearInterval(intervalo);
+
     }, [idMotorista])
   );
 
@@ -81,6 +102,90 @@ export default function CustomDrawerMotorista({
 
       setFotoPerfil(null);
     }
+  }
+
+  async function buscarMensagensNaoLidas() {
+
+    if (!idMotorista) {
+      return;
+    }
+
+    try {
+
+      const response = await fetch(
+        'http://localhost/appTcc/buscarMensagensNaoLidas.php',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idMotorista: idMotorista,
+          }),
+        }
+      );
+
+      const dados = await response.json();
+
+      console.log(
+        'Mensagens não lidas do motorista:',
+        dados
+      );
+
+      if (dados.sucesso) {
+
+        setMensagensNaoLidas(
+          Number(dados.quantidade) || 0
+        );
+
+        setConversasNaoLidas(
+          Array.isArray(dados.conversas)
+            ? dados.conversas
+            : []
+        );
+
+      } else {
+
+        setMensagensNaoLidas(0);
+        setConversasNaoLidas([]);
+
+      }
+
+    } catch (error) {
+
+      console.log(
+        'Erro ao buscar mensagens não lidas:',
+        error
+      );
+
+    }
+  }
+
+  function abrirMensagens() {
+
+    if (
+      !conversasNaoLidas.length ||
+      !conversasNaoLidas[0]
+    ) {
+      return;
+    }
+
+    const conversa = conversasNaoLidas[0];
+
+    props.navigation.getParent()?.navigate(
+      'Chat',
+      {
+        idConversa: conversa.idConversa,
+        idCarona: conversa.idCarona,
+        idSolicitacao: conversa.idSolicitacao,
+        idPassageiro: conversa.idPassageiro,
+        idMotorista: conversa.idMotorista,
+        tipoUsuario: 'motorista',
+      }
+    );
+
+    props.navigation.closeDrawer();
   }
 
   function irPara(nomeTela, params = {}) {
@@ -141,6 +246,63 @@ export default function CustomDrawerMotorista({
             Editar perfil
           </Text>
         </TouchableOpacity>
+
+        {mensagensNaoLidas > 0 && (
+          <TouchableOpacity
+            onPress={abrirMensagens}
+            activeOpacity={0.7}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 18,
+              marginBottom: 12,
+              paddingVertical: 6,
+              paddingHorizontal: 4,
+            }}
+          >
+            <Ionicons
+              name="notifications"
+              size={24}
+              color="#468B5B"
+            />
+
+            <Text
+              style={{
+                marginLeft: 7,
+                fontSize: 15,
+                fontWeight: 'bold',
+                color: '#468B5B',
+              }}
+            >
+              {mensagensNaoLidas === 1
+                ? 'Nova mensagem'
+                : `${mensagensNaoLidas} novas mensagens`}
+            </Text>
+
+            <View
+              style={{
+                marginLeft: 7,
+                minWidth: 22,
+                height: 22,
+                borderRadius: 11,
+                backgroundColor: '#468B5B',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                }}
+              >
+                {mensagensNaoLidas}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
