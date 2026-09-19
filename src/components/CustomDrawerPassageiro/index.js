@@ -288,7 +288,7 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sobre nós</Text>
+          <Text style={styles.buttonText}>Sobre Nós</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button}>

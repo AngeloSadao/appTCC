@@ -856,9 +856,7 @@ export default function HomePassageiro({ route }) {
               nestedScrollEnabled={true}
             >
 
-              <Text
-                style={styles.labelInput}
-              >
+              <Text style={styles.labelInput}>
                 Você está em:
               </Text>
 
@@ -869,7 +867,6 @@ export default function HomePassageiro({ route }) {
                   value={origemTexto}
                   onChangeText={setOrigemTexto}
                 />
-                <Ionicons name="pencil-outline" size={18} color="#468B5B" />
               </View>
 
               {sugestoesOrigem.length >

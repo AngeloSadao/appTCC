@@ -910,7 +910,7 @@ export default function HomeMotorista({ route }) {
                 >
                   <Text
                     style={{
-                      color: '#FF FFFF',
+                      color: '#FFFFFF',
                       fontSize: 25,
                       fontWeight: 'bold',
                       lineHeight: 28,
