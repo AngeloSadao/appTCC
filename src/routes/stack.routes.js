@@ -14,6 +14,7 @@ import CorridaFinalizadaMotorista from '../screens/CorridaFinalizadaMotorista';
 import Chat from '../screens/Chat';
 import CorridaEmAndamento from '../screens/CorridaEmAndamento';
 import EnvioGorjeta from '../screens/EnvioGorjeta';
+import EditarCarro from '../screens/EditarCarro';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -115,6 +116,12 @@ export default function StackRoutes() {
       <Stack.Screen
         name="CorridaFinalizadaMotorista"
         component={CorridaFinalizadaMotorista}
+        options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name="EditarCarro"
+        component={EditarCarro}
         options={{ headerShown: false }}
       />
 

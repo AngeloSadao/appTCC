@@ -645,6 +645,19 @@ export default function EditarPerfilMotorista({ navigation, route }) {
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('EditarCarro', {
+              idMotorista: idMotorista,
+            })
+          }
+        >
+          <Text style={styles.buttonText}>
+            Editar carro
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={styles.cancelButton}
           onPress={() => navigation.goBack()}
         >
