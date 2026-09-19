@@ -234,9 +234,9 @@ export default StyleSheet.create({
 
   button: {
     backgroundColor: '#435E91',
-    padding: 10,
+    padding: 8,
     borderRadius: 10,
-    marginTop: -3,
+    marginTop: -5,
     marginBottom: 10,
     alignItems: 'center',
   },
@@ -256,7 +256,7 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontFamily: 'Gurajada',
-    marginTop: -14,
+    marginTop: -13,
   },
 
   sugestaoLista: {

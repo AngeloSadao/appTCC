@@ -394,7 +394,7 @@ export default function EditarPerfilMotorista({ navigation, route }) {
         <ImageBackground
           source={require('../../../assets/backgroundCadastroGoTogether.png')}
           style={styles.backgroundImage}
-          resizeMode="stretch"
+          resizeMode="cover"
         />
 
         <View style={styles.titleArea}>

@@ -9,6 +9,7 @@ import {
     PanResponder,
     Easing,
     ActivityIndicator,
+    Image,
 } from 'react-native';
 
 import {
@@ -62,11 +63,12 @@ export default function CaronasSolicitadas({ route }) {
     const idMotorista = route.params?.idMotorista;
 
     const [solicitacoes, setSolicitacoes] = useState([]);
+    const [fotosPerfil, setFotosPerfil] = useState({});
     const [carregando, setCarregando] = useState(true);
     const [expandida, setExpandida] = useState(null);
 
     const alturaAnim = useRef(
-        new Animated.Value(390)
+        new Animated.Value(500)
     ).current;
 
     const translateY = useRef(
@@ -119,6 +121,65 @@ export default function CaronasSolicitadas({ route }) {
             buscarSolicitacoes();
         }, [idMotorista])
     );
+
+    useEffect(() => {
+        async function buscarFotosPerfil() {
+            const ids = [
+                ...new Set(
+                    solicitacoes
+                        .map(item => item.idPassageiro)
+                        .filter(Boolean)
+                ),
+            ];
+
+            if (ids.length === 0) {
+                setFotosPerfil({});
+                return;
+            }
+
+            const novasFotos = {};
+
+            await Promise.all(
+                ids.map(async idPassageiro => {
+                    try {
+                        const response = await fetch(
+                            'http://localhost/appTcc/buscarPassageiro.php',
+                            {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    idPassageiro: idPassageiro,
+                                }),
+                            }
+                        );
+
+                        const dados = await response.json();
+
+                        if (
+                            dados.sucesso &&
+                            dados.passageiro &&
+                            dados.passageiro.fotoPerfilPassageiro
+                        ) {
+                            novasFotos[idPassageiro] =
+                                `http://localhost/appTcc/img/perfil/${dados.passageiro.fotoPerfilPassageiro}?t=${Date.now()}`;
+                        }
+                    } catch (erro) {
+                        console.log(
+                            'Erro ao buscar foto do passageiro:',
+                            erro
+                        );
+                    }
+                })
+            );
+
+            setFotosPerfil(novasFotos);
+        }
+
+        buscarFotosPerfil();
+    }, [solicitacoes]);
 
     function formatarData(data) {
         if (!data) return '';
@@ -615,11 +676,24 @@ export default function CaronasSolicitadas({ route }) {
                                             >
 
                                                 <View style={styles.avatar}>
-                                                    <Ionicons
-                                                        name="person"
-                                                        size={23}
-                                                        color="#468B5B"
-                                                    />
+                                                    {fotosPerfil[item.idPassageiro] ? (
+                                                        <Image
+                                                            source={{
+                                                                uri: fotosPerfil[item.idPassageiro],
+                                                            }}
+                                                            style={{
+                                                                width: 44,
+                                                                height: 44,
+                                                                borderRadius: 22,
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <Ionicons
+                                                            name="person"
+                                                            size={23}
+                                                            color="#468B5B"
+                                                        />
+                                                    )}
                                                 </View>
 
                                                 <View
@@ -635,14 +709,14 @@ export default function CaronasSolicitadas({ route }) {
 
                                                     <Text
                                                         style={styles.rota}
-                                                        numberOfLines={1}
+                                                        numberOfLines={2}
                                                     >
                                                         {item.origemSolicitacao}
                                                     </Text>
 
                                                     <Text
                                                         style={styles.rota}
-                                                        numberOfLines={1}
+                                                        numberOfLines={2}
                                                     >
                                                         {item.destinoSolicitacao}
                                                     </Text>

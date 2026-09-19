@@ -234,16 +234,16 @@ export default StyleSheet.create({
 
   button: {
     backgroundColor: '#60BC7C',
-    padding: 15,
+    padding: 8,
     borderRadius: 10,
-    marginTop: 10,
+    marginTop: -5,
     marginBottom: 10,
     alignItems: 'center',
   },
 
   /* BOTÃO DE CONFIRMAR CARONA MANTIDO */
   buttonConfirmar: {
-    backgroundColor: '#60BC7C',
+    backgroundColor: '#468B5B',
     padding: 15,
     borderRadius: 10,
     marginTop: 20,
@@ -256,7 +256,7 @@ export default StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontFamily: 'Gurajada',
-    marginTop: -14,
+    marginTop: -13,
   },
 
   sugestaoLista: {

@@ -29,7 +29,7 @@ export default StyleSheet.create({
 
   titulosContainer: {
     position: 'absolute',
-    top: 320,
+    top: 230,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -55,7 +55,7 @@ export default StyleSheet.create({
 
   linha: {
     position: 'absolute',
-    top: 435,
+    top: 350,
     left: 0,
     right: 0,
     height: 1,
@@ -65,7 +65,7 @@ export default StyleSheet.create({
 
   conteudo: {
     position: 'absolute',
-    top: 460,
+    top: 380,
     bottom: 0,
     left: 0,
     right: 0,

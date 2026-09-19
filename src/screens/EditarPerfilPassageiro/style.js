@@ -12,7 +12,7 @@ export default StyleSheet.create({
 
   backgroundImage: {
     width: '100%',
-    height: '90%',
+    height: '80%',
     position: 'absolute',
   },
 
@@ -28,7 +28,7 @@ export default StyleSheet.create({
 
   titleArea: {
     alignItems: 'center',
-    marginTop: 180,
+    marginTop: 120,
     marginBottom: 8,
   },
 
@@ -102,7 +102,7 @@ export default StyleSheet.create({
     borderWidth: 5,
     alignSelf: 'center',
     backgroundColor: "#FAFAFA",
-    width: 390,
+    width: '90%',
     alignItems: 'none',
   },
   

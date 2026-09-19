@@ -29,7 +29,7 @@ export default StyleSheet.create({
 
     titulosContainer: {
         position: 'absolute',
-        top: 335,
+        top: 275,
         width: '100%',
         alignItems: 'center',
         zIndex: 20,
@@ -45,12 +45,12 @@ export default StyleSheet.create({
         color: '#72C989',
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 2,
+        marginTop: -1,
     },
 
     scroll: {
         flex: 1,
-        marginTop: 410,
+        marginTop: 340,
     },
 
     conteudoScroll: {

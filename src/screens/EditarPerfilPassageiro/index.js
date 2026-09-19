@@ -35,8 +35,10 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
   const [foto, setFoto] = useState(null);
 
   useEffect(() => {
-    buscarDados();
-  }, []);
+    if (idPassageiro) {
+      buscarDados();
+    }
+  }, [idPassageiro]);
 
   async function buscarDados() {
     try {
@@ -246,7 +248,7 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         <ImageBackground
           source={require('../../../assets/backgroundCadastroGoTogether.png')}
           style={styles.backgroundImage}
-          resizeMode="stretch"
+          resizeMode="cover"
         >
         </ImageBackground>
 

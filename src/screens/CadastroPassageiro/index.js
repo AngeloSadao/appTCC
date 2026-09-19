@@ -120,7 +120,14 @@ export default function CadastroPassageiro({ navigation }) {
 
       console.log(texto);
 
-      window.alert(texto);;
+      const data = JSON.parse(texto);
+
+      if (!data.sucesso) {
+        window.alert(data.mensagem);
+        return;
+      }
+
+      const idPassageiro = data.idPassageiro;
 
       setNomeCompletoPassageiro('');
       setCpfPassageiro('');
@@ -136,7 +143,11 @@ export default function CadastroPassageiro({ navigation }) {
       setDataNascimentoPassageiro('');
       setSenhaPassageiro('');
 
-      navigation.navigate('HomePassageiro', { nome: nomeCompletoPassageiro });
+      navigation.navigate('HomePassageiro', {
+        nome: nomeCompletoPassageiro,
+        idPassageiro: idPassageiro,
+        tipoUsuario: 'passageiro'
+      });
 
     } catch (error) {
 

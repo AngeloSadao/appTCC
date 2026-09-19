@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
   titulosContainer: {
     position: 'absolute',
-    top: 320,
+    top: 280,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -60,7 +60,7 @@ export default StyleSheet.create({
 
   conteudo: {
     position: 'absolute',
-    top: 410,
+    top: 360,
     left: 0,
     right: 0,
     bottom: 0,

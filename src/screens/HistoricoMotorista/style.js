@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
   titulosContainer: {
     position: 'absolute',
-    top: 370,
+    top: 280,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -53,7 +53,7 @@ export default StyleSheet.create({
 
   cardsContainer: {
     position: 'absolute',
-    top: 460,
+    top: 350,
     left: 0,
     right: 0,
     bottom: 0,

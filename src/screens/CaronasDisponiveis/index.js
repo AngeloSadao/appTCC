@@ -6,6 +6,7 @@ import {
   Animated,
   PanResponder,
   ScrollView,
+  Image,
 } from 'react-native';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -37,6 +38,7 @@ export default function CaronasDisponiveis({ route }) {
   const idPassageiro = route.params?.idPassageiro;
 
   const [caronas, setCaronas] = useState([]);
+  const [fotosPerfil, setFotosPerfil] = useState({});
   const [carregando, setCarregando] = useState(true);
 
   const alturaPainel = 500;
@@ -58,6 +60,65 @@ export default function CaronasDisponiveis({ route }) {
       buscarCaronas();
     }, [])
   );
+
+  useEffect(() => {
+    async function buscarFotosPerfil() {
+      const ids = [
+        ...new Set(
+          caronas
+            .map(carona => carona.idMotorista)
+            .filter(Boolean)
+        ),
+      ];
+
+      if (ids.length === 0) {
+        setFotosPerfil({});
+        return;
+      }
+
+      const novasFotos = {};
+
+      await Promise.all(
+        ids.map(async idMotorista => {
+          try {
+            const response = await fetch(
+              'http://localhost/appTcc/buscarMotorista.php',
+              {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  idMotorista: idMotorista,
+                }),
+              }
+            );
+
+            const dados = await response.json();
+
+            if (
+              dados.sucesso &&
+              dados.motorista &&
+              dados.motorista.fotoPerfilMotorista
+            ) {
+              novasFotos[idMotorista] =
+                `http://localhost/appTcc/img/perfilMotorista/${dados.motorista.fotoPerfilMotorista}?t=${Date.now()}`;
+            }
+          } catch (erro) {
+            console.log(
+              'Erro ao buscar foto do motorista:',
+              erro
+            );
+          }
+        })
+      );
+
+      setFotosPerfil(novasFotos);
+    }
+
+    buscarFotosPerfil();
+  }, [caronas]);
 
   async function buscarCaronas() {
     try {
@@ -521,6 +582,8 @@ export default function CaronasDisponiveis({ route }) {
 
         </View>
 
+        <View style={styles.linhaTitulo} />
+
         {/* CARREGANDO */}
         {carregando && (
           <Text style={styles.mensagem}>
@@ -577,11 +640,24 @@ export default function CaronasDisponiveis({ route }) {
                         styles.usuarioIcon
                       }
                     >
-                      <Ionicons
-                        name="person-outline"
-                        size={24}
-                        color="#81A1DF"
-                      />
+                      {fotosPerfil[carona.idMotorista] ? (
+                        <Image
+                          source={{
+                            uri: fotosPerfil[carona.idMotorista],
+                          }}
+                          style={{
+                            width: 44,
+                            height: 44,
+                            borderRadius: 22,
+                          }}
+                        />
+                      ) : (
+                        <Ionicons
+                          name="person-outline"
+                          size={24}
+                          color="#81A1DF"
+                        />
+                      )}
                     </View>
 
                     {/* INFORMAÇÕES */}

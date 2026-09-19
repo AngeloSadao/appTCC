@@ -52,7 +52,7 @@ export default StyleSheet.create({
     borderWidth: 5,
     alignSelf: 'center',
     backgroundColor: "#FAFAFA",
-    width: 390,
+    width: '100%',
     alignContent: 'center',
     alignItems: 'center',
   },

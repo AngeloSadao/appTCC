@@ -131,8 +131,8 @@ export default function HomeMotorista({ route }) {
 
   const alturas = {
     1: 220,
-    2: 650,
-    3: 650,
+    2: 600,
+    3: 600,
   };
 
   const alturaVisivel = 50;
@@ -1037,38 +1037,40 @@ export default function HomeMotorista({ route }) {
                 Preferências selecionadas:
               </Text>
 
-              {preferencias.passageiroMasculino && (
-                <Text style={styles.infoText}>
-                  • Passageiro do sexo masculino
-                </Text>
-              )}
-
-              {preferencias.passageiroFeminino && (
-                <Text style={styles.infoText}>
-                  • Passageiro do sexo feminino
-                </Text>
-              )}
-
-              {preferencias.comPet && (
-                <Text style={styles.infoText}>
-                  • Carona com pet
-                </Text>
-              )}
-
-              {preferencias.maisDeUma && (
-                <Text style={styles.infoText}>
-                  • Carona para mais de uma pessoa
-                </Text>
-              )}
-
-              {!preferencias.passageiroMasculino &&
-                !preferencias.passageiroFeminino &&
-                !preferencias.comPet &&
-                !preferencias.maisDeUma && (
+              <View style={styles.infoRow}>
+                {preferencias.passageiroMasculino && (
                   <Text style={styles.infoText}>
-                    • Nenhuma preferência selecionada
+                    • Passageiro do sexo masculino
                   </Text>
                 )}
+
+                {preferencias.passageiroFeminino && (
+                  <Text style={styles.infoText}>
+                    • Passageiro do sexo feminino
+                  </Text>
+                )}
+
+                {preferencias.comPet && (
+                  <Text style={styles.infoText}>
+                    • Carona com pet
+                  </Text>
+                )}
+
+                {preferencias.maisDeUma && (
+                  <Text style={styles.infoText}>
+                    • Carona para mais de uma pessoa
+                  </Text>
+                )}
+
+                {!preferencias.passageiroMasculino &&
+                  !preferencias.passageiroFeminino &&
+                  !preferencias.comPet &&
+                  !preferencias.maisDeUma && (
+                    <Text style={styles.infoText}>
+                      • Nenhuma preferência selecionada
+                    </Text>
+                  )}
+              </View>
 
               {/* BOTÕES FINAIS */}
               <View

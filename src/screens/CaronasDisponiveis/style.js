@@ -80,6 +80,12 @@ export default StyleSheet.create({
     color: '#526EAA',
   },
 
+  linhaTitulo: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#D5D5D5',
+  },
+
   listaScroll: {
     width: '100%',
     flex: 1,
@@ -88,6 +94,7 @@ export default StyleSheet.create({
   lista: {
     width: '100%',
     alignItems: 'center',
+    paddingTop: 10,
     paddingBottom: 20,
   },
 
@@ -99,7 +106,6 @@ export default StyleSheet.create({
     marginBottom: 9,
     paddingHorizontal: 12,
     paddingVertical: 10,
-
     flexDirection: 'row',
     alignItems: 'center',
   },
