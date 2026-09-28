@@ -148,7 +148,7 @@ export default StyleSheet.create({
     fontFamily: 'Gurajada',
     fontSize: 25,
     marginBottom: -30,
-    marginTop: -15,
+    marginTop: -10,
     alignSelf: 'flex-start',
     marginLeft: 8,
     color: '#468B5B',

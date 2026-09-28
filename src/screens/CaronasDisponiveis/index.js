@@ -39,6 +39,7 @@ export default function CaronasDisponiveis({ route }) {
 
   const [caronas, setCaronas] = useState([]);
   const [fotosPerfil, setFotosPerfil] = useState({});
+  const [compatibilidades, setCompatibilidades] = useState({});
   const [carregando, setCarregando] = useState(true);
 
   const alturaPainel = 500;
@@ -57,8 +58,11 @@ export default function CaronasDisponiveis({ route }) {
 
   useFocusEffect(
     React.useCallback(() => {
+
       buscarCaronas();
-    }, [])
+      buscarCompatibilidades();
+
+    }, [idPassageiro])
   );
 
   useEffect(() => {
@@ -153,6 +157,53 @@ export default function CaronasDisponiveis({ route }) {
 
     } finally {
       setCarregando(false);
+    }
+  }
+
+  async function buscarCompatibilidades() {
+
+    if (!idPassageiro) {
+      setCompatibilidades({});
+      return;
+    }
+
+    try {
+
+      const resposta = await fetch(
+        `http://localhost/appTcc/buscarCompatibilidadeCaronasDisponiveis.php?idPassageiro=${idPassageiro}`
+      );
+
+      const dados = await resposta.json();
+
+      console.log(
+        'Compatibilidades das caronas:',
+        dados
+      );
+
+      if (dados.sucesso) {
+
+        setCompatibilidades(
+          dados.compatibilidades || {}
+        );
+
+      } else {
+
+        console.log(
+          'Não foi possível buscar compatibilidades:',
+          dados.mensagem
+        );
+
+        setCompatibilidades({});
+      }
+
+    } catch (erro) {
+
+      console.log(
+        'Erro ao buscar compatibilidades:',
+        erro
+      );
+
+      setCompatibilidades({});
     }
   }
 
@@ -771,6 +822,28 @@ export default function CaronasDisponiveis({ route }) {
                         styles.vagasContainer
                       }
                     >
+
+                      <Text
+                        style={
+                          styles.compatibilidadeNumero
+                        }
+                      >
+                        {compatibilidades[carona.idCarona] ?? 0}%
+                      </Text>
+
+                      <Text
+                        style={
+                          styles.compatibilidadeTexto
+                        }
+                      >
+                        Compatibilidade
+                      </Text>
+
+                      <View
+                        style={
+                          styles.linhaCompatibilidade
+                        }
+                      />
 
                       <Text
                         style={

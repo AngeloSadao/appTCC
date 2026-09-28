@@ -179,6 +179,29 @@ export default StyleSheet.create({
     paddingLeft: 8,
   },
 
+  compatibilidadeNumero: {
+    fontSize: 26,
+    lineHeight: 28,
+    color: '#435E91',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  compatibilidadeTexto: {
+    fontSize: 11,
+    lineHeight: 10,
+    fontFamily: 'Gurajada',
+    color: '#435E91',
+    textAlign: 'center',
+  },
+
+  linhaCompatibilidade: {
+    width: '80%',
+    height: 1,
+    backgroundColor: '#AAB8D5',
+    marginVertical: 4,
+  },
+
   vagasNumero: {
     fontSize: 26,
     lineHeight: 28,
