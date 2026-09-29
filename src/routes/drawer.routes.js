@@ -20,6 +20,7 @@ import CustomDrawerMotorista from '../components/CustomDrawerMotorista';
 
 import MotoristasFavoritos from '../screens/MotoristasFavoritos';
 import MinhasBonificacoesMotorista from '../screens/MinhasBonificacoesMotorista';
+import MeusCuponsMotorista from '../screens/MeusCuponsMotorista';
 
 import MinhasCaronasMotorista from '../screens/MinhasCaronasMotorista';
 import MinhasCaronasPassageiro from '../screens/MinhasCaronasPassageiro';
@@ -131,6 +132,11 @@ export default function DrawerRoutes({ route }) {
           <Drawer.Screen
             name="MinhasBonificacoesMotorista"
             component={MinhasBonificacoesMotorista}
+          />
+
+          <Drawer.Screen
+            name="MeusCuponsMotorista"
+            component={MeusCuponsMotorista}
           />
 
           <Drawer.Screen

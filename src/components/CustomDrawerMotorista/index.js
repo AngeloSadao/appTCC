@@ -376,6 +376,21 @@ export default function CustomDrawerMotorista({
         </TouchableOpacity>
 
         <TouchableOpacity
+          style={[styles.button, styles.buttonVerdeClaro]}
+          onPress={() =>
+            irPara('MeusCuponsMotorista', {
+              idMotorista: idMotorista,
+              nome: nome,
+              tipoUsuario: 'motorista',
+            })
+          }
+        >
+          <Text style={styles.buttonText}>
+            Meus Cupons
+          </Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
           onPress={() =>
             abrirSite(
