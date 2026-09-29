@@ -11,7 +11,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import {
   useNavigation,
-  DrawerActions,
+  useFocusEffect,
 } from '@react-navigation/native';
 
 import styles from './style';
@@ -27,9 +27,16 @@ export default function MinhasBonificacoesMotorista({ route }) {
   const [bonificacoes, setBonificacoes] = useState(null);
   const [carregando, setCarregando] = useState(true);
 
-  useEffect(() => {
-    buscarBonificacoes();
-  }, [idMotorista]);
+  const [cupons, setCupons] = useState([]);
+  const [carregandoCupons, setCarregandoCupons] = useState(true);
+  const [resgatando, setResgatando] = useState(null);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      buscarBonificacoes();
+      buscarCupons();
+    }, [idMotorista])
+  );
 
   async function buscarBonificacoes() {
 
@@ -82,6 +89,148 @@ export default function MinhasBonificacoesMotorista({ route }) {
     } finally {
 
       setCarregando(false);
+
+    }
+  }
+
+  async function buscarCupons() {
+
+    try {
+
+      setCarregandoCupons(true);
+
+      const resposta = await fetch(
+        `${API_URL}/buscarCuponsDisponiveis.php?idMotorista=${idMotorista}`
+      );
+
+      const texto = await resposta.text();
+
+      console.log(
+        'Resposta cupons:',
+        texto
+      );
+
+      const dados = JSON.parse(texto);
+
+      if (dados.sucesso) {
+
+        setCupons(
+          dados.cupons || []
+        );
+
+      } else {
+
+        window.alert(
+          dados.mensagem ||
+          'Não foi possível carregar os cupons.'
+        );
+
+      }
+
+    } catch (erro) {
+
+      console.log(
+        'Erro ao buscar cupons:',
+        erro
+      );
+
+      window.alert(
+        'Não foi possível carregar os cupons.'
+      );
+
+    } finally {
+
+      setCarregandoCupons(false);
+
+    }
+  }
+
+  async function resgatarCupom(cupom) {
+
+    if (!idMotorista) {
+
+      window.alert(
+        'Não foi possível identificar o motorista.'
+      );
+
+      return;
+    }
+
+    const pontosMotorista = Number(
+      bonificacoes?.pontosMotorista || 0
+    );
+
+    const pontosNecessarios = Number(
+      cupom.pontosNecessariosCupom || 0
+    );
+
+    if (pontosMotorista < pontosNecessarios) {
+
+      window.alert(
+        `Você precisa de ${pontosNecessarios.toLocaleString('pt-BR')} pontos para resgatar este cupom.`
+      );
+
+      return;
+    }
+
+    try {
+
+      setResgatando(cupom.idCupom);
+
+      const resposta = await fetch(
+        `${API_URL}/resgatarCupom.php`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idMotorista: idMotorista,
+            idCupom: cupom.idCupom,
+          }),
+        }
+      );
+
+      const texto = await resposta.text();
+
+      console.log(
+        'Resposta resgate:',
+        texto
+      );
+
+      const dados = JSON.parse(texto);
+
+      if (!dados.sucesso) {
+
+        window.alert(
+          dados.mensagem ||
+          'Não foi possível resgatar o cupom.'
+        );
+
+        return;
+      }
+
+      window.alert(
+        'Cupom resgatado com sucesso!'
+      );
+
+      await buscarBonificacoes();
+      await buscarCupons();
+
+    } catch (erro) {
+
+      console.log(
+        'Erro ao resgatar cupom:',
+        erro
+      );
+
+      window.alert(
+        'Não foi possível resgatar o cupom.'
+      );
+
+    } finally {
+
+      setResgatando(null);
 
     }
   }
@@ -272,19 +421,181 @@ export default function MinhasBonificacoesMotorista({ route }) {
               comércios parceiros.
             </Text>
 
-            <View style={styles.emBreve}>
+            {carregandoCupons ? (
 
-              <Ionicons
-                name="time-outline"
-                size={20}
-                color="#468B5B"
-              />
+              <View style={styles.emBreve}>
 
-              <Text style={styles.textoEmBreve}>
-                Sistema de troca de cupons em breve
-              </Text>
+                <ActivityIndicator
+                  size="small"
+                  color="#468B5B"
+                />
 
-            </View>
+                <Text style={styles.textoEmBreve}>
+                  Carregando cupons...
+                </Text>
+
+              </View>
+
+            ) : cupons.length === 0 ? (
+
+              <View style={styles.emBreve}>
+
+                <Ionicons
+                  name="ticket-outline"
+                  size={20}
+                  color="#468B5B"
+                />
+
+                <Text style={styles.textoEmBreve}>
+                  Nenhum cupom disponível no momento.
+                </Text>
+
+              </View>
+
+            ) : (
+
+              <View style={styles.listaCupons}>
+
+                {cupons.map(cupom => {
+
+                  const pontosNecessarios = Number(
+                    cupom.pontosNecessariosCupom || 0
+                  );
+
+                  const pontosMotorista = Number(
+                    bonificacoes.pontosMotorista || 0
+                  );
+
+                  const podeResgatar =
+                    pontosMotorista >= pontosNecessarios;
+
+                  const descontoDinheiro =
+                    cupom.descontoDinheiroCupom;
+
+                  const descontoPercentual =
+                    cupom.descontoPercentualCupom;
+
+                  const validade = String(
+                    cupom.validadeCupom || ''
+                  ).split('-');
+
+                  const dataFormatada =
+                    validade.length === 3
+                      ? `${validade[2]}/${validade[1]}/${validade[0]}`
+                      : cupom.validadeCupom;
+
+                  return (
+
+                    <View
+                      key={cupom.idCupom}
+                      style={styles.cupomItem}
+                    >
+
+                      <View style={styles.cupomCabecalho}>
+
+                        <View style={styles.cupomIcone}>
+
+                          <Ionicons
+                            name="ticket"
+                            size={24}
+                            color="#468B5B"
+                          />
+
+                        </View>
+
+                        <View style={styles.cupomTituloContainer}>
+
+                          <Text style={styles.cupomNome}>
+                            {cupom.nomeCupom}
+                          </Text>
+
+                          <Text style={styles.cupomColaborador}>
+                            {cupom.nomeColaborador}
+                          </Text>
+
+                        </View>
+
+                      </View>
+
+                      <Text style={styles.cupomDesconto}>
+
+                        {descontoDinheiro !== null &&
+                          descontoDinheiro !== ''
+                          ? `R$ ${Number(
+                            descontoDinheiro
+                          ).toFixed(2).replace('.', ',')}`
+                          : `${Number(
+                            descontoPercentual
+                          )}%`
+                        }
+
+                      </Text>
+
+                      <Text style={styles.cupomDescricao}>
+                        Desconto em compras
+                      </Text>
+
+                      <Text style={styles.cupomMinimo}>
+                        Compra mínima: {formatarValor(
+                          cupom.valorMinimoCupom
+                        )}
+                      </Text>
+
+                      <Text style={styles.cupomValidade}>
+                        Válido até: {dataFormatada}
+                      </Text>
+
+                      <View style={styles.cupomPontos}>
+
+                        <Ionicons
+                          name="star"
+                          size={18}
+                          color="#468B5B"
+                        />
+
+                        <Text style={styles.cupomPontosTexto}>
+                          {pontosNecessarios.toLocaleString('pt-BR')}
+                          {' '}pontos
+                        </Text>
+
+                      </View>
+
+                      <TouchableOpacity
+                        style={[
+                          styles.botaoResgatar,
+                          !podeResgatar &&
+                          styles.botaoResgatarDesabilitado,
+                        ]}
+                        disabled={
+                          !podeResgatar ||
+                          resgatando === cupom.idCupom
+                        }
+                        onPress={() =>
+                          resgatarCupom(cupom)
+                        }
+                      >
+
+                        <Text
+                          style={styles.textoBotaoResgatar}
+                        >
+                          {resgatando === cupom.idCupom
+                            ? 'Resgatando...'
+                            : podeResgatar
+                              ? 'Resgatar cupom'
+                              : 'Pontos insuficientes'}
+                        </Text>
+
+                      </TouchableOpacity>
+
+                    </View>
+
+                  );
+
+                })}
+
+              </View>
+
+            )}
 
           </View>
 
