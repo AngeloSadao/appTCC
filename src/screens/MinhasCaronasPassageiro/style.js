@@ -88,13 +88,13 @@ export default StyleSheet.create({
   },
 
   data: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#404348',
   },
 
   statusTexto: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#468B5B',
     marginTop: 2,
@@ -117,15 +117,15 @@ export default StyleSheet.create({
   },
 
   labelLocal: {
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: 'bold',
     color: '#468B5B',
   },
 
   textoLocal: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#404348',
-    lineHeight: 11,
+    lineHeight: 13,
   },
 
   linha: {
@@ -146,13 +146,13 @@ export default StyleSheet.create({
   },
 
   informacaoLabel: {
-    fontSize: 8,
+    fontSize: 10,
     fontWeight: 'bold',
     color: '#468B5B',
   },
 
   informacaoValor: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#404348',
   },
 
@@ -169,7 +169,7 @@ export default StyleSheet.create({
   },
 
   textoBotaoCancelar: {
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
@@ -205,7 +205,7 @@ export default StyleSheet.create({
   },
 
   vazioTexto: {
-    fontSize: 10,
+    fontSize: 11,
     color: '#777',
     textAlign: 'center',
     marginTop: 5,
