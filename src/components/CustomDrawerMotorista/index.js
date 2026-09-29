@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Linking,
 } from 'react-native';
 
 import styles from './style';
@@ -214,6 +215,10 @@ export default function CustomDrawerMotorista({
     );
   }
 
+  function abrirSite(url) {
+    Linking.openURL(url);
+  }
+
   return (
     <ScrollView
       style={{ flex: 1 }}
@@ -372,6 +377,11 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/institucional/sobre_nos.php'
+            )
+          }
         >
           <Text style={styles.buttonText}>
             Sobre Nós
@@ -380,6 +390,11 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerdeClaro]}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/loja/chaveiro.php'
+            )
+          }
         >
           <Text style={styles.buttonText}>
             Comprar Chaveiro
@@ -388,6 +403,11 @@ export default function CustomDrawerMotorista({
 
         <TouchableOpacity
           style={[styles.button, styles.buttonVerde]}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/institucional/faq.php'
+            )
+          }
         >
           <Text style={styles.buttonText}>
             Central de Ajuda
@@ -436,4 +456,5 @@ export default function CustomDrawerMotorista({
       </View>
     </ScrollView>
   );
+
 }
