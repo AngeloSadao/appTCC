@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import {
   View,
   Text,
-  TextInput,
   TouchableOpacity,
   ImageBackground,
 } from 'react-native';
@@ -28,7 +27,7 @@ export default function Inicial({navigation}) {
         economize e ajude
       </Text>
       <Text style={styles.title3}>
-        O meio ambiente!
+        o meio ambiente!
       </Text>
 
 
@@ -36,12 +35,13 @@ export default function Inicial({navigation}) {
         Conectamos motoristas e passageiros para
       </Text>
       <Text style={styles.subtitle2}>
-        viagens de forma segura e sustetáveis.
+        viagens de forma segura e sustentáveis.
       </Text>
 
 
       <TouchableOpacity 
       onPress={() => navigation.navigate('CadastroPassageiro')}
+      activeOpacity={0.7}
       style={styles.buttonPassageiro}>
         <View style={{flexDirection: 'row',}}>
           <View style={styles.backgroundIconPassageiro}>
@@ -53,7 +53,7 @@ export default function Inicial({navigation}) {
               Quero ser passageiro
             </Text>
             <Text style={styles.text2Passageiro}>
-              Viajar com carona
+              Viajar com carona 
             </Text>
           </View>
 
@@ -68,7 +68,7 @@ export default function Inicial({navigation}) {
       style={styles.buttonMotorista}>
         <View style={{flexDirection: 'row',}}>
           <View style={styles.backgroundIconMotorista}>
-            <Ionicons name='person-outline' size={37} color="#468B5B" />
+            <Ionicons name='car-outline' size={37} color="#468B5B" />
           </View>
 
           <View style={styles.containerTextButton}>
@@ -92,9 +92,8 @@ export default function Inicial({navigation}) {
         </Text>
       
         <TouchableOpacity
-          onPress={() =>
-            navigation.navigate('Login')
-          }
+          onPress={() => navigation.navigate('Login')}
+          hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
         >
           <Text style={styles.logarText}>
             Entrar

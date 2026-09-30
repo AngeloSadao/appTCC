@@ -62,6 +62,11 @@ export default function CadastroCarro({ navigation, route }) {
             return;
         }
 
+        if (anoCarro.length !== 4 || placaCarro.length !== 7) {
+            Alert.alert('Atenção', 'Verifique o ano (4 dígitos) e a placa (7 caracteres).');
+            return;
+        }
+
         try {
 
             const response = await fetch(
@@ -273,8 +278,9 @@ export default function CadastroCarro({ navigation, route }) {
                             placeholder="Ano do carro"
                             placeholderTextColor="#7D9BE6"
                             value={anoCarro}
-                            onChangeText={setAnoCarro}
+                            onChangeText={(texto) => setAnoCarro(texto.replace(/\D/g, '').slice(0, 4))}
                             keyboardType="numeric"
+                            maxLength={4}
                         />
 
                         <TextInput
@@ -282,8 +288,9 @@ export default function CadastroCarro({ navigation, route }) {
                             placeholder="Placa"
                             placeholderTextColor="#7D9BE6"
                             value={placaCarro}
-                            onChangeText={setPlacaCarro}
+                            onChangeText={(texto) => setPlacaCarro(texto.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 7))}
                             autoCapitalize="characters"
+                            maxLength={7}
                         />
 
                         <TextInput
@@ -291,7 +298,8 @@ export default function CadastroCarro({ navigation, route }) {
                             placeholder="Cor"
                             placeholderTextColor="#7D9BE6"
                             value={corCarro}
-                            onChangeText={setCorCarro}
+                            onChangeText={(texto) => setCorCarro(texto.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''))}
+                            maxLength={20}
                         />
 
                         <TouchableOpacity
