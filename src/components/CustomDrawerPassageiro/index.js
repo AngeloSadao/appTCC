@@ -296,7 +296,7 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           style={styles.button}
           onPress={() =>
             abrirSite(
-              'http://localhost/GoTogether/views/institucional/sobre_nos.php'
+              'http://10.67.57.185/GoTogether/views/institucional/sobre_nos.php'
             )
           }
         >
@@ -309,7 +309,7 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           style={styles.button}
           onPress={() =>
             abrirSite(
-              'http://localhost/GoTogether/views/loja/chaveiro.php'
+              'http://10.67.57.185/GoTogether/views/loja/chaveiro.php'
             )
           }
         >
@@ -322,7 +322,7 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           style={styles.button}
           onPress={() =>
             abrirSite(
-              'http://localhost/GoTogether/views/institucional/faq.php'
+              'http://10.67.57.185/GoTogether/views/institucional/faq.php'
             )
           }
         >
