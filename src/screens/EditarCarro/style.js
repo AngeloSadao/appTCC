@@ -125,18 +125,26 @@ export default StyleSheet.create({
   },
 
   button: {
-    height: 53,
+    height: 36,
+    width: 220,
+    alignSelf: 'center',
     backgroundColor: '#91DDB5',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 40,
     marginTop: 17,
+  },
+
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
   },
 
   buttonText: {
     fontFamily: 'Gurajada',
-    fontSize: 50,
+    fontSize: 25,
     color: '#285A48',
   },
 

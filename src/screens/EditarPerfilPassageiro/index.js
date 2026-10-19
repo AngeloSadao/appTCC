@@ -452,15 +452,23 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
           </View>
         </View>
 
+
         <TouchableOpacity
           style={styles.button}
           onPress={salvarAlteracoes}
         >
-          <Text style={styles.buttonText}>
-            Salvar alterações
-          </Text>
+          <View style={styles.buttonContent}>
+            <Ionicons
+              name="save-outline"
+              size={18}
+              color="#285A48"
+            />
+            <Text style={styles.buttonText}>
+              Salvar alterações
+            </Text>
+          </View>
         </TouchableOpacity>
-
+        
 
         <TouchableOpacity
           style={styles.cancelButton}
