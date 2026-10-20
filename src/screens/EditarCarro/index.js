@@ -66,8 +66,8 @@ export default function EditarCarro({ navigation, route }) {
 
         if (carro.fotoCarro) {
           setFotoCarro(
-            `http://localhost/appTcc/uploads/carros/${carro.fotoCarro}`
-          );
+  `http://localhost/GoTogether/assets/uploads/carros/${carro.fotoCarro}?t=${Date.now()}`
+);
         } else {
           setFotoCarro(null);
         }
