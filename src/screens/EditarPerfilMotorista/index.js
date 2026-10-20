@@ -112,7 +112,7 @@ export default function EditarPerfilMotorista({ navigation, route }) {
         if (motorista.fotoPerfilMotorista) {
 
           setFoto(
-            `http://localhost/appTcc/img/perfilMotorista/${motorista.fotoPerfilMotorista}`
+            `http://localhost/GoTogether/assets/uploads/perfil/${motorista.fotoPerfilMotorista}?t=${Date.now()}`
           );
 
         } else {

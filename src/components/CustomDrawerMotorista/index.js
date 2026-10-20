@@ -85,7 +85,7 @@ export default function CustomDrawerMotorista({
       ) {
 
         setFotoPerfil(
-          `http://localhost/appTcc/img/perfilMotorista/${dados.motorista.fotoPerfilMotorista}?t=${Date.now()}`
+          `http://localhost/GoTogether/assets/uploads/perfil/${dados.motorista.fotoPerfilMotorista}?t=${Date.now()}`
         );
 
       } else {

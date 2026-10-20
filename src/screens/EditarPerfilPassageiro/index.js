@@ -79,8 +79,10 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
 
         if (passageiro.fotoPerfilPassageiro) {
           setFoto(
-            `http://localhost/appTcc/img/perfil/${passageiro.fotoPerfilPassageiro}`
+            `http://localhost/GoTogether/assets/uploads/perfil/${passageiro.fotoPerfilPassageiro}?t=${Date.now()}`
           );
+        } else {
+          setFoto(null);
         }
       } else {
         Alert.alert('Erro', dados.mensagem);
@@ -468,7 +470,7 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
             </Text>
           </View>
         </TouchableOpacity>
-        
+
 
         <TouchableOpacity
           style={styles.cancelButton}

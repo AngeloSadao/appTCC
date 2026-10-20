@@ -63,17 +63,19 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
 
       console.log('Foto do passageiro:', dados);
 
+
       if (
         dados.sucesso &&
         dados.passageiro &&
         dados.passageiro.fotoPerfilPassageiro
       ) {
         setFotoPerfil(
-          `http://localhost/appTcc/img/perfil/${dados.passageiro.fotoPerfilPassageiro}`
+          `http://localhost/GoTogether/assets/uploads/perfil/${dados.passageiro.fotoPerfilPassageiro}`
         );
       } else {
         setFotoPerfil(null);
       }
+
     } catch (error) {
       console.log('Erro ao buscar foto de perfil:', error);
     }
