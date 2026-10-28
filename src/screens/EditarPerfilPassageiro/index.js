@@ -35,8 +35,10 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
   const [foto, setFoto] = useState(null);
 
   useEffect(() => {
-    buscarDados();
-  }, []);
+    if (idPassageiro) {
+      buscarDados();
+    }
+  }, [idPassageiro]);
 
   async function buscarDados() {
     try {
@@ -77,8 +79,10 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
 
         if (passageiro.fotoPerfilPassageiro) {
           setFoto(
-            `http://localhost/appTcc/img/perfil/${passageiro.fotoPerfilPassageiro}`
+            `http://localhost/GoTogether/assets/uploads/perfil/${passageiro.fotoPerfilPassageiro}?t=${Date.now()}`
           );
+        } else {
+          setFoto(null);
         }
       } else {
         Alert.alert('Erro', dados.mensagem);
@@ -246,7 +250,7 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
         <ImageBackground
           source={require('../../../assets/backgroundCadastroGoTogether.png')}
           style={styles.backgroundImage}
-          resizeMode="stretch"
+          resizeMode="cover"
         >
         </ImageBackground>
 
@@ -450,13 +454,21 @@ export default function EditarPerfilPassageiro({ navigation, route }) {
           </View>
         </View>
 
+
         <TouchableOpacity
           style={styles.button}
           onPress={salvarAlteracoes}
         >
-          <Text style={styles.buttonText}>
-            Salvar alterações
-          </Text>
+          <View style={styles.buttonContent}>
+            <Ionicons
+              name="save-outline"
+              size={18}
+              color="#285A48"
+            />
+            <Text style={styles.buttonText}>
+              Salvar alterações
+            </Text>
+          </View>
         </TouchableOpacity>
 
 

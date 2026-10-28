@@ -6,6 +6,7 @@ import {
   Animated,
   PanResponder,
   ScrollView,
+  Image,
 } from 'react-native';
 
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
@@ -37,9 +38,10 @@ export default function CaronasDisponiveis({ route }) {
   const idPassageiro = route.params?.idPassageiro;
 
   const [caronas, setCaronas] = useState([]);
+  const [fotosPerfil, setFotosPerfil] = useState({});
+  const [compatibilidades, setCompatibilidades] = useState({});
   const [carregando, setCarregando] = useState(true);
 
-  // PAINEL
   const alturaPainel = 500;
   const alturaFechada = 55;
   const fechadoY = alturaPainel - alturaFechada;
@@ -56,9 +58,71 @@ export default function CaronasDisponiveis({ route }) {
 
   useFocusEffect(
     React.useCallback(() => {
+
       buscarCaronas();
-    }, [])
+      buscarCompatibilidades();
+
+    }, [idPassageiro])
   );
+
+  useEffect(() => {
+    async function buscarFotosPerfil() {
+      const ids = [
+        ...new Set(
+          caronas
+            .map(carona => carona.idMotorista)
+            .filter(Boolean)
+        ),
+      ];
+
+      if (ids.length === 0) {
+        setFotosPerfil({});
+        return;
+      }
+
+      const novasFotos = {};
+
+      await Promise.all(
+        ids.map(async idMotorista => {
+          try {
+            const response = await fetch(
+              'http://localhost/appTcc/buscarMotorista.php',
+              {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  idMotorista: idMotorista,
+                }),
+              }
+            );
+
+            const dados = await response.json();
+
+            if (
+              dados.sucesso &&
+              dados.motorista &&
+              dados.motorista.fotoPerfilMotorista
+            ) {
+              novasFotos[idMotorista] =
+                `http://localhost/appTcc/img/perfilMotorista/${dados.motorista.fotoPerfilMotorista}?t=${Date.now()}`;
+            }
+          } catch (erro) {
+            console.log(
+              'Erro ao buscar foto do motorista:',
+              erro
+            );
+          }
+        })
+      );
+
+      setFotosPerfil(novasFotos);
+    }
+
+    buscarFotosPerfil();
+  }, [caronas]);
 
   async function buscarCaronas() {
     try {
@@ -93,6 +157,53 @@ export default function CaronasDisponiveis({ route }) {
 
     } finally {
       setCarregando(false);
+    }
+  }
+
+  async function buscarCompatibilidades() {
+
+    if (!idPassageiro) {
+      setCompatibilidades({});
+      return;
+    }
+
+    try {
+
+      const resposta = await fetch(
+        `http://localhost/appTcc/buscarCompatibilidadeCaronasDisponiveis.php?idPassageiro=${idPassageiro}`
+      );
+
+      const dados = await resposta.json();
+
+      console.log(
+        'Compatibilidades das caronas:',
+        dados
+      );
+
+      if (dados.sucesso) {
+
+        setCompatibilidades(
+          dados.compatibilidades || {}
+        );
+
+      } else {
+
+        console.log(
+          'Não foi possível buscar compatibilidades:',
+          dados.mensagem
+        );
+
+        setCompatibilidades({});
+      }
+
+    } catch (erro) {
+
+      console.log(
+        'Erro ao buscar compatibilidades:',
+        erro
+      );
+
+      setCompatibilidades({});
     }
   }
 
@@ -216,10 +327,15 @@ export default function CaronasDisponiveis({ route }) {
     return preferencias;
   }
 
-  async function abrirChat(carona) {
+  async function confirmarCarona(carona) {
     try {
+      if (!idPassageiro || !carona?.idCarona || !carona?.idMotorista) {
+        window.alert('Dados da carona incompletos.');
+        return;
+      }
+
       const resposta = await fetch(
-        'http://localhost/appTcc/criarConversa.php',
+        'http://localhost/appTcc/confirmarCarona.php',
         {
           method: 'POST',
           headers: {
@@ -228,15 +344,17 @@ export default function CaronasDisponiveis({ route }) {
           body: JSON.stringify({
             idCarona: carona.idCarona,
             idPassageiro: idPassageiro,
-            idMotorista: carona.idMotorista
-          })
+            idMotorista: carona.idMotorista,
+            idSolicitacao: carona.idSolicitacao ?? null,
+            tipoUsuario: 'passageiro',
+          }),
         }
       );
 
       const texto = await resposta.text();
 
       console.log(
-        'Resposta criar conversa passageiro:',
+        'Resposta confirmação passageiro:',
         texto
       );
 
@@ -260,7 +378,15 @@ export default function CaronasDisponiveis({ route }) {
       if (!dados.sucesso) {
         window.alert(
           dados.mensagem ||
-          'Não foi possível abrir a conversa.'
+          'Não foi possível confirmar a carona.'
+        );
+
+        return;
+      }
+
+      if (!dados.pronto) {
+        window.alert(
+          'Carona confirmada! Agora aguarde a confirmação do motorista para liberar o chat.'
         );
 
         return;
@@ -280,6 +406,7 @@ export default function CaronasDisponiveis({ route }) {
       stackNavigation.navigate('Chat', {
         idConversa: dados.idConversa,
         idCarona: carona.idCarona,
+        idSolicitacao: dados.idSolicitacao || carona.idSolicitacao,
         idPassageiro: idPassageiro,
         idMotorista: carona.idMotorista,
         tipoUsuario: 'passageiro',
@@ -288,15 +415,16 @@ export default function CaronasDisponiveis({ route }) {
 
     } catch (erro) {
       console.log(
-        'Erro ao abrir conversa:',
+        'Erro ao confirmar carona:',
         erro
       );
 
       window.alert(
-        'Não foi possível abrir o chat.'
+        'Não foi possível confirmar a carona.'
       );
     }
   }
+
 
   return (
     <View style={styles.container}>
@@ -316,7 +444,7 @@ export default function CaronasDisponiveis({ route }) {
         >
 
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           {/* MARCADORES DAS CARONAS */}
@@ -435,7 +563,7 @@ export default function CaronasDisponiveis({ route }) {
                     )}
 
                     <button
-                      onClick={() => abrirChat(carona)}
+                      onClick={() => confirmarCarona(carona)}
                       style={{
                         width: '100%',
                         padding: '9px',
@@ -464,13 +592,13 @@ export default function CaronasDisponiveis({ route }) {
       {/* MENU */}
       <TouchableOpacity
         style={styles.menuButton}
-        onPress={() => navigation.openDrawer()}
+        onPress={() =>
+          navigation.openDrawer()
+        }
       >
-        <Ionicons
-          name="menu"
-          size={38}
-          color="#435E91"
-        />
+        <Text style={styles.menuIcon}>
+          ☰
+        </Text>
       </TouchableOpacity>
 
       {/* PAINEL */}
@@ -504,6 +632,8 @@ export default function CaronasDisponiveis({ route }) {
           </Text>
 
         </View>
+
+        <View style={styles.linhaTitulo} />
 
         {/* CARREGANDO */}
         {carregando && (
@@ -551,7 +681,7 @@ export default function CaronasDisponiveis({ route }) {
                     key={carona.idCarona}
                     style={styles.caronaCard}
                     onPress={() =>
-                      abrirChat(carona)
+                      confirmarCarona(carona)
                     }
                   >
 
@@ -561,11 +691,24 @@ export default function CaronasDisponiveis({ route }) {
                         styles.usuarioIcon
                       }
                     >
-                      <Ionicons
-                        name="person-outline"
-                        size={24}
-                        color="#81A1DF"
-                      />
+                      {fotosPerfil[carona.idMotorista] ? (
+                        <Image
+                          source={{
+                            uri: fotosPerfil[carona.idMotorista],
+                          }}
+                          style={{
+                            width: 44,
+                            height: 44,
+                            borderRadius: 22,
+                          }}
+                        />
+                      ) : (
+                        <Ionicons
+                          name="person-outline"
+                          size={24}
+                          color="#81A1DF"
+                        />
+                      )}
                     </View>
 
                     {/* INFORMAÇÕES */}
@@ -583,6 +726,26 @@ export default function CaronasDisponiveis({ route }) {
                         numberOfLines={1}
                       >
                         {carona.nomeMotorista}
+                      </Text>
+
+                      {/* CARRO */}
+                      <Text
+                        style={
+                          styles.origem
+                        }
+                        numberOfLines={1}
+                      >
+                        {carona.modeloCarro}
+                      </Text>
+
+                      {/* PLACA */}
+                      <Text
+                        style={
+                          styles.origem
+                        }
+                        numberOfLines={1}
+                      >
+                        Placa: {carona.placaCarro}
                       </Text>
 
                       {/* ORIGEM */}
@@ -659,6 +822,28 @@ export default function CaronasDisponiveis({ route }) {
                         styles.vagasContainer
                       }
                     >
+
+                      <Text
+                        style={
+                          styles.compatibilidadeNumero
+                        }
+                      >
+                        {compatibilidades[carona.idCarona] ?? 0}%
+                      </Text>
+
+                      <Text
+                        style={
+                          styles.compatibilidadeTexto
+                        }
+                      >
+                        Compatibilidade
+                      </Text>
+
+                      <View
+                        style={
+                          styles.linhaCompatibilidade
+                        }
+                      />
 
                       <Text
                         style={

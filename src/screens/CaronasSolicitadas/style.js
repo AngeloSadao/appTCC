@@ -1,18 +1,15 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-
   container: {
     flex: 1,
     backgroundColor: '#fafafa',
   },
-
   mapContainer: {
     width: '100%',
     height: '100%',
     overflow: 'hidden',
   },
-
   menuButton: {
     position: 'absolute',
     top: 10,
@@ -21,23 +18,21 @@ export default StyleSheet.create({
     padding: 10,
     borderRadius: 10,
   },
-
   menuIcon: {
     fontSize: 40,
     color: '#60BC7C',
   },
-
   bottomSheet: {
     position: 'absolute',
     bottom: 0,
     width: '100%',
     backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     borderTopWidth: 7,
     borderColor: '#60BC7C',
-    paddingHorizontal: 16,
-    paddingTop: 5,
+    paddingHorizontal: 14,
+    paddingTop: 4,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -49,131 +44,123 @@ export default StyleSheet.create({
     elevation: 10,
     boxShadow: '0px -4px 12px rgba(0,0,0,0.15)',
   },
-
   dragArea: {
     width: '100%',
-    height: 25,
+    height: 28,
     alignItems: 'center',
     justifyContent: 'center',
   },
-
   dragHandle: {
     width: 55,
-    height: 5,
+    height: 6,
     borderRadius: 10,
     backgroundColor: '#D0D0D0',
   },
-
   tituloContainer: {
+    width: '100%',
     height: 48,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 5,
   },
-
   titulo: {
-    fontSize: 31,
+    fontSize: 40,
     fontFamily: 'Gurajada',
     color: '#468B5B',
-    marginLeft: 7,
   },
-
   linhaTitulo: {
     height: 1,
     width: '100%',
     backgroundColor: '#D5D5D5',
   },
-
   lista: {
     flex: 1,
     width: '100%',
   },
-
   listaConteudo: {
     paddingHorizontal: 2,
     paddingTop: 10,
     paddingBottom: 25,
   },
-
   card: {
     backgroundColor: '#D9F5E2',
-    borderRadius: 10,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    marginBottom: 8,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    marginBottom: 9,
     width: '100%',
+    minHeight: 105,
   },
-
   cardLinha: {
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',
   },
-
   avatar: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+    width: 44,
+    height: 44,
+    borderRadius: 22,
     backgroundColor: '#B8E8C8',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 9,
+    marginRight: 10,
   },
-
   cardInfo: {
     flex: 1,
-    paddingRight: 5,
+    paddingRight: 8,
   },
-
   nome: {
-    fontSize: 18,
+    fontSize: 20,
+    lineHeight: 19,
     fontFamily: 'Gurajada',
     color: '#468B5B',
-    marginBottom: 1,
+    fontWeight: 'bold',
+    marginBottom: 2,
   },
-
   rota: {
-    fontSize: 13,
+    fontSize: 15,
+    lineHeight: 15,
     fontFamily: 'Gurajada',
-    color: '#333333',
-    marginBottom: 1,
+    color: '#468B5B',
   },
-
   informacoes: {
     flexDirection: 'row',
     alignItems: 'center',
     marginTop: 3,
     flexWrap: 'wrap',
   },
-
   info: {
-    fontSize: 12,
+    fontSize: 15,
+    lineHeight: 14,
     fontFamily: 'Gurajada',
-    color: '#333333',
+    color: '#404348',
     marginRight: 14,
   },
-
   compatibilidade: {
-    width: 85,
+    width: 72,
+    minHeight: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 3,
+    borderLeftWidth: 1,
+    borderLeftColor: '#A8DDB8',
+    paddingLeft: 8,
   },
-
   compatibilidadeNumero: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 26,
+    lineHeight: 28,
     color: '#468B5B',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
-
   compatibilidadeTexto: {
-    fontSize: 10,
+    fontSize: 11,
+    lineHeight: 12,
     fontFamily: 'Gurajada',
     color: '#468B5B',
     marginTop: -2,
     textAlign: 'center',
   },
-
   botaoVer: {
     marginTop: 3,
     paddingVertical: 3,
@@ -181,38 +168,36 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   botaoVerTexto: {
     fontSize: 13,
     fontFamily: 'Gurajada',
     color: '#468B5B',
     marginRight: 4,
   },
-
   detalhesContainer: {
     width: '100%',
+    paddingTop: 1,
   },
-
   divisor: {
     height: 1,
     backgroundColor: '#A8DDB8',
-    marginVertical: 7,
+    marginVertical: 8,
   },
-
   detalhesTitulo: {
-    fontSize: 17,
+    fontSize: 20,
+    lineHeight: 19,
     fontFamily: 'Gurajada',
     color: '#468B5B',
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+  detalhe: {
+    fontSize: 15,
+    lineHeight: 15,
+    fontFamily: 'Gurajada',
+    color: '#404348',
     marginBottom: 5,
   },
-
-  detalhe: {
-    fontSize: 13,
-    fontFamily: 'Gurajada',
-    color: '#333333',
-    marginBottom: 3,
-  },
-
   botaoEscolher: {
     marginTop: 9,
     backgroundColor: '#468B5B',
@@ -222,41 +207,35 @@ export default StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   botaoEscolherTexto: {
     fontSize: 14,
     fontFamily: 'Gurajada',
     color: '#FFFFFF',
     marginRight: 5,
   },
-
   loading: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-
   loadingText: {
     marginTop: 8,
     fontSize: 16,
     fontFamily: 'Gurajada',
     color: '#468B5B',
   },
-
   vazio: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 25,
   },
-
   vazioTitulo: {
     fontSize: 22,
     fontFamily: 'Gurajada',
     color: '#333333',
     textAlign: 'center',
   },
-
   vazioTexto: {
     marginTop: 7,
     fontSize: 15,
@@ -264,5 +243,4 @@ export default StyleSheet.create({
     color: '#777777',
     textAlign: 'center',
   },
-
 });

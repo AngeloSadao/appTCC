@@ -13,23 +13,23 @@ export default StyleSheet.create({
         height: '100%',
     },
 
-    menuContainer: {
+    menuButton: {
         position: 'absolute',
-        top: 42,
-        left: 27,
-        zIndex: 20,
+        top: 10,
+        left: 10,
+        zIndex: 1000,
+        padding: 10,
+        borderRadius: 10,
     },
 
-    botaoMenu: {
-        width: 45,
-        height: 45,
-        alignItems: 'center',
-        justifyContent: 'center',
+    menuIcon: {
+        fontSize: 40,
+        color: '#7AC992',
     },
 
     titulosContainer: {
         position: 'absolute',
-        top: 335,
+        top: 275,
         width: '100%',
         alignItems: 'center',
         zIndex: 20,
@@ -45,12 +45,12 @@ export default StyleSheet.create({
         color: '#72C989',
         fontSize: 18,
         fontWeight: 'bold',
-        marginTop: 2,
+        marginTop: -1,
     },
 
     scroll: {
         flex: 1,
-        marginTop: 410,
+        marginTop: 340,
     },
 
     conteudoScroll: {
@@ -200,6 +200,114 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 6,
         flex: 1,
+    },
+
+    listaCupons: {
+        width: '100%',
+        marginTop: 11,
+    },
+
+    cupomItem: {
+        width: '100%',
+        backgroundColor: '#F4FBF5',
+        borderRadius: 11,
+        padding: 12,
+        marginBottom: 10,
+        borderWidth: 1,
+        borderColor: '#DDEFE1',
+    },
+
+    cupomCabecalho: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+
+    cupomIcone: {
+        width: 42,
+        height: 42,
+        borderRadius: 21,
+        backgroundColor: '#FFFFFF',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginRight: 9,
+    },
+
+    cupomTituloContainer: {
+        flex: 1,
+    },
+
+    cupomNome: {
+        color: '#222222',
+        fontSize: 13,
+        fontWeight: 'bold',
+    },
+
+    cupomColaborador: {
+        color: '#777777',
+        fontSize: 12,
+        marginTop: 2,
+    },
+
+    cupomDesconto: {
+        color: '#468B5B',
+        fontSize: 23,
+        fontWeight: 'bold',
+        marginTop: 9,
+    },
+
+    cupomDescricao: {
+        color: '#777777',
+        fontSize: 12,
+        marginTop: 1,
+    },
+
+    cupomMinimo: {
+        color: '#555555',
+        fontSize: 12,
+        marginTop: 3,
+    },
+
+    cupomValidade: {
+        color: '#555555',
+        fontSize: 12,
+        marginTop: 3,
+    },
+
+    cupomPontos: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 9,
+        backgroundColor: '#E8F6EB',
+        borderRadius: 7,
+        paddingVertical: 6,
+        paddingHorizontal: 8,
+    },
+
+    cupomPontosTexto: {
+        color: '#468B5B',
+        fontSize: 15,
+        fontWeight: 'bold',
+        marginLeft: 5,
+    },
+
+    botaoResgatar: {
+        width: '100%',
+        height: 38,
+        borderRadius: 8,
+        backgroundColor: '#468B5B',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 9,
+    },
+
+    botaoResgatarDesabilitado: {
+        backgroundColor: '#B8B8B8',
+    },
+
+    textoBotaoResgatar: {
+        color: '#FFFFFF',
+        fontSize: 12,
+        fontWeight: 'bold',
     },
 
     espacoFinal: {

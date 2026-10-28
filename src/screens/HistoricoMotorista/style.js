@@ -15,7 +15,7 @@ export default StyleSheet.create({
 
   titulosContainer: {
     position: 'absolute',
-    top: 320,
+    top: 280,
     left: 0,
     right: 0,
     alignItems: 'center',
@@ -37,24 +37,23 @@ export default StyleSheet.create({
     userSelect: 'none',
   },
 
-  menuContainer: {
+  menuButton: {
     position: 'absolute',
-    top: 30,
-    left: 30,
-    zIndex: 10,
-    marginTop: 15,
+    top: 10,
+    left: 10,
+    zIndex: 1000,
+    padding: 10,
+    borderRadius: 10,
   },
 
-  botaoMenu: {
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+  menuIcon: {
+    fontSize: 40,
+    color: '#7AC992',
   },
 
   cardsContainer: {
     position: 'absolute',
-    top: 410,
+    top: 350,
     left: 0,
     right: 0,
     bottom: 0,
@@ -82,13 +81,13 @@ export default StyleSheet.create({
   },
 
   data: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: 'bold',
     color: '#404348',
   },
 
   statusTexto: {
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#468B5B',
     marginTop: 2,
@@ -111,15 +110,15 @@ export default StyleSheet.create({
   },
 
   labelLocal: {
-    fontSize: 9,
+    fontSize: 11,
     fontWeight: 'bold',
     color: '#468B5B',
   },
 
   textoLocal: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#404348',
-    lineHeight: 11,
+    lineHeight: 13,
   },
 
   linha: {
@@ -140,18 +139,18 @@ export default StyleSheet.create({
   },
 
   informacaoLabel: {
-    fontSize: 8,
+    fontSize: 10,
     fontWeight: 'bold',
     color: '#468B5B',
   },
 
   informacaoValor: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#404348',
   },
 
   avaliacaoTexto: {
-    fontSize: 8,
+    fontSize: 10,
     fontWeight: 'bold',
     color: '#468B5B',
     marginTop: 2,
@@ -178,13 +177,13 @@ export default StyleSheet.create({
   },
 
   gorjetaLabel: {
-    fontSize: 8,
+    fontSize: 10,
     color: '#468B5B',
     fontWeight: 'bold',
   },
 
   gorjetaValor: {
-    fontSize: 9,
+    fontSize: 11,
     color: '#468B5B',
     fontWeight: 'bold',
   },
@@ -220,7 +219,7 @@ export default StyleSheet.create({
   },
 
   vazioTexto: {
-    fontSize: 10,
+    fontSize: 11,
     color: '#777',
     textAlign: 'center',
     marginTop: 5,

@@ -62,6 +62,11 @@ export default function CadastroCarro({ navigation, route }) {
             return;
         }
 
+        if (anoCarro.length !== 4 || placaCarro.length !== 7) {
+            Alert.alert('Atenção', 'Verifique o ano (4 dígitos) e a placa (7 caracteres).');
+            return;
+        }
+
         try {
 
             const response = await fetch(
@@ -180,8 +185,10 @@ export default function CadastroCarro({ navigation, route }) {
                     'Motorista e carro cadastrados com sucesso!'
                 );
 
-                navigation.navigate('HomePassageiro', {
-                    nome: nomeMotorista
+                navigation.navigate('HomeMotorista', {
+                    nome: nomeMotorista,
+                    idMotorista: idMotorista,
+                    tipoUsuario: 'motorista'
                 });
 
             }
@@ -258,70 +265,74 @@ export default function CadastroCarro({ navigation, route }) {
 
                     <View style={styles.containerInput}>
 
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Modelo"
-                        placeholderTextColor="#7D9BE6"
-                        value={modeloCarro}
-                        onChangeText={setModeloCarro}
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Ano do carro"
-                        placeholderTextColor="#7D9BE6"
-                        value={anoCarro}
-                        onChangeText={setAnoCarro}
-                        keyboardType="numeric"
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Placa"
-                        placeholderTextColor="#7D9BE6"
-                        value={placaCarro}
-                        onChangeText={setPlacaCarro}
-                        autoCapitalize="characters"
-                    />
-
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Cor"
-                        placeholderTextColor="#7D9BE6"
-                        value={corCarro}
-                        onChangeText={setCorCarro}
-                    />
-
-                    <TouchableOpacity
-                        style={styles.input}
-                        onPress={escolherFotoCarro}
-                    >
-                        <Ionicons
-                            name="image-outline"
-                            size={20}
-                            color="#4D6CB3"
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Modelo"
+                            placeholderTextColor="#7D9BE6"
+                            value={modeloCarro}
+                            onChangeText={setModeloCarro}
                         />
 
-                        <Text style={styles.fotoButtonText}>
-                            {fotoCarro
-                                ? 'Foto do carro selecionada'
-                                : 'Foto do carro'}
-                        </Text>
-
-                    </TouchableOpacity>
-
-                    {fotoCarro && (
-                        <Image
-                            source={{ uri: fotoCarro }}
-                            style={{
-                                width: '100%',
-                                height: 100,
-                                borderRadius: 10,
-                                marginBottom: 15,
-                            }}
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Ano do carro"
+                            placeholderTextColor="#7D9BE6"
+                            value={anoCarro}
+                            onChangeText={(texto) => setAnoCarro(texto.replace(/\D/g, '').slice(0, 4))}
+                            keyboardType="numeric"
+                            maxLength={4}
                         />
-                    )}
-                    
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Placa"
+                            placeholderTextColor="#7D9BE6"
+                            value={placaCarro}
+                            onChangeText={(texto) => setPlacaCarro(texto.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().slice(0, 7))}
+                            autoCapitalize="characters"
+                            maxLength={7}
+                        />
+
+                        <TextInput
+                            style={styles.input}
+                            placeholder="Cor"
+                            placeholderTextColor="#7D9BE6"
+                            value={corCarro}
+                            onChangeText={(texto) => setCorCarro(texto.replace(/[^a-zA-ZÀ-ÿ\s]/g, ''))}
+                            maxLength={20}
+                        />
+
+                        <TouchableOpacity
+                            style={styles.input}
+                            onPress={escolherFotoCarro}
+                        >
+
+                            <Ionicons
+                                name="image-outline"
+                                size={20}
+                                color="#4D6CB3"
+                            />
+
+                            <Text style={styles.fotoButtonText}>
+                                {fotoCarro
+                                    ? 'Foto do carro selecionada'
+                                    : 'Foto do carro'}
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        {fotoCarro && (
+                            <Image
+                                source={{ uri: fotoCarro }}
+                                style={{
+                                    width: '100%',
+                                    height: 100,
+                                    borderRadius: 10,
+                                    marginBottom: 15,
+                                }}
+                            />
+                        )}
+
                     </View>
 
                     <TouchableOpacity

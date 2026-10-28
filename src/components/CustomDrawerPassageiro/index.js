@@ -5,17 +5,37 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Linking,
 } from 'react-native';
 
 import styles from './style';
 import { CommonActions, useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props }) {
   const [fotoPerfil, setFotoPerfil] = useState(null);
+  const [mensagensNaoLidas, setMensagensNaoLidas] = useState(0);
+  const [conversasNaoLidas, setConversasNaoLidas] = useState([]);
 
   useFocusEffect(
     useCallback(() => {
       buscarFotoPerfil();
+    }, [idPassageiro])
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      if (!idPassageiro) {
+        return;
+      }
+
+      buscarMensagensNaoLidas();
+
+      const intervalo = setInterval(() => {
+        buscarMensagensNaoLidas();
+      }, 3000);
+
+      return () => clearInterval(intervalo);
     }, [idPassageiro])
   );
 
@@ -43,20 +63,77 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
 
       console.log('Foto do passageiro:', dados);
 
+
       if (
         dados.sucesso &&
         dados.passageiro &&
         dados.passageiro.fotoPerfilPassageiro
       ) {
         setFotoPerfil(
-          `http://localhost/appTcc/img/perfil/${dados.passageiro.fotoPerfilPassageiro}`
+          `http://localhost/GoTogether/assets/uploads/perfil/${dados.passageiro.fotoPerfilPassageiro}`
         );
       } else {
         setFotoPerfil(null);
       }
+
     } catch (error) {
       console.log('Erro ao buscar foto de perfil:', error);
     }
+  }
+
+  async function buscarMensagensNaoLidas() {
+    if (!idPassageiro) {
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        'http://localhost/appTcc/buscarMensagensNaoLidas.php',
+        {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            idPassageiro: idPassageiro,
+          }),
+        }
+      );
+
+      const dados = await response.json();
+
+      console.log('Mensagens não lidas do passageiro:', dados);
+
+      if (dados.sucesso) {
+        setMensagensNaoLidas(Number(dados.quantidade) || 0);
+        setConversasNaoLidas(dados.conversas || []);
+      } else {
+        setMensagensNaoLidas(0);
+        setConversasNaoLidas([]);
+      }
+    } catch (error) {
+      console.log('Erro ao buscar mensagens não lidas:', error);
+    }
+  }
+
+  function abrirMensagens() {
+    if (!conversasNaoLidas.length) {
+      return;
+    }
+
+    const conversa = conversasNaoLidas[0];
+
+    props.navigation.getParent()?.navigate('Chat', {
+      idConversa: conversa.idConversa,
+      idCarona: conversa.idCarona,
+      idSolicitacao: conversa.idSolicitacao,
+      idPassageiro: conversa.idPassageiro,
+      idMotorista: conversa.idMotorista,
+      tipoUsuario: 'passageiro',
+    });
+
+    props.navigation.closeDrawer();
   }
 
   function irPara(nomeTela, params = {}) {
@@ -71,6 +148,10 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
         routes: [{ name: 'Inicial' }],
       })
     );
+  }
+
+  function abrirSite(url) {
+    Linking.openURL(url);
   }
 
   return (
@@ -102,6 +183,64 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           <Text style={styles.editarPerfil}>Editar perfil</Text>
         </TouchableOpacity>
 
+        {mensagensNaoLidas > 0 && (
+          <TouchableOpacity
+            onPress={abrirMensagens}
+            activeOpacity={0.7}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginTop: 18,
+              marginBottom: 12,
+              paddingVertical: 8,
+              paddingHorizontal: 12,
+            }}
+          >
+            <Ionicons
+              name="notifications"
+              size={24}
+              color="#468B5B"
+            />
+
+            <Text
+              style={{
+                marginLeft: 8,
+                fontSize: 15,
+                fontWeight: 'bold',
+                color: '#468B5B',
+              }}
+            >
+              {mensagensNaoLidas === 1
+                ? 'Nova mensagem'
+                : `${mensagensNaoLidas} novas mensagens`}
+            </Text>
+
+            <View
+              style={{
+                marginLeft: 8,
+                minWidth: 22,
+                height: 22,
+                borderRadius: 11,
+                backgroundColor: '#468B5B',
+                alignItems: 'center',
+                justifyContent: 'center',
+                paddingHorizontal: 5,
+              }}
+            >
+              <Text
+                style={{
+                  color: '#fff',
+                  fontSize: 12,
+                  fontWeight: 'bold',
+                }}
+              >
+                {mensagensNaoLidas}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        )}
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => irPara('HomePassageiro')}
@@ -114,6 +253,19 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           onPress={() => irPara('CaronasDisponiveis')}
         >
           <Text style={styles.buttonText}>Caronas Disponíveis</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            irPara('MinhasCaronasPassageiro', {
+              idPassageiro: idPassageiro,
+              nome: nome,
+              tipoUsuario: 'passageiro',
+            })
+          }
+        >
+          <Text style={styles.buttonText}>Minhas Caronas</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -142,16 +294,43 @@ export default function CustomDrawerPassageiro({ nome, idPassageiro, ...props })
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Sobre nós</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/institucional/sobre_nos.php'
+            )
+          }
+        >
+          <Text style={styles.buttonText}>
+            Sobre Nós
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Comprar Chaveiro</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/loja/chaveiro.php'
+            )
+          }
+        >
+          <Text style={styles.buttonText}>
+            Comprar Chaveiro
+          </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Central de Ajuda</Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            abrirSite(
+              'http://localhost/GoTogether/views/institucional/faq.php'
+            )
+          }
+        >
+          <Text style={styles.buttonText}>
+            Central de Ajuda
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity

@@ -44,6 +44,7 @@ export default function CadastroMotorista({ navigation }) {
 
   function mascaraTelefone(texto) {
     const numeros = texto.replace(/\D/g, '');
+    if (numeros.length === 0) return '';
     if (numeros.length <= 2) return `(${numeros}`;
     if (numeros.length <= 7) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`;
     return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`;
@@ -371,7 +372,9 @@ export default function CadastroMotorista({ navigation }) {
               <TextInput
                 placeholder="CNH"
                 value={cnhMotorista}
-                onChangeText={setCnhMotorista}
+                onChangeText={(texto) => setCnhMotorista(texto.replace(/\D/g, '').slice(0, 11))}
+                keyboardType="numeric"
+                maxLength={11}
                 style={styles.inputHalfLeft}
               />
 
@@ -413,6 +416,8 @@ export default function CadastroMotorista({ navigation }) {
                 placeholder="Telefone"
                 placeholderTextColor="#7D9BE6"
                 value={telefoneMotorista}
+                maxLength={15}
+                keyboardType="numeric"
                 onChangeText={(texto) =>
                   setTelefoneMotorista(mascaraTelefone(texto))
                 }
@@ -451,7 +456,8 @@ export default function CadastroMotorista({ navigation }) {
                 placeholder="Número"
                 placeholderTextColor="#7D9BE6"
                 value={numeroEnderecoMotorista}
-                onChangeText={setNumeroEnderecoMotorista}
+                onChangeText={(texto) => setNumeroEnderecoMotorista(texto.replace(/\D/g, '').slice(0, 6))}
+                keyboardType="numeric"
               />
 
             </View>
@@ -479,7 +485,9 @@ export default function CadastroMotorista({ navigation }) {
                 placeholder="Estado"
                 placeholderTextColor="#7D9BE6"
                 value={estadoMotorista}
-                onChangeText={setEstadoMotorista}
+                onChangeText={(texto) => setEstadoMotorista(texto.replace(/[^a-zA-Z]/g, '').toUpperCase())}
+                maxLength={2}
+                autoCapitalize="characters"
               />
 
             </View>
@@ -489,6 +497,8 @@ export default function CadastroMotorista({ navigation }) {
               placeholder="CEP"
               placeholderTextColor="#7D9BE6"
               value={cepMotorista}
+              maxLength={9}
+              keyboardType="numeric"
               onChangeText={(texto) =>
                 setCepMotorista(mascaraCEP(texto))
               }
@@ -499,6 +509,8 @@ export default function CadastroMotorista({ navigation }) {
               placeholder="Data de nascimento"
               placeholderTextColor="#7D9BE6"
               value={dataNascimentoMotorista}
+              maxLength={10}
+              keyboardType="numeric"
               onChangeText={(texto) =>
                 setDataNascimentoMotorista(mascaraData(texto))
               }

@@ -12,7 +12,7 @@ export default StyleSheet.create({
 
   backgroundImage: {
     width: '100%',
-    height: '90%',
+    height: '80%',
     position: 'absolute',
   },
 
@@ -28,7 +28,7 @@ export default StyleSheet.create({
 
   titleArea: {
     alignItems: 'center',
-    marginTop: 180,
+    marginTop: 120,
     marginBottom: 8,
   },
 
@@ -102,10 +102,10 @@ export default StyleSheet.create({
     borderWidth: 5,
     alignSelf: 'center',
     backgroundColor: "#FAFAFA",
-    width: 390,
+    width: '90%',
     alignItems: 'none',
   },
-  
+
   sectionTitle: {
     display: 'none',
   },
@@ -140,18 +140,26 @@ export default StyleSheet.create({
   },
 
   button: {
-    height: 53,
+    height: 36,
+    width: 220,
+    alignSelf: 'center',
     backgroundColor: '#91DDB5',
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 40,
     marginTop: 17,
+  },
+
+  buttonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 7,
   },
 
   buttonText: {
     fontFamily: 'Gurajada',
-    fontSize: 50,
+    fontSize: 25,
     color: '#285A48',
   },
 

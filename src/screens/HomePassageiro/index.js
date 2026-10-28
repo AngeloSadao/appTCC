@@ -723,7 +723,7 @@ export default function HomePassageiro({ route }) {
         >
 
           <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
           {coordOrigem && (
@@ -856,9 +856,7 @@ export default function HomePassageiro({ route }) {
               nestedScrollEnabled={true}
             >
 
-              <Text
-                style={styles.labelInput}
-              >
+              <Text style={styles.labelInput}>
                 Você está em:
               </Text>
 
@@ -869,7 +867,6 @@ export default function HomePassageiro({ route }) {
                   value={origemTexto}
                   onChangeText={setOrigemTexto}
                 />
-                <Ionicons name="pencil-outline" size={18} color="#468B5B" />
               </View>
 
               {sugestoesOrigem.length >
@@ -1221,16 +1218,14 @@ export default function HomePassageiro({ route }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  style={[
-                    styles.button,
-                    {
-                      width: 38,
-                      height: 38,
-                      borderRadius: 10,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    },
-                  ]}
+                  style={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: 10,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: '#4563A0',
+                  }}
                   onPress={() => {
 
                     if (

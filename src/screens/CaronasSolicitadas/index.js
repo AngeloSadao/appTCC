@@ -9,6 +9,7 @@ import {
     PanResponder,
     Easing,
     ActivityIndicator,
+    Image,
 } from 'react-native';
 
 import {
@@ -62,11 +63,12 @@ export default function CaronasSolicitadas({ route }) {
     const idMotorista = route.params?.idMotorista;
 
     const [solicitacoes, setSolicitacoes] = useState([]);
+    const [fotosPerfil, setFotosPerfil] = useState({});
     const [carregando, setCarregando] = useState(true);
     const [expandida, setExpandida] = useState(null);
 
     const alturaAnim = useRef(
-        new Animated.Value(390)
+        new Animated.Value(500)
     ).current;
 
     const translateY = useRef(
@@ -120,6 +122,65 @@ export default function CaronasSolicitadas({ route }) {
         }, [idMotorista])
     );
 
+    useEffect(() => {
+        async function buscarFotosPerfil() {
+            const ids = [
+                ...new Set(
+                    solicitacoes
+                        .map(item => item.idPassageiro)
+                        .filter(Boolean)
+                ),
+            ];
+
+            if (ids.length === 0) {
+                setFotosPerfil({});
+                return;
+            }
+
+            const novasFotos = {};
+
+            await Promise.all(
+                ids.map(async idPassageiro => {
+                    try {
+                        const response = await fetch(
+                            'http://localhost/appTcc/buscarPassageiro.php',
+                            {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    idPassageiro: idPassageiro,
+                                }),
+                            }
+                        );
+
+                        const dados = await response.json();
+
+                        if (
+                            dados.sucesso &&
+                            dados.passageiro &&
+                            dados.passageiro.fotoPerfilPassageiro
+                        ) {
+                            novasFotos[idPassageiro] =
+                                `http://localhost/appTcc/img/perfil/${dados.passageiro.fotoPerfilPassageiro}?t=${Date.now()}`;
+                        }
+                    } catch (erro) {
+                        console.log(
+                            'Erro ao buscar foto do passageiro:',
+                            erro
+                        );
+                    }
+                })
+            );
+
+            setFotosPerfil(novasFotos);
+        }
+
+        buscarFotosPerfil();
+    }, [solicitacoes]);
+
     function formatarData(data) {
         if (!data) return '';
 
@@ -144,20 +205,27 @@ export default function CaronasSolicitadas({ route }) {
         );
     }
 
-    async function abrirChat(item) {
+    async function confirmarSolicitacao(item) {
         try {
+            if (!idMotorista || !item?.idPassageiro || !item?.idSolicitacao) {
+                window.alert('Dados da solicitação incompletos.');
+                return;
+            }
+
             const resposta = await fetch(
-                'http://localhost/appTcc/criarConversa.php',
+                'http://localhost/appTcc/confirmarCarona.php',
                 {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        idCarona: item.idCarona,
+                        idCarona: item.idCarona || null,
                         idSolicitacao: item.idSolicitacao,
                         idPassageiro: item.idPassageiro,
                         idMotorista: idMotorista,
+                        tipoUsuario: 'motorista',
+                        solicitacaoSemCarona: !item.idCarona,
                     }),
                 }
             );
@@ -165,7 +233,7 @@ export default function CaronasSolicitadas({ route }) {
             const texto = await resposta.text();
 
             console.log(
-                'Resposta criar conversa motorista:',
+                'Resposta confirmação motorista:',
                 texto
             );
 
@@ -189,7 +257,15 @@ export default function CaronasSolicitadas({ route }) {
             if (!dados.sucesso) {
                 window.alert(
                     dados.mensagem ||
-                    'Não foi possível abrir a conversa.'
+                    'Não foi possível confirmar a solicitação.'
+                );
+
+                return;
+            }
+
+            if (!dados.pronto) {
+                window.alert(
+                    'Solicitação confirmada! Agora aguarde a confirmação do passageiro para liberar o chat.'
                 );
 
                 return;
@@ -208,8 +284,8 @@ export default function CaronasSolicitadas({ route }) {
 
             stackNavigation.navigate('Chat', {
                 idConversa: dados.idConversa,
-                idCarona: item.idCarona,
-                idSolicitacao: item.idSolicitacao,
+                idCarona: dados.idCarona || item.idCarona,
+                idSolicitacao: dados.idSolicitacao || item.idSolicitacao,
                 idPassageiro: item.idPassageiro,
                 idMotorista: idMotorista,
                 tipoUsuario: 'motorista',
@@ -218,15 +294,16 @@ export default function CaronasSolicitadas({ route }) {
 
         } catch (erro) {
             console.log(
-                'Erro ao abrir conversa:',
+                'Erro ao confirmar solicitação:',
                 erro
             );
 
             window.alert(
-                'Não foi possível abrir o chat.'
+                'Não foi possível confirmar a solicitação.'
             );
         }
     }
+
 
     const pontosMapa = [];
 
@@ -323,7 +400,7 @@ export default function CaronasSolicitadas({ route }) {
                 >
 
                     <TileLayer
-                        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
 
                     {solicitacoes.map(item => (
@@ -462,7 +539,7 @@ export default function CaronasSolicitadas({ route }) {
                                                 </div>
 
                                                 <button
-                                                    onClick={() => abrirChat(item)}
+                                                    onClick={() => confirmarSolicitacao(item)}
                                                     style={{
                                                         width: '100%',
                                                         padding: '9px',
@@ -599,11 +676,24 @@ export default function CaronasSolicitadas({ route }) {
                                             >
 
                                                 <View style={styles.avatar}>
-                                                    <Ionicons
-                                                        name="person"
-                                                        size={23}
-                                                        color="#468B5B"
-                                                    />
+                                                    {fotosPerfil[item.idPassageiro] ? (
+                                                        <Image
+                                                            source={{
+                                                                uri: fotosPerfil[item.idPassageiro],
+                                                            }}
+                                                            style={{
+                                                                width: 44,
+                                                                height: 44,
+                                                                borderRadius: 22,
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <Ionicons
+                                                            name="person"
+                                                            size={23}
+                                                            color="#468B5B"
+                                                        />
+                                                    )}
                                                 </View>
 
                                                 <View
@@ -619,14 +709,14 @@ export default function CaronasSolicitadas({ route }) {
 
                                                     <Text
                                                         style={styles.rota}
-                                                        numberOfLines={1}
+                                                        numberOfLines={2}
                                                     >
                                                         {item.origemSolicitacao}
                                                     </Text>
 
                                                     <Text
                                                         style={styles.rota}
-                                                        numberOfLines={1}
+                                                        numberOfLines={2}
                                                     >
                                                         {item.destinoSolicitacao}
                                                     </Text>
@@ -775,7 +865,7 @@ export default function CaronasSolicitadas({ route }) {
                                                     style={
                                                         styles.botaoEscolher
                                                     }
-                                                    onPress={() => abrirChat(item)}
+                                                    onPress={() => confirmarSolicitacao(item)}
                                                 >
 
                                                     <Text

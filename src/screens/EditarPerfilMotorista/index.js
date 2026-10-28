@@ -112,7 +112,7 @@ export default function EditarPerfilMotorista({ navigation, route }) {
         if (motorista.fotoPerfilMotorista) {
 
           setFoto(
-            `http://localhost/appTcc/img/perfilMotorista/${motorista.fotoPerfilMotorista}`
+            `http://localhost/GoTogether/assets/uploads/perfil/${motorista.fotoPerfilMotorista}?t=${Date.now()}`
           );
 
         } else {
@@ -394,7 +394,7 @@ export default function EditarPerfilMotorista({ navigation, route }) {
         <ImageBackground
           source={require('../../../assets/backgroundCadastroGoTogether.png')}
           style={styles.backgroundImage}
-          resizeMode="stretch"
+          resizeMode="cover"
         />
 
         <View style={styles.titleArea}>
@@ -639,8 +639,28 @@ export default function EditarPerfilMotorista({ navigation, route }) {
           style={styles.button}
           onPress={salvarAlteracoes}
         >
+          <View style={styles.buttonContent}>
+            <Ionicons
+              name="save-outline"
+              size={18}
+              color="#285A48"
+            />
+            <Text style={styles.buttonText}>
+              Salvar alterações
+            </Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() =>
+            navigation.navigate('EditarCarro', {
+              idMotorista: idMotorista,
+            })
+          }
+        >
           <Text style={styles.buttonText}>
-            Salvar alterações
+            Editar carro
           </Text>
         </TouchableOpacity>
 

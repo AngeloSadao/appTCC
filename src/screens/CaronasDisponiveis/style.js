@@ -80,6 +80,12 @@ export default StyleSheet.create({
     color: '#526EAA',
   },
 
+  linhaTitulo: {
+    height: 1,
+    width: '100%',
+    backgroundColor: '#D5D5D5',
+  },
+
   listaScroll: {
     width: '100%',
     flex: 1,
@@ -88,6 +94,7 @@ export default StyleSheet.create({
   lista: {
     width: '100%',
     alignItems: 'center',
+    paddingTop: 10,
     paddingBottom: 20,
   },
 
@@ -99,7 +106,6 @@ export default StyleSheet.create({
     marginBottom: 9,
     paddingHorizontal: 12,
     paddingVertical: 10,
-
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -171,6 +177,29 @@ export default StyleSheet.create({
     borderLeftWidth: 1,
     borderLeftColor: '#AAB8D5',
     paddingLeft: 8,
+  },
+
+  compatibilidadeNumero: {
+    fontSize: 26,
+    lineHeight: 28,
+    color: '#435E91',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+
+  compatibilidadeTexto: {
+    fontSize: 11,
+    lineHeight: 10,
+    fontFamily: 'Gurajada',
+    color: '#435E91',
+    textAlign: 'center',
+  },
+
+  linhaCompatibilidade: {
+    width: '80%',
+    height: 1,
+    backgroundColor: '#AAB8D5',
+    marginVertical: 4,
   },
 
   vagasNumero: {

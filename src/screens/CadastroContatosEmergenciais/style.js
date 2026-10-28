@@ -15,25 +15,21 @@ export default StyleSheet.create({
 
     menuButton: {
         position: 'absolute',
-        top: 390,
-        left: 28,
-        width: 32,
-        height: 28,
-        justifyContent: 'space-between',
-        zIndex: 999,
-        elevation: 10,
+        top: 10,
+        left: 10,
+        zIndex: 1000,
+        padding: 10,
+        borderRadius: 10,
     },
 
-    menuLinha: {
-        width: 28,
-        height: 2,
-        backgroundColor: '#7D9BE6',
-        borderRadius: 2,
+    menuIcon: {
+        fontSize: 40,
+        color: '#7AC992',
     },
 
     titulosContainer: {
         position: 'absolute',
-        top: 320,
+        top: 230,
         left: 0,
         right: 0,
         alignItems: 'center',
@@ -58,7 +54,7 @@ export default StyleSheet.create({
 
     linha: {
         position: 'absolute',
-        top: 435,
+        top: 350,
         left: 0,
         right: 0,
         height: 1,
@@ -67,7 +63,7 @@ export default StyleSheet.create({
 
     conteudo: {
         position: 'absolute',
-        top: 460,
+        top: 380,
         bottom: 0,
         left: 0,
         right: 0,
@@ -93,6 +89,7 @@ export default StyleSheet.create({
         paddingHorizontal: 18,
         paddingVertical: 14,
         alignItems: 'center',
+        width: '100%',
     },
 
     textoExplicativo: {

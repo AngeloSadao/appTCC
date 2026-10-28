@@ -27,6 +27,8 @@ export default function Login({ navigation }) {
   const [tipoUsuario, setTipoUsuario] =
     useState('passageiro');
 
+  const [carregando, setCarregando] = useState(false);
+
   async function logar() {
 
     if (!email || !senha) {
@@ -36,6 +38,8 @@ export default function Login({ navigation }) {
       );
       return;
     }
+
+    setCarregando(true);
 
     try {
 
@@ -113,6 +117,8 @@ export default function Login({ navigation }) {
         'Erro',
         'Não foi possível conectar ao servidor.'
       );
+    } finally {
+      setCarregando(false);
     }
   }
 
@@ -140,7 +146,11 @@ export default function Login({ navigation }) {
               style={styles.inputText}
               placeholder="Digite seu email"
               value={email}
-              onChangeText={setEmail}
+              keyboardType="email-address"
+              autoCapitalize="none"
+              returnKeyType="next"
+              autoCorrect={false}
+              onChangeText={(texto) => setEmail(texto.trim())}
             />
           </View>
 
@@ -153,6 +163,10 @@ export default function Login({ navigation }) {
               style={styles.inputText}
               placeholder="Digite sua senha"
               value={senha}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onSubmitEditing={logar}
+              returnKeyType="done"
               onChangeText={setSenha}
               secureTextEntry={!showPassword}
             />
@@ -242,9 +256,10 @@ export default function Login({ navigation }) {
           <TouchableOpacity
             style={styles.button}
             onPress={logar}
+            disabled={carregando}
           >
             <Text style={styles.buttonText}>
-              Entrar
+              {carregando ? 'Entrando...' : 'Entrar'}
             </Text>
           </TouchableOpacity>
 
